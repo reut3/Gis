@@ -1,157 +1,141 @@
 
 package MyPack;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVPrinter;
+import org.apache.commons.csv.CSVRecord;
+/**
+ * 
+ * @author reut
+ *
+ */
 
+public class CsvFile {
 
-public class CsvFile{
-
-	
-	public  void readCSV(String Location){
-		Checks Checks=new Checks();
-		finalDetails finalDetails=new finalDetails();
-		FileWriter finalFile = null;
-		try {
-			finalFile = new FileWriter("finalFile.csv");
-			finalFile.append("Time");
-			finalFile.append(",");
-			finalFile.append("ID");
-			finalFile.append(",");
-			finalFile.append("LAT");
-			finalFile.append(",");
-			finalFile.append("LON");
-			finalFile.append(",");
-			finalFile.append("ALT");
-			finalFile.append(",");
-			finalFile.append("#WiFi networks");
-			finalFile.append(",");
-
-			for(int j=1  ; j<11; j++){
-				finalFile.append("SSID"+j);
-				finalFile.append(",");
-				finalFile.append("MAC"+j);
-				finalFile.append(",");
-				finalFile.append("Frequncy"+j);
-				finalFile.append(",");
-				finalFile.append("Signal"+j);
-				finalFile.append(",");
-
-			}
-			finalFile.append("\n");
-
-
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
-
-
+	/**
+	 * void function <br>
+	 * @param String Location<br>
+	 * reads all the csv file from the folder location and sends them to write function
+	 * 
+	 */
+	public static void readCSV(String Location){
 		//take files from folder, and then only the csv files
 		File folder = new File(Location);
 		File[] listOfFiles = folder.listFiles();
 		File[] listOfFilesCSV= Checks.FileCheck(listOfFiles);
+		List<String[]> collectionCSVinfo= new ArrayList<String[]>();
 
 		//read one file at a time
 		for(int i=0; i<listOfFilesCSV.length && listOfFilesCSV[i]!=null; i++){
-			String csvFile = listOfFilesCSV[i].getPath();
-			BufferedReader br = null;
-			int linesNum=0;
-			String line = "";
-			String cvsSplitBy = ",";
 
+			String fileName = listOfFilesCSV[i].getPath();
 
-			//find how many lines the file contains
+			FileReader fileReader = null;
+
+			CSVParser csvFileParser = null;
+
+			CSVFormat csvFileFormat = CSVFormat.DEFAULT.withSkipHeaderRecord();
 			try {
-				br = new BufferedReader(new FileReader(csvFile));
-				while ((br.readLine()) != null) {
-					linesNum++;
-				}
 
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
+				//initialize FileReader object
+				fileReader = new FileReader(fileName);
+
+				//initialize CSVParser object
+				csvFileParser = new CSVParser(fileReader, csvFileFormat);
+
+				//Get a list of CSV file records
+				List<CSVRecord> csvRecords = csvFileParser.getRecords(); 
+
+				CSVRecord headerRecord = csvRecords.get(0);
+				String header= headerRecord.get(5).substring(8);
+				//Read the CSV file records starting from the second record to skip the header
+				for (int j = 2; j < csvRecords.size(); j++) {
+					CSVRecord record = csvRecords.get(j);
+					if(!("1970-01-01 02:00:00").equals(record.get(3))){
+					String [] line= {record.get(0),record.get(1),record.get(2),record.get(3),wifi.convertChannel(record.get(4)),
+							record.get(5),record.get(6),record.get(7),record.get(8),record.get(9),record.get(10), header};
+					collectionCSVinfo.add(line);
+					}
+				}  
+			} 
+			catch (Exception e) {
+				System.out.println("Error in CsvFileReader !!!");
 				e.printStackTrace();
 			} finally {
-				if (br != null) {
-					try {
-						br.close();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-			//end of finding how many lines.
-
-
-			String[][] data = new String[linesNum][11];//create new array for data
-			try {
-				br = new BufferedReader(new FileReader(csvFile));
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-			//read and put into matrix
-			for(int m=0; m<linesNum; m++) {
 				try {
-					line = br.readLine();
+					fileReader.close();
+					csvFileParser.close();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
+					System.out.println("Error while closing fileReader/csvFileParser !!!");
 					e.printStackTrace();
 				}
-				String strar[] = line.split(cvsSplitBy);//get contents of line as an array
-				strar[3]=strar[3].replace("-","/");
-
-				for(int j=0; j<strar.length; j++){
-					data[m][j]=strar[j];
-				}
 			}
 
-//			for(int rows=0; rows<data.length; rows++){
-//				for(int colum=0; colum<data[1].length; colum++){
-//					System.out.print((data[rows][colum])+" , ");
-//				}
-//				System.out.println();
-//			}
-
-
-			if(Checks.emptyLine(data)){
-				List<Id> tempList= finalDetails.IdList(data);
-				
-				writeCSV(tempList, finalFile);
-				//	write( "name", findSignal(data));
-
-			}
 		}//finish treating a file at a time
-
+//		System.out.println(Arrays.toString(collectionCSVinfo.get(0)));
+		List<Sample> samples= detailsToCSV.SampleList(collectionCSVinfo);
+		writeCSV("finalFile", samples);
 	}
 
-	//write to CSV file the finalArrayList
-	public  void writeCSV(List<Id> list, FileWriter finalFile){
 
-		try {
-			for(Id m:list){
-				String[] line= (m.toString()).split(",");
-				for(int j=0; j<line.length; j++){
-					line[j]=line[j].replace("[","");
-					line[j]=line[j].replace("]","");
+	private static final Object [] FILE_HEADER = {"Time","ID","LAT","LON","ALT", "#WiFi networks",
+			"SSID1", "MAC1", "Frequncy1", "Signal1",
+			"SSID2", "MAC2", "Frequncy2", "Signal2",
+			"SSID3", "MAC3", "Frequncy3", "Signal3",
+			"SSID4", "MAC4", "Frequncy4", "Signal4",
+			"SSID5", "MAC5", "Frequncy5", "Signal5",
+			"SSID6", "MAC6", "Frequncy6", "Signal6",
+			"SSID7", "MAC7", "Frequncy7", "Signal7",
+			"SSID8", "MAC8", "Frequncy8", "Signal8",
+			"SSID9", "MAC9", "Frequncy9", "Signal9",
+			"SSID10", "MAC10", "Frequncy10", "Signal10"
+	};
 
-					finalFile.append(line[j]);
-					if(j<line.length-1){
-						finalFile.append(",");
-					}
+	private static final String NEW_LINE_SEPARATOR = "\n";
+
+
+	public static void writeCSV(String fileName, List<Sample> list) {
+		fileName = fileName+".csv";
+		FileWriter fileWriter = null;
+		CSVPrinter csvFilePrinter = null;
+
+		//Create the CSVFormat object with "\n" as a record delimiter
+		CSVFormat csvFileFormat = CSVFormat.DEFAULT.withRecordSeparator(NEW_LINE_SEPARATOR);
+		try
+		{//initialize FileWriter object
+			fileWriter = new FileWriter(fileName);
+
+			//initialize CSVPrinter object 
+			csvFilePrinter = new CSVPrinter(fileWriter, csvFileFormat);
+
+			//Create CSV file header
+			csvFilePrinter.printRecord(FILE_HEADER);
+
+			//Write a new student object list to the CSV file
+			for (Sample s: list) {
+				List<String> IdDataRecord = new ArrayList<String>();
+				IdDataRecord.add(s.getTime());
+				IdDataRecord.add(s.getId());
+				IdDataRecord.add(s.getLocation().getLat().getCord()+"");
+				IdDataRecord.add(s.getLocation().getLon().getCord()+"");
+				IdDataRecord.add(s.getLocation().getAlt().getCord()+"");
+				IdDataRecord.add(s.getWifiAmount());
+				for(int i=0; i<s.getListOfWifi().size();i++){
+					IdDataRecord.add(s.getListOfWifi().get(i).getSsid());
+					IdDataRecord.add(s.getListOfWifi().get(i).getMac());
+					IdDataRecord.add(s.getListOfWifi().get(i).getChannel());
+					IdDataRecord.add(s.getListOfWifi().get(i).getRssi());
+
 				}
+				csvFilePrinter.printRecord(IdDataRecord);
 			}
-
 			System.out.println("CSV file was created successfully !!!");
 
 		} catch (Exception e) {
@@ -159,14 +143,17 @@ public class CsvFile{
 			e.printStackTrace();
 		} finally {
 			try {
-				finalFile.flush();
+				fileWriter.flush();
+				fileWriter.close();
+				csvFilePrinter.close();
 			} catch (IOException e) {
-				System.out.println("Error while flushing/closing fileWriter !!!");
+				System.out.println("Error while flushing/closing fileWriter/csvPrinter !!!");
 				e.printStackTrace();
 			}
 		}
-
 	}
+
+
 }
 
 
