@@ -6,20 +6,25 @@ import java.util.stream.Collectors;
 import java.text.SimpleDateFormat;
 import javax.swing.*;  
 
+/**
+ * class filter- filters id list <br>
+ * has 5 function: equalTime function, equalId function, equalAltLon function, whichFilter function, filters function
+ *
+ */
 
 public class filter {
-	JFrame f;  
+	static JFrame f;  
 
 
-	//gets the lines that their dates between
-	public static Predicate<Id> equalTime(String time1,String time2) {
+	/**
+	 * 
+	 * @param time1
+	 * @param time2
+	 * @return the lines that their dates between
+	 */
+	public static Predicate<Sample> equalTime(String time1,String time2) {
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-//		try{
-//			Date d1= format.parse(time1);
-//			Date d2= format.parse(time2);
-//
-//			return p -> (p.GetTime().compareTo(d1)>0 && p.GetTime().compareTo(d2)<0);
-//		}
+
 		time1= time1.trim();
 		time2= time2.trim();
 
@@ -39,7 +44,6 @@ public class filter {
 			else{
 				d2= format.parse(time2);
 			}
-			System.out.println(d1+" "+ d2);
 			return p -> ((p.GetTime().compareTo(d1)>0 && p.GetTime().compareTo(d2)<0) || p.GetTime().equals(d1)|| p.GetTime().equals(d2));
 		}
 		catch(Exception e){
@@ -50,35 +54,65 @@ public class filter {
 
 	}
 
-	//gets the lines with the same id
-	public static Predicate<Id> equalId(String wantedId) {
-		return p -> p.Id.equals(wantedId);
+	/**
+	 * 
+	 * @param wantedId
+	 * @return the lines with the same id
+	 */
+	public static Predicate<Sample> equalId(String wantedId) {
+		return p -> p.getId().equals(wantedId);
 	}
 
+	/**
+	 * 
+	 * @param lat1
+	 * @param lon1
+	 * @return the lines with the same lat and lon
+	 */
+	public static Predicate<Sample> equalAltLon(int lat1, int lon1) {
 
-	//gets the lines with the same lat and lon
-	public static Predicate<Id> equalAltLon(String lat1, String lon1) {
-
-		int lat= (int)Double.parseDouble(lat1);
-		int lon= (int)Double.parseDouble(lon1);
-
-		return p -> ( p.GetLat()==lat && p.GetLon()==lon );
-
+		return p -> ( p.getLocation().getLat().getCord()==lat1 && p.getLocation().getLon().getCord()==lon1 );
+		
 	}
+	
+	
+	
+	public static Predicate<Sample> none() {
 
+		return p->(true);
+		
+	}
+	
+	
 
-	public List<Id> whichFilter(List<Id> list){
-		f=new JFrame();  
+	/**
+	 * ask the user which filter he want to use, and then filter according to the answer
+	 * @param list
+	 * @return the wanted details according to the request
+	 */
+	public static  List<Sample> whichFilter(List<Sample> list){
+		f=new JFrame(); 
 		boolean continueAsk= false;
 		while(continueAsk==false){
 
-		String filterKind=JOptionPane.showInputDialog(f,"Choose filter: id/time/location"); 
+		String filterKind=JOptionPane.showInputDialog(f,"Choose filter: id/time/location/none"); 
 		if(filterKind.equals("location")){
+			int lat=-30;
+			int lon=-10;
+			try{
 			String locationLat=JOptionPane.showInputDialog(f,"Enter lat");   
-			String locationLon=JOptionPane.showInputDialog(f,"Enter lon");  
+			String locationLon=JOptionPane.showInputDialog(f,"Enter lon"); 
+			 lat= (int)Double.parseDouble(locationLat);
+			 lon= (int)Double.parseDouble(locationLon);
+			}
+			catch(Exception e)
+			{
+			 System.out.println(e);
+			 System.out.println("Not in Format");	
+			}
 			f.dispose();
 			continueAsk=true;
-			return filters(list, equalAltLon(locationLat,locationLon));
+			return filters(list, equalAltLon(lat,lon));
 		}
 		
 		else if(filterKind.equals("id")){
@@ -94,14 +128,25 @@ public class filter {
 			continueAsk=true;
 			return filters(list, equalTime(time1, time2));
 		}
+		else if(filterKind.equals("none")){
+			f.dispose();
+			continueAsk=true;
+			return filters(list, none());
+		}
 	}
 		return list;
 	}
 
 
 	//filter function
-	public static List<Id> filters (List<Id> Id, Predicate<Id> predicate) {
-		return Id.stream().filter( predicate ).collect(Collectors.<Id>toList());
+	/**
+	 * 
+	 * @param Id
+	 * @param predicate
+	 * @return collection of id according to the filter
+	 */
+	public static List<Sample> filters (List<Sample> Id, Predicate<Sample> predicate) {
+		return Id.stream().filter( predicate ).collect(Collectors.<Sample>toList());
 	}
 
 
