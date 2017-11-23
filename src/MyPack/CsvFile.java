@@ -82,7 +82,7 @@ public class CsvFile {
 
 		}//finish treating a file at a time
 //		System.out.println(Arrays.toString(collectionCSVinfo.get(0)));
-		List<Sample> samples= detailsToCSV.SampleList(collectionCSVinfo);
+		List<Sample> samples= DetailsToCSV.SampleList(collectionCSVinfo);
 		writeCSV("finalFile", samples);
 	}
 

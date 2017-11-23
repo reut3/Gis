@@ -74,8 +74,8 @@ public class KmlFile {
 			}
 		}
 
-		List<Sample> list= filter.whichFilter(SampleList);
-		list= filter.MACfilter(list);
+		List<Sample> list= Filter.whichFilter(SampleList);
+		list= Filter.MACfilter(list);
 
 		write("kmlFile", list);
 

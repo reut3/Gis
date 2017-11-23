@@ -9,7 +9,7 @@ import java.util.List;
  * SampleList- gets csv info in list of strings array, put it into Sample list and return it
  *
  */
-public class detailsToCSV {
+public class DetailsToCSV {
 
 	/**
 	 * the function get list of strings array- <br>

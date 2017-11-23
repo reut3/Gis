@@ -15,7 +15,7 @@ import javax.swing.*;
  *
  */
 
-public class filter {
+public class Filter {
 	static JFrame f;  
 
 
@@ -167,7 +167,7 @@ public class filter {
 		
 		for(int i=0; (!macs.isEmpty() && !macs.get(i).equals("null") && i<macs.size()); i++){
 			String strongest= macs.get(i);
-			for(int j=i+1; (!macs.get(j).equals("null") && j<macs.size()-2); j++){
+			for(int j=i+1; (!macs.isEmpty() && !macs.get(j).equals("null") && j<macs.size()-2); j++){
 
 				String[] mac1=strongest.split(" ");
 				String[] mac2=macs.get(j).split(" ");		
