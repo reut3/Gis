@@ -1,12 +1,12 @@
 package MyPack;
 
 /**
- * wifi class<br>
+ * wifi class, implements Comparable interface<br>
  * has 4 Features: <br>
- * String MAC;
-	String RSSI;
-	String Channel;
-	String SSID;<br>
+ * String mac;
+	String rssi;
+	String channel;
+	String ssid;<br>
 	2 constructor <br>
 	3 functions: toString function, compareTo function, convertChannel function
  *
@@ -19,7 +19,10 @@ public class wifi implements Comparable<wifi> {
 	private String channel;
 	private String ssid;
 
-	// constructor
+	/**
+	 * copy constructor
+	 * @param wifi1
+	 */
 	public wifi(wifi wifi1){
 		this.mac=wifi1.mac;
 		this.rssi=wifi1.rssi;
@@ -28,7 +31,13 @@ public class wifi implements Comparable<wifi> {
 
 	}
 	
-	// constructor
+	/**
+	 * explicit constructor
+	 * @param sSID
+	 * @param mAC
+	 * @param rSSI
+	 * @param channel1
+	 */
 	public wifi(String sSID, String mAC, String rSSI, String channel1) {
 	ssid = sSID;
 	mac = mAC;
@@ -36,17 +45,21 @@ public class wifi implements Comparable<wifi> {
 	channel = channel1;
 	
 }
-	public wifi() {
+	
+	/**
+	 * empty wifi constructor
+	 */
+	public wifi(){
+		
 	}
-
-
+	
 	@Override
 	public String toString() {
 		return  ssid + " , " + mac + " , " + rssi + " , " + channel;
 	}
 
-	/**
-	 * return 1 if bigger, -1 if smaller, 0 even
+	/**the function compare between this.wifi to another wifi according to their rssi 
+	 * return 1 if this.wifi is bigger, -1 if smaller, 0 even
 	 */
 	@Override
 	public int compareTo(wifi wifi1) {
@@ -55,7 +68,7 @@ public class wifi implements Comparable<wifi> {
 	}
 	
 	/**
-	 * covert channel by calculation
+	 * the function covert channel by calculation
 	 * @param channel
 	 * @return String contains the channel after the calculation
 	 */
@@ -76,34 +89,66 @@ public class wifi implements Comparable<wifi> {
 		}
 	}
 
+	/**
+	 * 
+	 * @return wifi's mac
+	 */
 	public String getMac() {
 		return mac;
 	}
 
+	/**
+	 * set wifi's mac
+	 * @param mac
+	 */
 	public void setMac(String mac) {
 		this.mac = mac;
 	}
 
+	/**
+	 * 
+	 * @return wifi's rssi
+	 */
 	public String getRssi() {
 		return rssi;
 	}
 
+	/**
+	 * set wifi's rssi
+	 * @param rssi
+	 */
 	public void setRssi(String rssi) {
 		this.rssi = rssi;
 	}
 
+	/**
+	 * 
+	 * @return wifi's channel
+	 */
 	public String getChannel() {
 		return channel;
 	}
 
+	/**
+	 * set wifi's channel
+	 * @param channel
+	 */
 	public void setChannel(String channel) {
 		this.channel = channel;
 	}
 
+	/**
+	 * 
+	 * @return wifi's ssid
+	 */
 	public String getSsid() {
 		return ssid;
 	}
 
+	/**
+	 * set wifi's ssid
+	 * @param ssid
+	 */
 	public void setSsid(String ssid) {
 		this.ssid = ssid;
 	}

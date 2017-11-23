@@ -12,8 +12,8 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 /**
- * 
- * @author reut
+ * CsvFile class- read csv file that contains wifi samples info
+ * takes 10 strongest wifi of every sample, writes it to a new csv file
  *
  */
 
@@ -22,7 +22,9 @@ public class CsvFile {
 	/**
 	 * void function <br>
 	 * @param String Location<br>
-	 * reads all the csv file from the folder location and sends them to write function
+	 * reads all the csv file from a folder location and, collect all the info to list of Samples, <br>
+	 * send the list to another function that returns 10 strongest wifis of every sample <br>
+	 * finally send the final list to a function that write the info to csv file
 	 * 
 	 */
 	public static void readCSV(String Location){
@@ -84,7 +86,9 @@ public class CsvFile {
 		writeCSV("finalFile", samples);
 	}
 
-
+	/**
+	 * header of the written csv
+	 */
 	private static final Object [] FILE_HEADER = {"Time","ID","LAT","LON","ALT", "#WiFi networks",
 			"SSID1", "MAC1", "Frequncy1", "Signal1",
 			"SSID2", "MAC2", "Frequncy2", "Signal2",
@@ -97,10 +101,17 @@ public class CsvFile {
 			"SSID9", "MAC9", "Frequncy9", "Signal9",
 			"SSID10", "MAC10", "Frequncy10", "Signal10"
 	};
-
+	
+	/**
+	 * line separator
+	 */
 	private static final String NEW_LINE_SEPARATOR = "\n";
 
-
+	/**
+	 * the function get list of Samples and write it to csv file
+	 * @param fileName
+	 * @param list of Samples
+	 */
 	public static void writeCSV(String fileName, List<Sample> list) {
 		fileName = fileName+".csv";
 		FileWriter fileWriter = null;
