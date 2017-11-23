@@ -178,9 +178,6 @@ public class filter {
 
 					int sample2= Integer.parseInt(mac2[0]);
 					int wifi2= Integer.parseInt(mac2[1]);
-
-					System.out.println(mac1[2]);
-					System.out.println(mac2[2]);
 					if(list.get(sample1).getListOfWifi().get(wifi1).compareTo
 							(list.get(sample2).getListOfWifi().get(wifi2))
 							==-1){
@@ -191,7 +188,6 @@ public class filter {
 						list.get(sample1).getListOfWifi().set(wifi1, new wifi());	
 					}
 					else{
-						System.out.println(sample2+" "+wifi2);
 						macs.set(j, "null");
 						int wifiAmount= Integer.parseInt(list.get(sample2).getWifiAmount())-1;
 						list.get(sample2).setWifiAmount(wifiAmount+"");
