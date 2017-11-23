@@ -25,7 +25,7 @@ public class CsvFile {
 	 * reads all the csv file from a folder location and, collect all the info to list of Samples, <br>
 	 * send the list to another function that returns 10 strongest wifis of every sample <br>
 	 * finally send the final list to a function that write the info to csv file
-	 * 
+	 * @see {@link detailsToCSV}
 	 */
 	public static void readCSV(String Location){
 		//take files from folder, and then only the csv files

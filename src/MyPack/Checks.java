@@ -8,6 +8,7 @@ import java.io.File;
  * FileCheck- take only csv files from given folder <br>
  * emptyLine- checks whether a csv file is ok <br>
  * 
+ * 
  */
 public class Checks {
 

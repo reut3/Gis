@@ -50,8 +50,6 @@ public class Sample {
 	}
 
 
-
-
 	/** 
 	 * the function get time and switch day and year if necessary. the final format is: dd/mm/yy hh:mm:ss
 	 * @param time
@@ -85,7 +83,6 @@ public class Sample {
 			time+= FixDate[2]+"-"+FixDate[1]+"-"+FixDate[0]+"T"+FixTime[1];
 		return time;
 	}
-
 
 
 	/**

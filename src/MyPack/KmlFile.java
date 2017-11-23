@@ -87,7 +87,7 @@ public class KmlFile {
 	 * @param fileName
 	 * @param list of Samples named list
 	 */
-	public static void write(String fileName, List<Sample> list){
+	private static void write(String fileName, List<Sample> list){
 		final Kml kml = new Kml();
 		Document document = kml.createAndSetDocument().withName("MyMarkers");
 		for(Sample I:list){
