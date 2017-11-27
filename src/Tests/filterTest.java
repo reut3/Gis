@@ -39,7 +39,7 @@ List<wifi> listOfWifi=new ArrayList<wifi>();
 
 		afterFilter=new ArrayList<Sample>();	
 		beforFilter=new ArrayList<Sample>();
-		for (int i=1;i<3;i++)
+		for (int i=1;i<11;i++)
 		{
           if(i%2==0)
         	beforFilter.add(new Sample(i+"/5/1992 12:45:30","inon","3.54","54.650","35.246","0",listOfWifi));
@@ -92,21 +92,21 @@ public static String getSaltString() {
 		assertTrue((afterFilter.size()==10));
 	}
 
-	@Test
-	void testMACfilter() {
-		int count=0;
-		System.out.println(beforFilter.toString());
-		afterFilter=Filter.MACfilter(beforFilter);
-	
-		for(Sample u:afterFilter)
-		{
-			for(wifi s:u.getListOfWifi())
-			{
-				count++;
-			}
-		}
-		System.out.println(count+"--------------");
-		
-	}
+//	@Test
+//	void testMACfilter() {
+//		int count=0;
+//		System.out.println(beforFilter.toString());
+//		afterFilter=Filter.MACfilter(beforFilter);
+//	
+//		for(Sample u:afterFilter)
+//		{
+//			for(wifi s:u.getListOfWifi())
+//			{
+//				count++;
+//			}
+//		}
+//		System.out.println(count+"--------------");
+//		
+//	}
 
 }
