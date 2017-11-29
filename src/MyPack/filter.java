@@ -67,13 +67,15 @@ public class filter {
 	}
 
 	/**
-	 * the function get lat and lon and return the samples from the list that their lat, lon are identical
+	 * the function get lat and lon and radius, 
+	 * return the samples from the list that their lat, lon are in the radius from the point of lat,lon
 	 * @param lat1
 	 * @param lon1
+	 * @param radius
 	 * @return the filterd list of Samples
 	 */
-	public static Predicate<Sample> equalAltLon(int lat1, int lon1) {
-		return p -> ( (int)p.getLocation().getLat().getCord()==lat1 && (int)p.getLocation().getLon().getCord()==lon1 );	
+	public static Predicate<Sample> equalAltLon(double lat1, double lon1, double radius) {
+		return p -> distFrom(lat1, lon1, p.getLocation().getLat().getCord(),  p.getLocation().getLon().getCord(),radius);		
 	}
 		
 	/**
@@ -98,13 +100,17 @@ public class filter {
 
 		String filterKind=JOptionPane.showInputDialog(f,"Choose filter: id/time/location/none"); 
 		if(filterKind.equals("location")){
-			int lat=-30;
-			int lon=-10;
+			double lat= 10.8;
+			double lon= 10.8;
+			double radius= 10.8;
 			try{
 			String locationLat=JOptionPane.showInputDialog(f,"Enter lat");   
 			String locationLon=JOptionPane.showInputDialog(f,"Enter lon"); 
-			 lat= (int)Double.parseDouble(locationLat);
-			 lon= (int)Double.parseDouble(locationLon);
+			String radiusLocation=JOptionPane.showInputDialog(f,"Enter radius"); 
+
+			 lat= Double.parseDouble(locationLat);
+			 lon= Double.parseDouble(locationLon);
+			 radius= Double.parseDouble(radiusLocation);
 			}
 			catch(Exception e)
 			{
