@@ -109,7 +109,7 @@ public class Location{
 	 * @param radius - the maximal distance between the two points
 	 * @return true, if the second point located in the area of the radius. else false
 	 */
-	public boolean distFrom(double lat1, double lng1, double lat2, double lng2, double radius) {
+	public static boolean distFrom(double lat1, double lng1, double lat2, double lng2, double radius) {
 		//
 
 		double earthRadius = 6371000; //meters

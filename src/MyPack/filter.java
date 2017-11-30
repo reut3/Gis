@@ -75,7 +75,7 @@ public class filter {
 	 * @return the filterd list of Samples
 	 */
 	public static Predicate<Sample> equalAltLon(double lat1, double lon1, double radius) {
-		return p -> distFrom(lat1, lon1, p.getLocation().getLat().getCord(),  p.getLocation().getLon().getCord(),radius);		
+		return p -> Location.distFrom(lat1, lon1, p.getLocation().getLat().getCord(),  p.getLocation().getLon().getCord(),radius);		
 	}
 		
 	/**
@@ -119,7 +119,7 @@ public class filter {
 			}
 			f.dispose();
 			continueAsk=true;
-			return filters(list, equalAltLon(lat,lon));
+			return filters(list, equalAltLon(lat,lon, radius));
 		}
 		
 		else if(filterKind.equals("id")){
