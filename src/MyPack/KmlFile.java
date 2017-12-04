@@ -53,7 +53,7 @@ public class KmlFile {
 				CSVRecord record = csvRecords.get(j);
 				List<wifi> listOfWifi= new ArrayList<wifi>();
 				for( int i=6; i<record.size(); ){
-					listOfWifi.add(new wifi(record.get(i), record.get(i+1), record.get(i+2), record.get(i+3)));
+					listOfWifi.add(new wifi(record.get(i), record.get(i+1), record.get(i+3), record.get(i+2)));
 					i+=4;
 				}
 				Sample sample= new Sample(record.get(0), record.get(1),record.get(2),record.get(3),record.get(4),
@@ -76,7 +76,6 @@ public class KmlFile {
 
 		List<Sample> list= filter.whichFilter(SampleList);
 		list= filter.MACfilter(list);
-
 		write("kmlFile", list);
 
 	}

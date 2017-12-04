@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.awt.geom.Point2D;
 import java.text.SimpleDateFormat;
 import javax.swing.*;  
 
@@ -75,7 +76,8 @@ public class filter {
 	 * @return the filterd list of Samples
 	 */
 	public static Predicate<Sample> equalAltLon(double lat1, double lon1, double radius) {
-		return p -> Location.distFrom(lat1, lon1, p.getLocation().getLat().getCord(),  p.getLocation().getLon().getCord(),radius);		
+		return p -> Point2D.distance(lat1,lon1,
+				p.getLocation().getLat().getCord(), p.getLocation().getLon().getCord()) <= radius;
 	}
 		
 	/**
