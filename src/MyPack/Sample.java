@@ -20,13 +20,15 @@ import java.util.List;
  */
 
 public class Sample {
-	
+
 	//sample features:
 	private String time;
 	private String id;
 	private String wifiAmount;
 	private Location location;
 	private List<wifi> listOfWifi=new ArrayList<wifi>();
+
+
 
 
 
@@ -121,7 +123,7 @@ public class Sample {
 		return time;
 	}
 
-	
+
 	/**
 	 * set sample's time
 	 * @param time
@@ -194,6 +196,26 @@ public class Sample {
 	public void setListOfWifi(List<wifi> listOfWifi) {
 		this.listOfWifi = listOfWifi;
 	}
+
+
+	public boolean contain(List<wifi>list, List<MacSignal> macs){
+		boolean answer=false;
+		
+		List<String> macList= new ArrayList<String>();
+		for(int i=0; i<list.size(); i++){
+			String mac= list.get(i).getMac();
+			macList.add(mac);
+		}
+		for(int i=0; i<macs.size(); i++){
+			if(macList.contains(macs.get(i).mac)){
+				answer=true;
+				break;
+			}
+		}
+		return answer;
+	}
+
+
 
 
 

@@ -69,25 +69,44 @@ public class Web {
         
 		
         server.createContext("/file", request -> {
-        	String fileName = request.getRequestURI().getPath().replaceAll("/file/", "");
-        	System.out.println("Got new file-request: "+fileName);
-        	Path path = Paths.get("client", fileName);
-        	String output = null;
-        	try {
-        		output = new String(Files.readAllBytes(path), StandardCharsets.UTF_8);
-        	} catch (NoSuchFileException ex) {
-        		output = "Dear user, the file '"+fileName+"' does not exist. I am sorry.";
-        	} catch (Exception ex) {
-        		output = "Error: "+ex;
-        	}
-        	
-        	request.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
-        	request.getResponseHeaders().set("Content-Type", "text/html");
-            request.sendResponseHeaders(200, 0);
-            try (OutputStream os = request.getResponseBody()) {
-            	os.write(output.getBytes());
-            }
-        });
+			String output = null;
+
+			try {
+				String fileName = request.getRequestURI().getPath().replaceAll("/file/", "");
+				System.out.println("Got new file-request: "+fileName);
+				Path path = Paths.get("client", fileName);
+				if (Files.exists(path)) {
+					String contentType = (
+							fileName.endsWith(".html")? "text/html":
+								fileName.endsWith(".js")? "text/javascript":
+									fileName.endsWith(".css")? "text/css":
+										"text/plain"
+							);
+					request.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+					request.getResponseHeaders().set("Content-Type", contentType);
+					request.sendResponseHeaders(200, 0);
+					try (OutputStream os = request.getResponseBody()) {
+						os.write(Files.readAllBytes(path));
+					}
+					return;
+				} else {
+					output = "File "+path+" not found!";
+				}
+			} catch (Throwable ex) {
+				output = "Sorry, an error occured: "+ex;
+			}
+			System.out.println(output);
+			request.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+			request.getResponseHeaders().set("Content-Type", "text/plain");
+			request.sendResponseHeaders(200, 0);
+			try (OutputStream os = request.getResponseBody()) {
+				os.write(output.getBytes(StandardCharsets.UTF_8));
+			} catch (Exception ex) {
+				System.out.println("Cannot send response to client");
+				ex.printStackTrace();
+			}
+		});
+
                 	
         	
         System.out.println("WebServer is up. "+

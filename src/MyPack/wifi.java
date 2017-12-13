@@ -15,7 +15,7 @@ package MyPack;
 public class wifi implements Comparable<wifi> {
 
 	private String mac;
-	private String rssi;
+	private String rssi; //signal!
 	private String channel;
 	private String ssid;
 

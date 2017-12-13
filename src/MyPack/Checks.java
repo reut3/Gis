@@ -26,6 +26,7 @@ public class Checks {
 				position++;
 			}
 		}
+		
 		return listOfFilesCSV;
 	}
 

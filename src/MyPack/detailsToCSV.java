@@ -19,40 +19,51 @@ public class detailsToCSV {
 	 * @return Sample list
 	 */
 	public static List<Sample> SampleList(List<String[]> list){
-		int line=0;
+//		int line=0;
 		Location currenLocation= new Location(list.get(0)[6], list.get(0)[7], list.get(0)[8]);
 		Location nextLocation= new Location(list.get(1)[6], list.get(1)[7], list.get(1)[8]);
-		String Time= list.get(1)[3];
+		String Time= list.get(0)[3];
 
 		List<Sample> FinalList = new ArrayList<Sample>();
-		for(int row=0; row<list.size(); row++){
-			List<wifi> tempSortArray = new ArrayList<wifi>();
-			//System.out.println(currenLocation+" "+nextLocation);
-			for(line=row; (line<list.size()) && (currenLocation.equal(nextLocation)) && (Time.equals(list.get(line)[3])); line++){
-				if(("GSM".equals(list.get(line)[10])==false)){
-					wifi WifiIN= new wifi(list.get(line)[1], list.get(line)[0], list.get(line)[5], list.get(line)[4]);
-					tempSortArray.add(WifiIN);
 
-				}		
-				if(line+1<list.size()){
-					nextLocation= new Location(list.get(line+1)[6], list.get(line+1)[7], list.get(line+1)[8]);
+		int next=0;
+		for(int row=0;row<list.size();row++){
+			List<wifi> tempSortArray = new ArrayList<wifi>();
+			if(("GSM".equals(list.get(row)[10])==false)){
+				wifi WifiIN= new wifi(list.get(row)[1], list.get(row)[0], list.get(row)[5], list.get(row)[4]);
+				tempSortArray.add(WifiIN);
+			}
+			for(next=row+1; next<list.size() && nextLocation.equal(currenLocation) && Time.equals(list.get(next)[3]); next++){
+				if(("GSM".equals(list.get(next)[10])==false)){
+					wifi WifiIN= new wifi(list.get(next)[1], list.get(next)[0], list.get(next)[5], list.get(next)[4]);
+					tempSortArray.add(WifiIN);
+				}
+				if(next+1<list.size()){
+					nextLocation= new Location(list.get(next+1)[6], list.get(next+1)[7], list.get(next+1)[8]);
 				}
 			}
-			String WifiAmount= ""+(tempSortArray.size());
+			row=next;
+			if(row<list.size()){
+				currenLocation= nextLocation;
+				Time= list.get(row)[3];
+			}
+			if(row+1<list.size()){
+				nextLocation= new Location(list.get(next+1)[6], list.get(next+1)[7], list.get(next+1)[8]);
+			}
+			
+			
 			tempSortArray.sort(null);
 
 			for(int j=tempSortArray.size()-1; j>9;j--){
 				tempSortArray.remove(j);
 			}
-			FinalList.add(new Sample(list.get(row)[3], list.get(row)[11], list.get(row)[6],list.get(row)[7],list.get(row)[8],WifiAmount,tempSortArray));
+			String WifiAmount= ""+(tempSortArray.size());
 
-			if(line<list.size()){
-				currenLocation= new Location(list.get(line)[6], list.get(line)[7], list.get(line)[8]);
-				Time= list.get(line)[3];
+			if(Integer.parseInt(WifiAmount)!=0){
+				FinalList.add(new Sample(list.get(next-1)[3], list.get(next-1)[11],
+						list.get(next-1)[6],list.get(next-1)[7],list.get(next-1)[8],WifiAmount,tempSortArray));
 			}
-			//	System.out.println(line+" "+row);
-
-			row=line-1;
+			row=next-1; //because the for adding 1
 		}
 		return FinalList;
 

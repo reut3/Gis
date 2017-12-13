@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.csv.CSVFormat;
@@ -33,10 +34,8 @@ public class CsvFile {
 		File[] listOfFiles = folder.listFiles();
 		File[] listOfFilesCSV= Checks.FileCheck(listOfFiles);
 		List<String[]> collectionCSVinfo= new ArrayList<String[]>();
-
 		//read one file at a time
 		for(int i=0; i<listOfFilesCSV.length && listOfFilesCSV[i]!=null; i++){
-
 			String fileName = listOfFilesCSV[i].getPath();
 
 			FileReader fileReader = null;
@@ -81,7 +80,6 @@ public class CsvFile {
 			}
 
 		}//finish treating a file at a time
-//		System.out.println(Arrays.toString(collectionCSVinfo.get(0)));
 		List<Sample> samples= detailsToCSV.SampleList(collectionCSVinfo);
 		writeCSV("finalFile", samples);
 	}
@@ -129,7 +127,7 @@ public class CsvFile {
 			//Create CSV file header
 			csvFilePrinter.printRecord(FILE_HEADER);
 
-			//Write a new student object list to the CSV file
+			//Write a new sample object list to the CSV file
 			for (Sample s: list) {
 				List<String> IdDataRecord = new ArrayList<String>();
 				IdDataRecord.add(s.getTime());
@@ -147,7 +145,7 @@ public class CsvFile {
 				}
 				csvFilePrinter.printRecord(IdDataRecord);
 			}
-			System.out.println("CSV file was created successfully !!!");
+			System.out.println("CSV file -'finalfile' was created successfully !!!");
 
 		} catch (Exception e) {
 			System.out.println("Error in CsvFileWriter !!!");

@@ -66,6 +66,23 @@ public class filter {
 	public static Predicate<Sample> equalId(String wantedId) {
 		return p -> p.getId().equals(wantedId);
 	}
+	
+	
+	
+	
+	//reut
+	public static Predicate<Sample> equalMac(List<MacSignal> macs) {
+
+		
+		
+		return p -> p.contain(p.getListOfWifi(),macs);// take the Sample if contains a mac
+
+	}
+	
+
+	
+	
+	
 
 	/**
 	 * the function get lat and lon and radius, 
@@ -158,7 +175,7 @@ public class filter {
 	
 	
 	/**
-	 * the function check if there are double macs in evert sample's wifi list<br>
+	 * the function check if there are double macs in every sample's wifi list<br>
 	 * if there is- delete the smaller according to the ssid
 	 * @param list of samples named list
 	 * @return list of samples without doplicated macs

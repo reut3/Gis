@@ -74,10 +74,17 @@ public class KmlFile {
 			}
 		}
 
-		List<Sample> list= filter.whichFilter(SampleList);
+		
+		//choose a filter
+		List<Sample> list= filter.whichFilter(SampleList);	
+		
+		//delete double macs
 		list= filter.MACfilter(list);
+		
+		//write the list to kml file
 		write("kmlFile", list);
 
+		
 	}
 
 	/**
