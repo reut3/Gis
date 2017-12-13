@@ -6,8 +6,7 @@ public class MacSignal {
 	String mac;
 	
 	
-	public MacSignal(){
-		
+	public MacSignal(){	
 	}
 	
 	public MacSignal(String signal, String mac) {

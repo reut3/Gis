@@ -66,6 +66,5 @@ public class detailsToCSV {
 			row=next-1; //because the for adding 1
 		}
 		return FinalList;
-
 	}
 }

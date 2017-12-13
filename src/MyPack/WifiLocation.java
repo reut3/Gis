@@ -16,7 +16,6 @@ public class WifiLocation implements Comparable<WifiLocation> {
 	}
 
 
-
 	@Override
 	public String toString() {
 		return "WifiLocation [signal=" + signal + ", location=" + location + "]";

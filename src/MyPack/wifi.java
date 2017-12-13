@@ -155,5 +155,4 @@ public class wifi implements Comparable<wifi> {
 	
 	
 
-
 }

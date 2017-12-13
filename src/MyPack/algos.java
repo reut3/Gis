@@ -13,7 +13,6 @@ import org.apache.commons.csv.CSVRecord;
 
 public class algos {
 
-
 	/**
 	 * line separator
 	 */

@@ -70,13 +70,8 @@ public class filter {
 	
 	
 	
-	//reut
 	public static Predicate<Sample> equalMac(List<MacSignal> macs) {
-
-		
-		
 		return p -> p.contain(p.getListOfWifi(),macs);// take the Sample if contains a mac
-
 	}
 	
 

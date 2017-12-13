@@ -5,7 +5,6 @@ public class CordPI implements Comparable<CordPI>{
 	Location location;
 	Double Pi;
 	
-	
 	public CordPI(Location location, Double pi) {
 		super();
 		this.location = location;
