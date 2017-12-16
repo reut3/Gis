@@ -68,16 +68,7 @@ public class filter {
 	}
 	
 	
-	
-	
-	public static Predicate<Sample> equalMac(List<MacSignal> macs) {
-		return p -> p.contain(p.getListOfWifi(),macs);// take the Sample if contains a mac
-	}
-	
 
-	
-	
-	
 
 	/**
 	 * the function get lat and lon and radius, 
@@ -165,7 +156,7 @@ public class filter {
 	 * @return l of Samples according to the filter
 	 */
 	public static List<Sample> filters (List<Sample> sample, Predicate<Sample> predicate) {
-		return sample.stream().filter( predicate ).collect(Collectors.<Sample>toList());
+		return sample.stream().parallel().filter( predicate ).collect(Collectors.<Sample>toList());
 	}
 	
 	

@@ -16,7 +16,6 @@ time, mark, audio, video {
 }
 
 
-
 *{
 	box-sizing: border-box;
 	font-family: Open Sans Hebrew;
@@ -25,15 +24,24 @@ time, mark, audio, video {
 
 .body{
 	background-color:#35846f;
+    height: 500px;
+    width:801px;
 }
 
  
- #container{
+#container{
 	background-color: #35846f;
 	text-align: center;
  }
+
+.container1{
+    height: inherit;
+    width: 267px;
+	background-color: #36636f;
+	text-align: center;
+ }
  
- h3{
+h3{
 	color:white;
  }
  
@@ -42,8 +50,6 @@ time, mark, audio, video {
  }
  
  
- .button {
-    background-color: #4CAF50; /* Green */
-	
-	
-	}
+.button {
+    background-color: #4CAF50; /* Green */	
+}

@@ -4,7 +4,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -19,7 +22,7 @@ public class algos {
 	private static final String NEW_LINE_SEPARATOR = "\n";
 
 
-	public static List<Sample> readCSV(String Location){
+	private static List<Sample> readCSV(String Location){
 		List<Sample> SampleList= new ArrayList<Sample>();
 
 		FileReader fileReader = null;
@@ -104,6 +107,21 @@ public class algos {
 
 	public static void algo1(String fileName ,String path) {
 		List<Sample> list= readCSV(path);
+		
+		HashMap<String, ArrayList<Sample>> hashMap= new HashMap<String, ArrayList<Sample>>();
+		for(int i=0; i<list.size(); i++){
+			for(int j=0; j<list.get(i).getListOfWifi().size(); j++){
+				String key= list.get(i).getListOfWifi().get(j).getMac();
+				Sample toAdd= list.get(i);
+
+				if (hashMap.get(key) == null) {
+					hashMap.put(key, new ArrayList<Sample>());
+				}
+				hashMap.get(key).add(toAdd);
+			}
+		}
+		
+		
 
 		fileName = fileName+".csv";
 		FileWriter fileWriter = null;
@@ -127,7 +145,8 @@ public class algos {
 					if(!macs.contains(s.getListOfWifi().get(i).getMac())){
 						Weight weight= new Weight();
 						//return new location if mac is doubled in the list
-						Location location= weight.findLocation1(list, s.getListOfWifi().get(i).getMac());
+						String tempMac=s.getListOfWifi().get(i).getMac();
+						Location location= weight.findLocation1(hashMap.get(tempMac), tempMac);
 
 						List<String> IdDataRecord = new ArrayList<String>();
 						IdDataRecord.add(num+"");
@@ -169,6 +188,21 @@ public class algos {
 		List<Sample> listDataBase= readCSV(pathDataBase);
 		List<Sample> listToFind= readCSV(path);
 
+
+		HashMap<String, ArrayList<Sample>> hashMap= new HashMap<String, ArrayList<Sample>>();
+		for(int i=0; i<listDataBase.size(); i++){
+			for(int j=0; j<listDataBase.get(i).getListOfWifi().size(); j++){
+				String key= listDataBase.get(i).getListOfWifi().get(j).getMac();
+				Sample toAdd= listDataBase.get(i);
+
+				if (hashMap.get(key) == null) {
+					hashMap.put(key, new ArrayList<Sample>());
+				}
+				hashMap.get(key).add(toAdd);
+			}
+		}
+	
+
 		fileName = fileName+".csv";
 		FileWriter fileWriter = null;
 		CSVPrinter csvFilePrinter = null;
@@ -181,18 +215,24 @@ public class algos {
 
 			//initialize CSVPrinter object 
 			csvFilePrinter = new CSVPrinter(fileWriter, csvFileFormat);
-//			System.out.println(listDataBase.get(54));
 			for (int s=0; s<listToFind.size();s++) {
+				Set<Sample> sampleSet = new HashSet<Sample>();
 				List<String> IdDataRecord = new ArrayList<String>();
 				IdDataRecord.add(listToFind.get(s).getTime());
 				IdDataRecord.add(listToFind.get(s).getId());
 
 				List <MacSignal> macSignal= new ArrayList<MacSignal>();
 				for(int x=0; x<listToFind.get(s).getListOfWifi().size(); x++){
-					MacSignal temp= new MacSignal(listToFind.get(s).getListOfWifi().get(x).getRssi(), listToFind.get(s).getListOfWifi().get(x).getMac());
+					String tempMac= listToFind.get(s).getListOfWifi().get(x).getMac();
+					MacSignal temp= new MacSignal(listToFind.get(s).getListOfWifi().get(x).getRssi(), tempMac);
+					List<Sample> tempList= hashMap.get(tempMac);
+					if(tempList!=null){
+						sampleSet.addAll(tempList);
+					}
 					macSignal.add(temp);
 				}
-				Location location= Weight.findLocation2(listDataBase,macSignal,num);
+
+				Location location= Weight.findLocation2(sampleSet,macSignal,num);
 
 				IdDataRecord.add(location.getLat().getCord()+"");
 				IdDataRecord.add(location.getLon().getCord()+"");
@@ -206,7 +246,6 @@ public class algos {
 					IdDataRecord.add(listToFind.get(s).getListOfWifi().get(i).getRssi());
 
 				}
-
 				csvFilePrinter.printRecord(IdDataRecord);
 			}
 

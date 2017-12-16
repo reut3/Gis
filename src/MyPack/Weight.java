@@ -1,8 +1,8 @@
 package MyPack;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 public class Weight{
 
@@ -55,9 +55,13 @@ public class Weight{
 
 	
 	
-	public static Location findLocation2(List<Sample> sampleList, List<MacSignal> findList, int num){
+	public static Location findLocation2(Set<Sample> sampleList, List<MacSignal> findList, int num){
 
-		List<Sample> samples= filter.filters(sampleList, filter.equalMac(findList));//return Sample list if consist one of the macs;
+//		List<Sample> samples= filter.filters(sampleList, filter.equalMac(findList));//return Sample list if consist one of the macs;
+		List<Sample> samples = new ArrayList<Sample>();
+		samples.addAll(sampleList);
+
+		
 		Double power=2.0;
 		Double norm=10_000.0;
 		Double sig_dif= 0.4;
