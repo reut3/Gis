@@ -4,13 +4,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * class Weight- find accurate location of mac or sample <br>
+ * hsa two finding location functions:<br>
+ * findLocation1 function and findLocation2 function
+ */
 public class Weight{
-
+	
+	//Weight features:
 	int strongestSignalsNum= 3;	
 	int approxSignalNum= 4;
 
 
-
+	/**
+	 * The function get mac as string, and list of samples that contain the mac.<br>
+	 * <br> the propse of the function is to find the most accurate Location of the mac<br>
+	 * The function does calculations with the locations of all the mac in the list, and returning 
+	 * the most accurate location of the given mac.
+	 * @param list
+	 * @param mac1
+	 * @return object type Location.
+	 */
 	public Location findLocation1(List<Sample> list, String mac1){
 		List <WifiLocation> macs= new ArrayList<WifiLocation>();
 		String tempMac="";
@@ -54,7 +68,18 @@ public class Weight{
 
 
 	
-	
+	/**
+	 * Given number of WiFi samples and signal strength the function calculate the accurate location of the user.
+	 * The fuctions use calculation of weighted center of gravity, 
+	 * combined with a method to test the suitability of each sample to our input,
+	 * each of the samples can be graded relative to the similarity of our input (MacSignal list),
+	 * the functions will take a number (int num) of samples that are the most similar,
+	 * And will calculate their weighted center of gravity which will find the most accurate location.
+	 * @param sampleList
+	 * @param findList
+	 * @param num
+	 * @return Location.
+	 */
 	public static Location findLocation2(Set<Sample> sampleList, List<MacSignal> findList, int num){
 
 //		List<Sample> samples= filter.filters(sampleList, filter.equalMac(findList));//return Sample list if consist one of the macs;

@@ -17,7 +17,7 @@ public class Main {
 
 //		algo2 print csv file named algo2
 
-		algos.algo2("algo2","C:\\Users\\reut\\workspace\\matala\\testAlgo2.csv","C:\\Users\\reut\\workspace\\matala\\finalfile.csv", 3);
+		algos.algo2("C:\\Users\\reut\\workspace\\matala\\finalfile.csv","C:\\Users\\reut\\workspace\\matala\\testAlgo2.csv","algo2", 3);
 //		long b= System.currentTimeMillis();
 //		System.out.println(b-a);
 		

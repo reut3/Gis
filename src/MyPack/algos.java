@@ -184,7 +184,7 @@ public class algos {
 	}
 
 
-	public static void algo2(String fileName,String path, String pathDataBase, int num){
+	public static void algo2(String pathDataBase,String path,String fileName, int num){
 		List<Sample> listDataBase= readCSV(pathDataBase);
 		List<Sample> listToFind= readCSV(path);
 
