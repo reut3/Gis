@@ -1,4 +1,4 @@
-package MyPack;
+package DataBase;
 
 /**
  * wifi class, implements Comparable interface<br>

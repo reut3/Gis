@@ -1,9 +1,9 @@
-package MyPack;
+package DataBase;
 
 public class MacSignal {
 
-	int signal;
-	String mac;
+	private int signal;
+	private String mac;
 	
 	
 	public MacSignal(){	
@@ -17,6 +17,22 @@ public class MacSignal {
 	@Override
 	public String toString() {
 		return "MacSignal [signal=" + signal + ", mac=" + mac + "]";
+	}
+
+	public int getSignal() {
+		return signal;
+	}
+
+	public void setSignal(int signal) {
+		this.signal = signal;
+	}
+
+	public String getMac() {
+		return mac;
+	}
+
+	public void setMac(String mac) {
+		this.mac = mac;
 	}
 	
 	

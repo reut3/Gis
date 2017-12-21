@@ -1,4 +1,4 @@
-package MyPack;
+package Location;
 
 public class CordPI implements Comparable<CordPI>{
 

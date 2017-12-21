@@ -1,4 +1,4 @@
-package MyPack;
+package Location;
 
 
 /**

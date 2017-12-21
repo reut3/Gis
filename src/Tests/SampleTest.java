@@ -8,8 +8,9 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import MyPack.Sample;
-import MyPack.wifi;
+
+import DataBase.Sample;
+import DataBase.wifi;
 
 
 

@@ -1,8 +1,12 @@
-package MyPack;
+package Location;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import DataBase.MacSignal;
+import DataBase.Sample;
+import DataBase.WifiLocation;
 
 /**
  * class Weight- find accurate location of mac or sample <br>
@@ -10,10 +14,10 @@ import java.util.Set;
  * findLocation1 function and findLocation2 function
  */
 public class Weight{
-	
+
 	//Weight features:
-	int strongestSignalsNum= 3;	
-	int approxSignalNum= 4;
+	int strongestSignalsNum= 4;	
+	//	int approxSignalNum= 4;
 
 
 	/**
@@ -37,12 +41,17 @@ public class Weight{
 				}
 			}
 		}
-		macs.sort(null);
-		if(macs.size()>this.strongestSignalsNum){
-			while(macs.size()>this.strongestSignalsNum){
-				macs.remove(macs.size()-1);
-			}
+		if(mac1.equals("1c:b9:c4:16:05:38")){
+			System.out.println(macs);
 		}
+		macs.sort(null);
+		if(mac1.equals("1c:b9:c4:16:05:38")){
+			System.out.println(macs);
+		}
+		while(macs.size()>this.strongestSignalsNum){
+			macs.remove(0);
+		}
+
 
 		double sumWalt=0;
 		double sumWlat=0;
@@ -50,10 +59,10 @@ public class Weight{
 		double sumWweight=0;
 
 		for(int i=0; i<macs.size(); i++){		
-			double weight= 1.0/Math.pow(macs.get(i).signal, 2);
-			sumWalt +=weight* macs.get(i).location.getAlt().getCord();
-			sumWlat +=weight* macs.get(i).location.getLat().getCord();
-			sumWlon +=weight* macs.get(i).location.getLon().getCord();
+			double weight= 1.0/Math.pow(macs.get(i).getSignal(), 2);
+			sumWalt +=weight* macs.get(i).getLocation().getAlt().getCord();
+			sumWlat +=weight* macs.get(i).getLocation().getLat().getCord();
+			sumWlon +=weight* macs.get(i).getLocation().getLon().getCord();
 			sumWweight+=weight;
 		}
 		if(sumWweight!=0){
@@ -67,7 +76,6 @@ public class Weight{
 
 
 
-	
 	/**
 	 * Given number of WiFi samples and signal strength the function calculate the accurate location of the user.
 	 * The fuctions use calculation of weighted center of gravity, 
@@ -81,12 +89,10 @@ public class Weight{
 	 * @return Location.
 	 */
 	public static Location findLocation2(Set<Sample> sampleList, List<MacSignal> findList, int num){
-
-//		List<Sample> samples= filter.filters(sampleList, filter.equalMac(findList));//return Sample list if consist one of the macs;
 		List<Sample> samples = new ArrayList<Sample>();
 		samples.addAll(sampleList);
 
-		
+
 		Double power=2.0;
 		Double norm=10_000.0;
 		Double sig_dif= 0.4;
@@ -97,7 +103,7 @@ public class Weight{
 
 		Double[] inputSignals= new Double[macsNum];
 		for(int i=0; i<macsNum; i++){
-			inputSignals[i]= (double) findList.get(i).signal;
+			inputSignals[i]= (double) findList.get(i).getSignal();
 		}		
 		List <CordPI> datas= new ArrayList<CordPI>();
 
@@ -109,17 +115,17 @@ public class Weight{
 
 				Double signal= no_signal; 
 				Double diff= diff_no_signal; 
-				Double pi= norm/(Math.pow(diff, sig_dif)*Math.pow(findList.get(m).signal, power));
+				Double pi= norm/(Math.pow(diff, sig_dif)*Math.pow(findList.get(m).getSignal(), power));
 
 				for(int j=0; j<samples.get(i).getListOfWifi().size() ;j++){	
-					if(samples.get(i).getListOfWifi().get(j).getMac().equals(findList.get(m).mac)){
+					if(samples.get(i).getListOfWifi().get(j).getMac().equals(findList.get(m).getMac())){
 						Double macSignal= Double.parseDouble(samples.get(i).getListOfWifi().get(j).getRssi());
 						signal= macSignal; 
-						diff= Math.abs(findList.get(m).signal-signal); 
+						diff= Math.abs(findList.get(m).getSignal()-signal); 
 						if(diff==0){
 							diff= min_diff;
 						}
-						pi= norm/(Math.pow(diff, sig_dif)*Math.pow(findList.get(m).signal, power));
+						pi= norm/(Math.pow(diff, sig_dif)*Math.pow(findList.get(m).getSignal(), power));
 						break;
 					}
 				}
@@ -133,19 +139,19 @@ public class Weight{
 		while(datas.size()>num){
 			datas.remove(0);
 		}
-		
+
 		double weight=0;
 		double sumWalt=0;
 		double sumWlat=0;
 		double sumWlon=0;
-		
+
 		for(int i=0; i<datas.size();i++){
 			weight+=datas.get(i).Pi;
 			sumWalt+= datas.get(i).Pi*datas.get(i).location.getAlt().getCord();
 			sumWlat+= datas.get(i).Pi*datas.get(i).location.getLat().getCord();
 			sumWlon+= datas.get(i).Pi*datas.get(i).location.getLon().getCord();
 		}
-		
+
 		if(weight!=0){
 			sumWalt= sumWalt/weight;
 			sumWlat= sumWlat/weight;

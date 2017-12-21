@@ -7,7 +7,7 @@ import java.util.Random;
 import org.junit.Before;
 import org.junit.Test;
 
-import MyPack.wifi;
+import DataBase.wifi;
 
 public class wifiTest {
 	wifi wifi1;

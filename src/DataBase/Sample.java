@@ -1,9 +1,11 @@
-package MyPack;
+package DataBase;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import Location.Location;
 
 /** 
  * Sample class<br>

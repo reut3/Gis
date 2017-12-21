@@ -1,17 +1,18 @@
-package MyPack;
+package DataBase;
 
+import Location.Location;
 
 public class WifiLocation implements Comparable<WifiLocation> {
 
-	int signal;
-	Location location;
+	private int signal;
+	private Location location;
 
 
 	public WifiLocation(){
 	}
 
 	public WifiLocation(String signal, Location location) {
-		this.signal = Integer.parseInt(signal);
+		this.signal = (int)Double.parseDouble(signal);
 		this.location = location;
 	}
 
@@ -26,9 +27,22 @@ public class WifiLocation implements Comparable<WifiLocation> {
 		if (this.signal> wifiLocation.signal) return 1;
 		else if (this.signal< wifiLocation.signal) return -1;
 		else return 0;
-			
-		
+	}
 
+	public int getSignal() {
+		return signal;
+	}
+
+	public void setSignal(int signal) {
+		this.signal = signal;
+	}
+
+	public Location getLocation() {
+		return location;
+	}
+
+	public void setLocation(Location location) {
+		this.location = location;
 	}
 
 

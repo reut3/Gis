@@ -1,4 +1,4 @@
-package MyPack;
+package Location;
 
 /**
  * Location class: location object contains 3 features:

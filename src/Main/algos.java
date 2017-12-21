@@ -1,4 +1,4 @@
-package MyPack;
+package Main;
 
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -13,6 +13,13 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
+
+import DataBase.MacSignal;
+import DataBase.Sample;
+import DataBase.wifi;
+import FileTools.filter;
+import Location.Location;
+import Location.Weight;
 
 public class algos {
 
@@ -107,7 +114,7 @@ public class algos {
 
 	public static void algo1(String fileName ,String path) {
 		List<Sample> list= readCSV(path);
-		
+
 		HashMap<String, ArrayList<Sample>> hashMap= new HashMap<String, ArrayList<Sample>>();
 		for(int i=0; i<list.size(); i++){
 			for(int j=0; j<list.get(i).getListOfWifi().size(); j++){
@@ -120,8 +127,8 @@ public class algos {
 				hashMap.get(key).add(toAdd);
 			}
 		}
-		
-		
+
+
 
 		fileName = fileName+".csv";
 		FileWriter fileWriter = null;
@@ -139,16 +146,27 @@ public class algos {
 			List<String> macs= new ArrayList<String>();
 
 			int num=0;
+			list= filter.MACfilter(list);
+			System.out.println(list);
 
+			
 			for (Sample s: list) {
-				for(int i=0; i<s.getListOfWifi().size(); i++){
+				for(int i=0; i<s.getListOfWifi().size() && s.getListOfWifi().get(i).getMac()!=null ; i++){
+
 					if(!macs.contains(s.getListOfWifi().get(i).getMac())){
+
 						Weight weight= new Weight();
 						//return new location if mac is doubled in the list
 						String tempMac=s.getListOfWifi().get(i).getMac();
 						Location location= weight.findLocation1(hashMap.get(tempMac), tempMac);
-
+						
+						if(s.getListOfWifi().get(i).getMac().equals("1c:b9:c4:16:05:38")){
+//							System.out.println("it is"+s);
+//							System.out.println(hashMap.get("1c:b9:c4:16:05:38").size());
+						}
 						List<String> IdDataRecord = new ArrayList<String>();
+						
+						
 						IdDataRecord.add(num+"");
 						IdDataRecord.add(s.getListOfWifi().get(i).getMac());
 						IdDataRecord.add(s.getListOfWifi().get(i).getSsid());
@@ -201,7 +219,7 @@ public class algos {
 				hashMap.get(key).add(toAdd);
 			}
 		}
-	
+
 
 		fileName = fileName+".csv";
 		FileWriter fileWriter = null;

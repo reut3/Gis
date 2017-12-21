@@ -1,4 +1,4 @@
-package MyPack;
+package FileTools;
 import java.io.File;
 
 
@@ -29,6 +29,8 @@ public class Checks {
 		
 		return listOfFilesCSV;
 	}
+	
+	
 	/**
 	 * 
 	 * @param string matrix named data

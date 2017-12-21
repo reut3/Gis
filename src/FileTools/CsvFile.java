@@ -1,5 +1,5 @@
 
-package MyPack;
+package FileTools;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -12,6 +12,9 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
+
+import DataBase.Sample;
+import DataBase.wifi;
 /**
  * CsvFile class- read csv file that contains wifi samples info
  * takes 10 strongest wifi of every sample, writes it to a new csv file
