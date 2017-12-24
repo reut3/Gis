@@ -147,7 +147,6 @@ public class algos {
 
 			int num=0;
 			list= filter.MACfilter(list);
-			System.out.println(list);
 
 			
 			for (Sample s: list) {

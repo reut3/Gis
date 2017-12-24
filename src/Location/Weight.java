@@ -41,13 +41,7 @@ public class Weight{
 				}
 			}
 		}
-		if(mac1.equals("1c:b9:c4:16:05:38")){
-			System.out.println(macs);
-		}
 		macs.sort(null);
-		if(mac1.equals("1c:b9:c4:16:05:38")){
-			System.out.println(macs);
-		}
 		while(macs.size()>this.strongestSignalsNum){
 			macs.remove(0);
 		}

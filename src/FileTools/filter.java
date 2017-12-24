@@ -1,5 +1,4 @@
 package FileTools;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +9,6 @@ import java.text.SimpleDateFormat;
 import javax.swing.*;
 
 import DataBase.Sample;
-import DataBase.wifi;  
 
 /**
  * class filter- filters list of Samples <br>
@@ -174,7 +172,7 @@ public class filter {
 
 		HashMap<String, int[]> hashMap= new HashMap<String, int[]>();
 		for(int i=0; i<list.size(); i++){
-			for(int j=0; j<list.get(i).getListOfWifi().size() && list.get(i).getListOfWifi().get(j).getMac()!=null ; j++){
+			for(int j=0; j<list.get(i).getListOfWifi().size(); j++){
 				String key= list.get(i).getListOfWifi().get(j).getMac();
 				int toAdd[]= {i,j};
 				if (hashMap.get(key) == null) {
@@ -187,27 +185,24 @@ public class filter {
 						list.get(a).getListOfWifi().get(b).setMac(null);
 						int temp[]={i,j};
 						hashMap.replace(key, temp);
+
 					}
 					else{
 						list.get(i).getListOfWifi().get(j).setMac(null);		
 					}
 				}
+
 			}
 		}
-
-
-
 		for(int i=0; i<list.size(); i++){
-			for(int j=0; j<list.get(i).getListOfWifi().size() ; j++){
+			for(int j=0; j<list.get(i).getListOfWifi().size(); j++){
 				if(list.get(i).getListOfWifi().get(j).getMac()==null){
 					list.get(i).getListOfWifi().remove(j);
+					j--;
 				}
 			}
 		}
-
-
 		return list;
-
 	}
 
 

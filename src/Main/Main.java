@@ -19,16 +19,11 @@ public class Main {
 		algos.algo1("algo1","C:\\Users\\reut\\workspace\\matala\\finalFile.csv");
 
 		
-
-		
 		
 //		algo2 print csv file named algo2
+		algos.algo2("C:\\Users\\reut\\workspace\\matala\\finalfile.csv","C:\\Users\\reut\\workspace\\matala\\testAlgo2.csv","algo2", 3);
 
-//		algos.algo2("C:\\Users\\reut\\workspace\\matala\\finalfile.csv","C:\\Users\\reut\\workspace\\matala\\testAlgo2.csv","algo2", 3);
 //		long b= System.currentTimeMillis();
-		
-		algos.algo2("C:\\Users\\reut\\workspace\\matala\\_comb_all_BM3_.csv","C:\\Users\\reut\\workspace\\matala\\_comb_no_gps_ts2_.csv","algo2_check", 4);
-
 //		System.out.println(b-a);
 		
 		
