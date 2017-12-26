@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -82,7 +83,8 @@ public class CsvFile {
 			}
 
 		}//finish treating a file at a time
-		List<Sample> samples= detailsToCSV.SampleList(collectionCSVinfo);
+		Set<Sample> samples= detailsToCSV.SampleList(collectionCSVinfo);
+		DataBase.DataBase.add(samples);
 		writeCSV("finalFile", samples);
 	}
 
@@ -112,7 +114,7 @@ public class CsvFile {
 	 * @param fileName
 	 * @param list of Samples
 	 */
-	public static void writeCSV(String fileName, List<Sample> list) {
+	public static void writeCSV(String fileName, Set<Sample> list) {
 		fileName = fileName+".csv";
 		FileWriter fileWriter = null;
 		CSVPrinter csvFilePrinter = null;

@@ -1,7 +1,9 @@
 package FileTools;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import DataBase.Sample;
 import DataBase.wifi;
@@ -22,13 +24,13 @@ public class detailsToCSV {
 	 * @param list of string array 
 	 * @return Sample list
 	 */
-	public static List<Sample> SampleList(List<String[]> list){
+	public static Set<Sample> SampleList(List<String[]> list){
 //		int line=0;
 		Location currenLocation= new Location(list.get(0)[6], list.get(0)[7], list.get(0)[8]);
 		Location nextLocation= new Location(list.get(1)[6], list.get(1)[7], list.get(1)[8]);
 		String Time= list.get(0)[3];
 
-		List<Sample> FinalList = new ArrayList<Sample>();
+		Set<Sample> FinalList = new HashSet<Sample>();
 
 		int next=0;
 		for(int row=0;row<list.size();row++){

@@ -33,8 +33,55 @@ public class Sample {
 
 
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((listOfWifi == null) ? 0 : listOfWifi.hashCode());
+		result = prime * result + ((location == null) ? 0 : location.hashCode());
+		result = prime * result + ((time == null) ? 0 : time.hashCode());
+		result = prime * result + ((wifiAmount == null) ? 0 : wifiAmount.hashCode());
+		return result;
+	}
 
-
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Sample other = (Sample) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (listOfWifi == null) {
+			if (other.listOfWifi != null)
+				return false;
+		} else if (!listOfWifi.equals(other.listOfWifi))
+			return false;
+		if (location == null) {
+			if (other.location != null)
+				return false;
+		} else if (!location.equals(other.location))
+			return false;
+		if (time == null) {
+			if (other.time != null)
+				return false;
+		} else if (!time.equals(other.time))
+			return false;
+		if (wifiAmount == null) {
+			if (other.wifiAmount != null)
+				return false;
+		} else if (!wifiAmount.equals(other.wifiAmount))
+			return false;
+		return true;
+	}
+	
 	@Override
 	public String toString() {
 		return "Sample [Time=" + time + ", Id=" + id + ", WifiAmount=" + wifiAmount + ", location=" + location

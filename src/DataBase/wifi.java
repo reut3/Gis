@@ -14,6 +14,49 @@ package DataBase;
 
 public class wifi implements Comparable<wifi> {
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((channel == null) ? 0 : channel.hashCode());
+		result = prime * result + ((mac == null) ? 0 : mac.hashCode());
+		result = prime * result + ((rssi == null) ? 0 : rssi.hashCode());
+		result = prime * result + ((ssid == null) ? 0 : ssid.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		wifi other = (wifi) obj;
+		if (channel == null) {
+			if (other.channel != null)
+				return false;
+		} else if (!channel.equals(other.channel))
+			return false;
+		if (mac == null) {
+			if (other.mac != null)
+				return false;
+		} else if (!mac.equals(other.mac))
+			return false;
+		if (rssi == null) {
+			if (other.rssi != null)
+				return false;
+		} else if (!rssi.equals(other.rssi))
+			return false;
+		if (ssid == null) {
+			if (other.ssid != null)
+				return false;
+		} else if (!ssid.equals(other.ssid))
+			return false;
+		return true;
+	}
+
 	private String mac;
 	private String rssi; //signal!
 	private String channel;
