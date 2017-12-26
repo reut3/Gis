@@ -1,37 +1,119 @@
 <!DOCTYPE html>
-<html dir='rtl' lang='he'>
-
-<head>
-	<title>Web</title>
-	<script src='jquery-3.2.1.min.js'></script>
+<html lang="en">
+  <head>
+    <script src='js/jquery-3.2.1.min.js'></script>
 	<meta charset="utf-8"></meta>
+	<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+  </head>
 
 
-</head>
-
-<body>
-	<div id="welcome">
-
-		<script>
-			function openInNewTab(url) {
-			var win = window.open(url, '_blank', "width=801,height=500");
-			win.focus();
-			}
-		</script>
-	
-	
- 
-		<div onclick="openInNewTab('http://127.0.0.1:8888/file/web1.html');">לחצו כאן כדי להכנס לאפליקצייה</div>
-
+  <body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 main1">                
+                <div class="row first">
+                    <div class="first_ch">
+                        <button id= 'delete' class="myButton" type ="submit" >delete dataBase</button>
+                        <button id= 'csv' class="myButton" type ="submit" >save to CSV</button>
+                        <button id= 'kml' class="myButton" type ="submit" >save to KML</button>    
+                    </div>
+                    <div class="first_ch">
+                        <div style="width: 100%">
+                            <input id="folder" class="fold" type ="search" placeholder="Enter folder's address" />
+                            <button id= "folderSend" class="send myButton" type ="submit" >send</button>
+                        </div>
+                        <div style="width: 100%">
+                            <label >
+                                <div class="choose">Choose File</div>
+                                <input type="file" name="fileToUpload" id="fileToUpload" class="myButton">
+                            </label>
+                            <button id= 'selector' class="upload myButton" type ="submit" >Upload </button>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+        
+        
+        
+        
+        <h3 >Welcome</h3>
+	<div class="row main">
+		<div class="col-md-6">
+            <button id= 'delete' type ="submit" >delete dataBase</button>
+            <button id= 'csv' type ="submit" >save to CSV</button>
+            <button id= 'kml' type ="submit" >save to KML</button>
+		</div>
+		<div class="col-md-6">
+             <h3 >בחר תיקייה, כתוב את הכתובת של התיקייה</h3>
+            <input id= 'selector' type ="search" />
+            <button id= 'selector' type ="submit" >send</button>
+             <input type="file" name="fileToUpload" id="fileToUpload">upload file
+		</div>
 	</div>
+	<div class="row get">
+		<div class="col-md-12">
+            <h3>files</h3>
+		</div>
+	</div>
+        
+        
+	<div class="row main">
+		<div class="col-md-6">
+            <h4>hello</h4>
+		</div>
+		<div class="col-md-6">
+             <div class="checkbox">
+                 Date<label><input type="checkbox" value=""></label>
+            </div>
+            <div>
 
+                
+                
+            </div>
+            <div class="checkbox">
+                Location<label><input type="checkbox" value=""></label>
+            </div>
+            <div class="checkbox">
+                Id<label><input type="checkbox" value=""></label>
+            </div>
+            <div class="checkbox">
+                none<label><input type="checkbox" value=""></label>
+            </div>
+            <div class="checkbox disabled">
+                example<label><input type="checkbox" value="" disabled></label>
+            </div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6">
+		</div>
+		<div class="col-md-6">
+		</div>
+        		</div>
+		</div>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        
+        
+<form method="get" action="file.doc">
+   <button type="submit">Download!</button>
+</form>
+        
+        
+        
+        
+        
+        
+        
 	<script src="js/js.js"></script>
 
 
 
-
-</body>
+  </body>
 </html>
