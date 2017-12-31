@@ -49,7 +49,20 @@ public class Checks {
 		return answer;
 	}
 
+	public static String CheckTimeForWEB(String time1){
+		time1=time1.replace('-', '/'); //replact - to /
+		String[] FixTime=time1.split(" ");
+		String time= "";
+		String[] FixDate=FixTime[0].split("/");
+		if(FixDate[0].length()==4){
+			time+= FixDate[2]+"/"+FixDate[1]+"/"+FixDate[0]+" "+FixTime[1];
+			return time;
+		}
 
+		else
+			time+= FixDate[0]+"/"+FixDate[1]+"/"+FixDate[2]+" "+FixTime[1];
+		return time;
+	}
 
 
 

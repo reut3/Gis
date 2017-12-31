@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import javax.swing.*;
 
 import DataBase.Sample;
+import FileTools.Checks;
 
 /**
  * class filter- filters list of Samples <br>
@@ -34,7 +35,8 @@ public class filter {
 
 		time1= time1.trim();
 		time2= time2.trim();
-
+		time1=Checks.CheckTimeForWEB(time1);
+		time2=Checks.CheckTimeForWEB(time2);
 		try{
 			Date d1;
 			Date d2;
