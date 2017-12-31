@@ -1,5 +1,26 @@
 $(document).ready(function () {
+    $(".onNone").attr("disabled", "disabled");
 
+    
+var filter1="";
+var filter2="";
+var Woperation="none"; 
+var files=false;
+    
+//applay filter field    
+$("input#applyFilter").click(function() {
+        if ($("h3#filter").text() != "" && files==true) {
+            $("h3#text").text("The filter has applied");
+        }
+        else{
+             alert("nothing to filter");
+        }
+})
+    
+    
+    
+    
+    
 $("button#folderSend").click(function() {
 			var input = $("input#folder").val();
 			$.ajax(
@@ -14,6 +35,7 @@ $("button#folderSend").click(function() {
                     else{
                         $("h3#text").text("The folder has recived, the DataBase has updated ");
                         $(".hide").css("display", "inline");
+                        files=true;
                     }
 				}
 			);
@@ -31,12 +53,23 @@ $("button#upload").click(function(){
 });
     
 $("button#csv").click(function(){
-        $("h3#text").text("The file saved as CSV! on your computer! under the name 'finalFile'");
-        $(".hide").css("display", "inline");
+        var input = Woperation+","+filter1+","+filter2;
         $.ajax(
-                {
-                    "url": encodeURI("/toCSV?" +input)
-                })
+				{
+					"url": encodeURI("/toCSV?" +input)
+				}
+			).then(
+				function(output) {
+                    if(output!="1"){
+                        alert(output);
+                    }
+                    else{
+                        $("h3#text").text("The file saved as CSV on your computer! under the name 'finalFile'");
+                        $(".hide").css("display", "inline");
+                    }
+				}
+			);
+			return false
 });
 
 
@@ -51,11 +84,22 @@ $("button#kml").click(function(){
 
 
 $("button#delete").click(function(){
-        $("h3#text").text("The dataBase has deleted'");
         $.ajax(
             {
-				"url": encodeURI("/delete?" +input)
-            })
+				"url": encodeURI("/delete?")
+            }).then(
+				function(output) {
+                    if(output!="1"){
+                        alert(output);
+                    }
+                    else{
+                        $("h3#text").text("The dataBase has deleted");
+                        $(".hide").css("display", "inline");
+                        files=false;
+                    }
+				}
+			);
+			return false
 });
     
     
@@ -63,32 +107,13 @@ $("button#delete").click(function(){
     
     
     
-var filter1="";
-var filter2="";
-var Woperation="one"; 
 
-//applay filter field    
-$("input#applyFilter").click(function() {
-			var input = Woperation+","+filter1+","+filter2;
-			$.ajax(
-				{
-					"url": encodeURI("/folder?" +input)
-				}
-			).then(
-				function(output) {
-					//$("div#output").html("")
-					$("div#output").append("<div>The reverse of '"+input+"' is '"+output+"'</div>")
-				}
-			);
-			return false
-		})
     
     
     
     
     
-    
-    
+   
     
     
     
@@ -174,8 +199,9 @@ $("input[type=checkbox]#date").on("change", function(){
                   }
                 $("#operation").css("display", "inline-block");
                 $(".toggle").css("display", "inline-block");
+                Woperation="one";                
             }
-            else{ //if the filter field is not empty
+            else if($("h3#filter1").text() == ""){ //if the filter field is not empty
                 if ($("input[type=checkbox]#NotDate").is(':checked')) {
                     $("h3#filter1").append(" Not between the Dates  "+final);
                     not=1;
@@ -188,11 +214,14 @@ $("input[type=checkbox]#date").on("change", function(){
                     Woperation="and";
                 }
             }
-     $.ajax(
-				{
-					"url": encodeURI("/folder?" +final+" "+not)
-				}
-			)
+            else{
+                alert("You can't choose more than 2 filters at one time");
+                $(".hidedate").css("display", "none");
+                if($("input.onNone:checkbox:checked").length>2){
+                    $("input#date").prop("checked", false);
+                }
+
+            }
      
 })   
   
@@ -212,13 +241,14 @@ $("input[type=checkbox]#date").on("change", function(){
                     filter1="Location,1,"+input1+","+input11+","+input2+","+input22;
                     }
                   else{
-                    $("h3#filter1").append(" Locations between "+final);
+                    $("h3#filter").append(" Locations between "+final);
                     filter1="Location,0,"+input1+","+input11+","+input2+","+input22;
                   }
                 $("#operation").css("display", "inline-block");
                 $(".toggle").css("display", "inline-block");
+                Woperation="one";                
             } 
-            else{ //if the filter field is not empty
+            else if($("h3#filter1").text() == ""){ //if the filter field is not empty
                 if ($("input[type=checkbox]#NotLocation").is(':checked')) {
                         $("h3#filter1").append(" Not between the locations  "+final);
                         not=1;
@@ -232,6 +262,13 @@ $("input[type=checkbox]#date").on("change", function(){
 
                 }
             }
+            else{
+                alert("You can't choose more than 2 filters at one time");
+                $(".hidelock").css("display", "none");
+                if($("input.onNone:checkbox:checked").length>2){
+                $("input#location").prop("checked", false);
+                }
+            }
 })    
     
     
@@ -240,7 +277,8 @@ $("input[type=checkbox]#date").on("change", function(){
  $("input#applyID").click(function() {
 			var final = $("input#idName").val();
             var not=0;
-            
+     
+            if(final!=""){
             if ($("h3#filter").text() == "") {
                 if ($("input[type=checkbox]#NotID").is(':checked')) {
                     $("h3#filter").append(" Not with the ID:  "+final);
@@ -252,10 +290,11 @@ $("input[type=checkbox]#date").on("change", function(){
                       filter1="ID,0,"+final;
 
                   }
+                Woperation="one";
                 $("#operation").css("display", "inline-block");
                 $(".toggle").css("display", "inline-block");
             } 
-            else{ //if the filter field is not empty
+            else if($("h3#filter1").text() == ""){ //if the filter field is not empty
                 if ($("input[type=checkbox]#NotID").is(':checked')) {
                     $("h3#filter1").append(" Not with the ID:  "+final);
                     not=1;
@@ -268,9 +307,22 @@ $("input[type=checkbox]#date").on("change", function(){
                     Woperation="and";
                 }
             }
+            else{
+                alert("You can't choose more than 2 filters at one time");
+                $(".hideID").css("display", "none");
+                if($("input.onNone:checkbox:checked").length>2){
+                $("input#ID").prop("checked", false);
+                }
+            }
+        }
+    else{
+        alert("unvalid ID, please enter ID");
+    }
 })     
     
-    
+               
+
+
 
 //reset all the checkbox
  function resetAll(){
@@ -284,9 +336,9 @@ $("input[type=checkbox]#date").on("change", function(){
         $("h3#filter1").text("");
         $("#operation").css("display", "none");
         $(".toggle").css("display", "none");
-        Woperation="one";
+        Woperation="none";
         filter1=null;
-        filter1=null;
+        filter2=null;
 
  }     
     
