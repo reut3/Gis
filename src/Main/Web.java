@@ -15,6 +15,8 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
+import DataBase.DataBase;
+import DataBase.Sample;
 import FileTools.CsvFile;
 
 import java.net.InetSocketAddress;
@@ -40,14 +42,17 @@ public class Web {
 				if (Files.exists(path)) {
 					CsvFile.readCSV(input);
 					output="1";
-					System.out.println("The csv file has created successfully in your folder");
+					System.out.println("The folder has recived, the DataBase has updated");
+					System.out.println();
 				}
 				else {
 					output = "The folder dosen't exist, please try again";
+					System.out.println();
 				}
 			}
 			catch (Throwable ex) {
 				output = "The folder dosen't exist, please try again";
+				System.out.println();
 			}
 			System.out.println(output);
 			request.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
@@ -61,6 +66,69 @@ public class Web {
 			}
 		});
 
+
+
+		server.createContext("/delete", request -> {
+			String output = null;
+			try {
+				if (DataBase.FinalDataBase.size()!=0) {
+					DataBase.RemoveAll();
+					output="1";
+					System.out.println("deleted");
+				}
+				else {
+					output = "The dataBase is already empty";
+				}
+			}
+			catch (Throwable ex) {
+				output = "The dataBase is already empty";
+			}
+			request.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+			request.getResponseHeaders().set("Content-Type", "text/plain");
+			request.sendResponseHeaders(200, 0);
+			try (OutputStream os = request.getResponseBody()) {
+				os.write(output.getBytes(StandardCharsets.UTF_8));
+			} catch (Exception ex) {
+				System.out.println("Cannot send response to client");
+				ex.printStackTrace();
+			}
+		});
+
+
+
+
+		server.createContext("/toCSV", request -> {
+			String output = null;
+			try {
+				String input = request.getRequestURI().getQuery();
+				System.out.println("The input is: "+input);
+				//if the database is not empty->save it to csv
+				if (DataBase.FinalDataBase.size()!=0) {
+					Filter.CheckFilter.WhichOP(input);
+					System.out.println("now"+DataBase.FinalFilterDatabase.size());
+
+					FileTools.CsvFile.writeCSV("finalfile1", DataBase.FinalFilterDatabase);
+					output="1";
+					System.out.println("The csv file has created successfully in your folder");
+				}
+				else {
+					output = "The dataBase is empty, nothing to save";
+				}
+			}
+			catch (Throwable ex) {
+				output = "The dataBase is empty, nothing to save";
+			}
+			System.out.println(output);
+			request.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+			request.getResponseHeaders().set("Content-Type", "text/plain");
+			request.sendResponseHeaders(200, 0);
+			try (OutputStream os = request.getResponseBody()) {
+				os.write(output.getBytes(StandardCharsets.UTF_8));
+			} catch (Exception ex) {
+				System.out.println("Cannot send response to client");
+				ex.printStackTrace();
+			}
+		});
 
 
 
@@ -105,7 +173,7 @@ public class Web {
 		});
 
 
-
+		DataBase database=new DataBase();
 		System.out.println("WebServer is up. "+
 				"To enter the web, go to http://127.0.0.1:"+port+"/file/web.html");
 		server.start();
