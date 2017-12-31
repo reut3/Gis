@@ -1,5 +1,8 @@
 package Main;
 
+import java.util.function.Predicate;
+
+import DataBase.Sample;
 import FileTools.CsvFile;
 import FileTools.KmlFile;
 
@@ -23,7 +26,9 @@ public class Main {
 		
 //		algo2 print csv file named algo2
 		algos.algo2("C:\\Users\\Inon\\git\\matala\\finalfile.csv","C:\\Users\\Inon\\git\\matala\\testAlgo2.csv","algo2", 3);
-
+		
+	//	DataBase.DataBase.FinalFilterDatabase=Filter.filter.filters(DataBase.DataBase.FinalDataBase, Filter.filter.equalAltLon(65,55,3 ), Filter.filter.equalId("inon"));
+		System.out.println(DataBase.DataBase.FinalFilterDatabase);
 //		long b= System.currentTimeMillis();
 //		System.out.println(b-a);
 		
@@ -38,6 +43,7 @@ public class Main {
 		
 
 	}
+
 
 }
 

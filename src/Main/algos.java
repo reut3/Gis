@@ -17,7 +17,7 @@ import org.apache.commons.csv.CSVRecord;
 import DataBase.MacSignal;
 import DataBase.Sample;
 import DataBase.wifi;
-import FileTools.filter;
+import Filter.filter;
 import Location.Location;
 import Location.Weight;
 

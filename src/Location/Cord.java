@@ -9,29 +9,7 @@ package Location;
  */
 public class Cord {
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		long temp;
-		temp = Double.doubleToLongBits(cord);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		return result;
-	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Cord other = (Cord) obj;
-		if (Double.doubleToLongBits(cord) != Double.doubleToLongBits(other.cord))
-			return false;
-		return true;
-	}
 
 	private double cord;
 	
@@ -75,7 +53,29 @@ public class Cord {
 			return true;
 		else return false;
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		long temp;
+		temp = Double.doubleToLongBits(cord);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Cord other = (Cord) obj;
+		if (Double.doubleToLongBits(cord) != Double.doubleToLongBits(other.cord))
+			return false;
+		return true;
+	}
 
 
 

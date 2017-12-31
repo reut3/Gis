@@ -13,6 +13,7 @@ import org.apache.commons.csv.CSVRecord;
 
 import DataBase.Sample;
 import DataBase.wifi;
+import Filter.filter;
 import de.micromata.opengis.kml.v_2_2_0.Document;
 import de.micromata.opengis.kml.v_2_2_0.Kml;
 import de.micromata.opengis.kml.v_2_2_0.TimeStamp;
@@ -78,8 +79,10 @@ public class KmlFile {
 
 		
 		//choose a filter
-		List<Sample> list= filter.whichFilter(SampleList);	
-		
+		/////////////////////////////////////////////////////////
+		//List<Sample> list= filter.whichFilter(SampleList);	
+		List<Sample> list= SampleList;
+		////////////////////////////////////////////////////////
 		//delete double macs
 		list= filter.MACfilter(list);
 		

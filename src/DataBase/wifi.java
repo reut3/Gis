@@ -130,7 +130,7 @@ public class wifi implements Comparable<wifi> {
 		else{
 			return "";
 		}
-	}
+	}      
 
 	/**
 	 * 

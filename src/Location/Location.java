@@ -10,43 +10,6 @@ package Location;
 
 public class Location{
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((alt == null) ? 0 : alt.hashCode());
-		result = prime * result + ((lat == null) ? 0 : lat.hashCode());
-		result = prime * result + ((lon == null) ? 0 : lon.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Location other = (Location) obj;
-		if (alt == null) {
-			if (other.alt != null)
-				return false;
-		} else if (!alt.equals(other.alt))
-			return false;
-		if (lat == null) {
-			if (other.lat != null)
-				return false;
-		} else if (!lat.equals(other.lat))
-			return false;
-		if (lon == null) {
-			if (other.lon != null)
-				return false;
-		} else if (!lon.equals(other.lon))
-			return false;
-		return true;
-	}
-
 
 	//location features:
 	private Cord lat;
@@ -129,6 +92,43 @@ public class Location{
 		else return false;
 
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((alt == null) ? 0 : alt.hashCode());
+		result = prime * result + ((lat == null) ? 0 : lat.hashCode());
+		result = prime * result + ((lon == null) ? 0 : lon.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Location other = (Location) obj;
+		if (alt == null) {
+			if (other.alt != null)
+				return false;
+		} else if (!alt.equals(other.alt))
+			return false;
+		if (lat == null) {
+			if (other.lat != null)
+				return false;
+		} else if (!lat.equals(other.lat))
+			return false;
+		if (lon == null) {
+			if (other.lon != null)
+				return false;
+		} else if (!lon.equals(other.lon))
+			return false;
+		return true;
+	}
+
 
 
 	@Override
