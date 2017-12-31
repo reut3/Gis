@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 
 import DataBase.Sample;
 
-public class Filter2 {
+public class CheckFilter {
 
 
 
