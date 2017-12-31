@@ -31,7 +31,7 @@ public class Web {
 		HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
 
 
-
+		DataBase database=new DataBase();
 		//select a folder 
 		server.createContext("/folder", request -> {
 			String output = null;
@@ -40,7 +40,7 @@ public class Web {
 				System.out.println("The input is: "+input);
 				Path path=Paths.get(input);
 				if (Files.exists(path)) {
-					CsvFile.readCSV(input);
+					CsvFile.readCSV(input,database);
 					output="1";
 					System.out.println("The folder has recived, the DataBase has updated");
 					System.out.println();
@@ -71,8 +71,8 @@ public class Web {
 		server.createContext("/delete", request -> {
 			String output = null;
 			try {
-				if (DataBase.FinalDataBase.size()!=0) {
-					DataBase.RemoveAll();
+				if (database.FinalDataBase.size()!=0) {
+					database.RemoveAll();
 					output="1";
 					System.out.println("deleted");
 				}
@@ -103,11 +103,11 @@ public class Web {
 				String input = request.getRequestURI().getQuery();
 				System.out.println("The input is: "+input);
 				//if the database is not empty->save it to csv
-				if (DataBase.FinalDataBase.size()!=0) {
-					Filter.CheckFilter.WhichOP(input);
-					System.out.println("now"+DataBase.FinalFilterDatabase.size());
+				if (database.FinalDataBase.size()!=0) {
+					Filter.CheckFilter.WhichOP(input,database);
+					System.out.println("now"+database.FinalFilterDatabase.size());
 
-					FileTools.CsvFile.writeCSV("finalfile1", DataBase.FinalFilterDatabase);
+					FileTools.CsvFile.writeCSV("finalfile1", database.FinalFilterDatabase);
 					output="1";
 					System.out.println("The csv file has created successfully in your folder");
 				}
@@ -173,11 +173,25 @@ public class Web {
 		});
 
 
-		DataBase database=new DataBase();
 		System.out.println("WebServer is up. "+
 				"To enter the web, go to http://127.0.0.1:"+port+"/file/web.html");
 		server.start();
 
 	}
 
-}
+}  
+
+          
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+		

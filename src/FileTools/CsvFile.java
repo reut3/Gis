@@ -13,6 +13,7 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 
+import DataBase.DataBase;
 import DataBase.Sample;
 import DataBase.wifi;
 /**
@@ -31,7 +32,7 @@ public class CsvFile {
 	 * finally send the final list to a function that write the info to csv file
 	 * @see {@link detailsToCSV}
 	 */
-	public static void readCSV(String Location){
+	public static void readCSV(String Location,DataBase database){
 		//take files from folder, and then only the csv files
 		File folder = new File(Location);
 		File[] listOfFiles = folder.listFiles();
@@ -84,8 +85,7 @@ public class CsvFile {
 
 		}//finish treating a file at a time
 		Set<Sample> samples= detailsToCSV.SampleList(collectionCSVinfo);
-		DataBase.DataBase.add(samples);
-		writeCSV("finalFile", samples);
+		database.add(samples);
 	}
 
 	/**

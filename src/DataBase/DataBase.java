@@ -5,20 +5,22 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class DataBase {
-  public static  Set<Sample> FinalDataBase = new HashSet<Sample>();
-  public static  Set<Sample> FinalFilterDatabase = new HashSet<Sample>();
+  public Set<Sample> FinalDataBase;
+  public Set<Sample> FinalFilterDatabase;
 
-	public static  void add(Set<Sample> A)
+  public DataBase ()
+  {
+	  FinalDataBase = new HashSet<Sample>();
+	  FinalFilterDatabase = new HashSet<Sample>();
+  }
+	public  void add(Set<Sample> A)
 	{
-		FinalDataBase.addAll(A);
-		//FinalFilterDatabase=FinalDataBase;
-		System.out.println(FinalDataBase.size());
-		System.out.println(A.size());	
+		this.FinalDataBase.addAll(A);
 	}
-	  static void RemoveAll(Set<Sample> A)
+	  public void RemoveAll()
 	  {
-		  FinalDataBase.clear();
-		  FinalFilterDatabase.clear();
+		  this.FinalDataBase.clear();
+		  this.FinalFilterDatabase.clear();
 	  }
 	  
 	
