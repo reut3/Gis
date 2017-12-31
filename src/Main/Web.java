@@ -26,50 +26,46 @@ public class Web {
 		// TODO Auto-generated method stub
 
 		int port = 8888;
-        HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
-        
- 
-        
-        //select a folder 
-        server.createContext("/folder", request -> {
-        	String input = request.getRequestURI().getQuery();
-        	System.out.println("The input is: "+input);
+		HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
 
-    		CsvFile.readCSV(input);
 
-    		String output="The csv file has created successfully in your folder";
-        	System.out.println("   The output is: "+output);
-        	
 
-        	request.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
-        	request.getResponseHeaders().set("Content-Type", "text/plain");
-            request.sendResponseHeaders(200 /* OK */, 0);
-            try (OutputStream os = request.getResponseBody()) {
-            	os.write(output.getBytes());
-            } catch (Exception ex) {
-            	System.out.println("Error while sending response to client");
-            	ex.printStackTrace();
-            }
-        });
-        
-        
-        
-        
-          
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-		
-        server.createContext("/file", request -> {
+		//select a folder 
+		server.createContext("/folder", request -> {
+			String output = null;
+			try {
+				String input = request.getRequestURI().getQuery();
+				System.out.println("The input is: "+input);
+				Path path=Paths.get(input);
+				if (Files.exists(path)) {
+					CsvFile.readCSV(input);
+					output="1";
+					System.out.println("The csv file has created successfully in your folder");
+				}
+				else {
+					output = "The folder dosen't exist, please try again";
+				}
+			}
+			catch (Throwable ex) {
+				output = "The folder dosen't exist, please try again";
+			}
+			System.out.println(output);
+			request.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+			request.getResponseHeaders().set("Content-Type", "text/plain");
+			request.sendResponseHeaders(200, 0);
+			try (OutputStream os = request.getResponseBody()) {
+				os.write(output.getBytes(StandardCharsets.UTF_8));
+			} catch (Exception ex) {
+				System.out.println("Cannot send response to client");
+				ex.printStackTrace();
+			}
+		});
+
+
+
+
+
+		server.createContext("/file", request -> {
 			String output = null;
 
 			try {
@@ -108,12 +104,12 @@ public class Web {
 			}
 		});
 
-                	
-        	
-        System.out.println("WebServer is up. "+
-        		"To enter the web, go to http://127.0.0.1:"+port+"/file/web.html");
-        server.start();
-		
+
+
+		System.out.println("WebServer is up. "+
+				"To enter the web, go to http://127.0.0.1:"+port+"/file/web.html");
+		server.start();
+
 	}
 
 }
