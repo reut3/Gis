@@ -4,24 +4,44 @@
     <script src='js/jquery-3.2.1.min.js'></script>
 	<meta charset="utf-8"></meta>
 	<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/checkList.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/toggle.css">
     <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    
+    
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+      <script src="https://code.jquery.timepicker.min.js"></script>
+      <script src="https://code.jquery.timepicker.min.css"></script>
+
   </head>
 
 
   <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12 main1">                
-                <div class="row first">
+            <div class="col-md-12 main1">  
+                
+                <div class="row section">
                     <div class="first_ch">
+                        
+<!--                        <input type="text" class="timepicker inputStyle"  >-->
+                        
+<!--                        accept=".csv"-->
+                        
                         <button id= 'delete' class="myButton" type ="submit" >delete dataBase</button>
-                        <button id= 'csv' class="myButton" type ="submit" >save to CSV</button>
+                        <button id= "csv" class="myButton" type ="submit" >save to CSV</button>
                         <button id= 'kml' class="myButton" type ="submit" >save to KML</button>    
                     </div>
                     <div class="first_ch">
                         <div style="width: 100%">
-                            <input id="folder" class="fold" type ="search" placeholder="Enter folder's address" />
+                            <input id="folder" class="inputStyle" type ="search" placeholder="Enter folder's address" />
                             <button id= "folderSend" class="send myButton" type ="submit" >send</button>
                         </div>
                         <div style="width: 100%">
@@ -29,81 +49,144 @@
                                 <div class="choose">Choose File</div>
                                 <input type="file" name="fileToUpload" id="fileToUpload" class="myButton">
                             </label>
-                            <button id= 'selector' class="upload myButton" type ="submit" >Upload </button>
+                            <button id= "upload" class="upload myButton" type ="submit" >Upload </button>
                         </div>
                     </div>
                 </div> 
-            </div>
-        </div>
-        
-        
-        
-        
-        <h3 >Welcome</h3>
-	<div class="row main">
-		<div class="col-md-6">
-            <button id= 'delete' type ="submit" >delete dataBase</button>
-            <button id= 'csv' type ="submit" >save to CSV</button>
-            <button id= 'kml' type ="submit" >save to KML</button>
-		</div>
-		<div class="col-md-6">
-             <h3 >בחר תיקייה, כתוב את הכתובת של התיקייה</h3>
-            <input id= 'selector' type ="search" />
-            <button id= 'selector' type ="submit" >send</button>
-             <input type="file" name="fileToUpload" id="fileToUpload">upload file
-		</div>
-	</div>
-	<div class="row get">
-		<div class="col-md-12">
-            <h3>files</h3>
-		</div>
-	</div>
-        
-        
-	<div class="row main">
-		<div class="col-md-6">
-            <h4>hello</h4>
-		</div>
-		<div class="col-md-6">
-             <div class="checkbox">
-                 Date<label><input type="checkbox" value=""></label>
-            </div>
-            <div>
-
                 
                 
-            </div>
-            <div class="checkbox">
-                Location<label><input type="checkbox" value=""></label>
-            </div>
-            <div class="checkbox">
-                Id<label><input type="checkbox" value=""></label>
-            </div>
-            <div class="checkbox">
-                none<label><input type="checkbox" value=""></label>
-            </div>
-            <div class="checkbox disabled">
-                example<label><input type="checkbox" value="" disabled></label>
-            </div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-12">
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-6">
-		</div>
-		<div class="col-md-6">
-		</div>
-        		</div>
-		</div>
+                <div id="userSapce">
+                    <h3 id="text"></h3>
+                </div> 
+                
+                <h3 style="position: relative; top:20px; left:20px; color: white; ">Filter DataBase:</h3>
 
+                <div class="row section">
+
+                    <div class="first_ch three">
+                        <div class="control-group">
+                            <div style="position: relative;">
+                            </div>
+                            <label class="control control-checkbox">
+                                Date    
+                                <input type="checkbox" class="onNone" id="date"/> 
+                                <div class="control_indicator">
+
+                                </div>
+                            </label>
+
+                            <label class="control control-checkbox">
+                                Location
+                                <input class="onNone" type="checkbox" id="location"/>
+                                <div class="control_indicator"></div>
+                            </label>
+                            
+                            <label class="control control-checkbox">
+                                ID
+                                <input class="onNone" type="checkbox" id="ID"/>
+                                <div class="control_indicator"></div>
+                            </label>
+                            
+                            <label class="control control-checkbox">
+                                None
+                                <input class="none" type="checkbox" />
+                                <div class="control_indicator"></div>
+                            </label>
+                        </div>            
+                    </div>
+                    
+                    
+                    
+                    <div class="first_ch">
+                        <a href="#openModal" class="hidedate">Choose Date range</a>
+                        <a href="#chooseLock" class="hidelock">Choose Location</a>
+                        <a href="#chooseID" class="hideID">Choose ID</a>
+                        <div>
+
+                            <div id="openModal" class="modalDialog">
+                                <div class="filterDiv">
+                                    <a href="#close"  class="close">X</a>
+                                    <input id="NotDate" class="stoggle" type="checkbox" />
+
+                                    <form action="/action_page.php">
+                                        
+                                        Enter start date:<br>
+<!--
+                                        <input id="start1" type="text" class="simple_date inputStyle "  >
+                                        <input id="end1" type="text" class="simple_date inputStyle "  >
+-->
+
+                                        <input id="start" class="inputStyle" type="date" name="bday" value="2017-05-05" onchange="myFunction()" max=>
+                                        Enter start time:<br>
+                                        <input type="time" class="inputStyle" id="startTime" step="1" value="20:00:00">
+
+                                        <br><br>
+                                        Enter end date:<br>
+                                        <input id="end"  class="inputStyle" type="date" name="bday" value="2017-05-05">
+                                        Enter end time:<br>
+                                        <input type="time" class="inputStyle" id="endTime" step="1" value="20:00:00">
+                                        <a href="#close">
+                                        <input a href="#close" id="applyDate" class="myButton send" type="button" value="applay" > </a>
+
+                                </form>
+                                </div>                         
+                            </div>
+                            
+                            <div id="chooseLock" class="modalDialog">
+                                <div class="filterDiv">
+                                    <input id="NotLocation" class="stoggle" type="checkbox" />
+                                    <a href="#close"  class="close">X</a>
+                                    <input type=number id="minlat" class="inputStyle" step=0.01 value="0"/> Choose min Lat<br />
+                                    <input type=number id="minlon" class="inputStyle" step=0.01 value="0"/> Choose min Lon<br />
+                                   <input type=number id="maxlat" class="inputStyle" step=0.01 value="0"/> Choose max Lat<br />
+                                    <input type=number id="maxlon" class="inputStyle" step=0.01 value="0"/> Choose max Lon<br />
+                                    
+                                    <a href="#close">
+                                    <input a href="#close" id="applyLocation" class="myButton send" type="button" value="applay" > </a>
+                                </div>                         
+                            </div>
+                            
+                            <div id="chooseID" class="modalDialog">
+                                <div class="filterDiv">
+                                    <input id="NotID" class="stoggle" type="checkbox" />
+                                    <a href="#close"  class="close">X</a>
+                                    <input type=text class="inputStyle" id="idName" /> Enter ID<br />
+                                    
+                                    <a href="#close">
+                                    <input a href="#close" id="applyID" class="myButton send" type="button" value="applay" > </a> </div>                         
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    
+              </div> 
+    
+              <div id="userSapceFilter">
+                 <h3 style="font-weight: bold">Filter DataBase according to:</h3><br>
+                 <div id="Text">
+                    <h3 id="filter"></h3><h3 id="operation"> AND  </h3><h3 id="filter1"></h3>
+                  </div>
+                  <div>
+                    <button id= "reset" class="send myButton" type ="submit" >Reset</button>
+                     <input class="toggle" type="checkbox" />
+                    <input id="applyFilter" class="myButton apply" type="button" value="applay Filter" >                      
+
+                  </div>
+               </div>
+                
+                
+                
+                
+                
+      </div>
         
         
-<form method="get" action="file.doc">
-   <button type="submit">Download!</button>
-</form>
+        
+        
+        
+        
+       
         
         
         
@@ -112,6 +195,9 @@
         
         
 	<script src="js/js.js"></script>
+	<script src="js/date.js"></script>
+	<script src="js/location.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 
 
 
