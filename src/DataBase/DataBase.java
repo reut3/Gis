@@ -8,14 +8,13 @@ public class DataBase {
   public Set<Sample> FinalDataBase;
   public Set<Sample> FinalFilterDatabase;
 
-  public DataBase ()
-  {
+  public DataBase (){
 	  FinalDataBase = new HashSet<Sample>();
 	  FinalFilterDatabase = new HashSet<Sample>();
   }
-	public  void add(Set<Sample> A)
-	{
+	public  void add(Set<Sample> A){
 		this.FinalDataBase.addAll(A);
+		this.FinalFilterDatabase.addAll(A);
 	}
 	  public void RemoveAll()
 	  {

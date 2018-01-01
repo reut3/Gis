@@ -105,7 +105,9 @@ public class Web {
 				//if the database is not empty->save it to csv
 				if (database.FinalDataBase.size()!=0) {
 					Filter.CheckFilter.WhichOP(input,database);
-					System.out.println("now"+database.FinalFilterDatabase.size());
+					System.out.println("now1 "+database.FinalDataBase.size());
+
+					System.out.println("now2 "+database.FinalFilterDatabase.size());
 
 					FileTools.CsvFile.writeCSV("finalfile1", database.FinalFilterDatabase);
 					output="1";
@@ -131,7 +133,38 @@ public class Web {
 		});
 
 
+		server.createContext("/toKML", request -> {
+			String output = null;
+			try {
+				String input = request.getRequestURI().getQuery();
+				System.out.println("The input is: "+input);
+				//if the database is not empty->save it to kml
+				if (database.FinalDataBase.size()!=0) {
+					Filter.CheckFilter.WhichOP(input,database);
+					System.out.println("now"+database.FinalFilterDatabase.size());
 
+					FileTools.KmlFile.write("kmlFile", database.FinalFilterDatabase);
+					output="1";
+					System.out.println("The KML file has created successfully in your folder");
+				}
+				else {
+					output = "The dataBase is empty, nothing to save";
+				}
+			}
+			catch (Throwable ex) {
+				output = "The dataBase is empty, nothing to save";
+			}
+			System.out.println(output);
+			request.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+			request.getResponseHeaders().set("Content-Type", "text/plain");
+			request.sendResponseHeaders(200, 0);
+			try (OutputStream os = request.getResponseBody()) {
+				os.write(output.getBytes(StandardCharsets.UTF_8));
+			} catch (Exception ex) {
+				System.out.println("Cannot send response to client");
+				ex.printStackTrace();
+			}
+		});
 
 		server.createContext("/file", request -> {
 			String output = null;

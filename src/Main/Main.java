@@ -14,7 +14,7 @@ public class Main {
 		
 //		long a= System.currentTimeMillis();
 	//	CsvFile.readCSV("C:\\Users\\Inon\\git\\matala\\inputFile");
-		KmlFile.readCSV("C:\\Users\\Inon\\git\\matala\\finalFile.csv");
+//		KmlFile.readCSV("C:\\Users\\Inon\\git\\matala\\finalFile.csv");
 
 
 		//CsvFile.readCSV("C:\\Users\\Inon\\git\\matala\\inputFile");

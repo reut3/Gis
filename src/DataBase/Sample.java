@@ -153,6 +153,7 @@ public class Sample {
 			else{
 				Date1 = format.parse(time);
 			}
+			System.out.println("reut"+Date1);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
