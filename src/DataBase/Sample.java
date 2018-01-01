@@ -106,6 +106,7 @@ public class Sample {
 	 * @param time
 	 */
 	private void CheckTime(String time){
+		time=time.replace('-', '/');
 		String[] SplitTime=time.split(" "); // split the time to an array
 		String[] FixDate=SplitTime[0].split("/"); //split the year, month, day to an array
 		if(FixDate[0].length()==4){ //if the year is first:
