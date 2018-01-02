@@ -13,5 +13,23 @@ $('input[name="daterange"]').daterangepicker();
     
     
     
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 		
 });

@@ -30,7 +30,11 @@ public class DataBase {
 	}
 
 	public void startHash(){
+		System.out.println("in");
+		System.out.println("1 "+this.hashMap.size());
 		this.hashMap.clear();
+		System.out.println("2 "+this.hashMap.size());
+
 		ArrayList<Sample> list= new ArrayList<Sample>();
 		list.addAll(this.FinalFilterDatabase);
 		for(int i=0; i<list.size(); i++){
@@ -44,6 +48,8 @@ public class DataBase {
 				this.hashMap.get(key).add(toAdd);
 			}
 		}
+		System.out.println("3 "+this.hashMap.size());
+
 	}
 	
 	public void updateHash(Set<Sample> A){

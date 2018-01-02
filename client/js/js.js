@@ -40,6 +40,17 @@ $("input#applyFilter").click(function() {
 
 				}
 			);
+        $.ajax(
+				{
+					"url": encodeURI("/router?")
+				}
+			).then(
+				function(output) {
+                  $("h3#text4").text("The filtered DataBase contains "+output+ " routers");
+                  $(".hide").css("display", "inline");
+
+				}
+			);
 			return false;		
 })
     
@@ -83,6 +94,17 @@ $("button#folderSend").click(function() {
 			).then(
 				function(output) {
                   $("h3#text3").text("The filtered DataBase contains "+output+ " lines");
+                  $(".hide").css("display", "inline");
+
+				}
+			);
+        $.ajax(
+				{
+					"url": encodeURI("/router?")
+				}
+			).then(
+				function(output) {
+                  $("h3#text4").text("The filtered DataBase contains "+output+ " routers");
                   $(".hide").css("display", "inline");
 
 				}
@@ -136,6 +158,17 @@ $("button#upload").click(function() {
 
 				}
 			);
+        $.ajax(
+				{
+					"url": encodeURI("/router?")
+				}
+			).then(
+				function(output) {
+                  $("h3#text4").text("The filtered DataBase contains "+output+ " routers");
+                  $(".hide").css("display", "inline");
+
+				}
+			);
 			return false;
 		})
 
@@ -180,6 +213,18 @@ $("button#deleteFilter").click(function(){
 
 				}
 			);
+    
+        $.ajax(
+				{
+					"url": encodeURI("/router?")
+				}
+			).then(
+				function(output) {
+                  $("h3#text4").text("The filtered DataBase contains "+output+ " routers");
+                  $(".hide").css("display", "inline");
+
+				}
+			);
 			return false
 });   
     
@@ -206,15 +251,33 @@ $("button#csv").click(function(){
 });
 
 
+
+    
 //when clicked on save to kml button  
 $("button#kml").click(function(){
-        $("h3#text").text("The file saved as KML on your computer! under the name 'kmlFile'");
         $.ajax(
-                {
-                    "url": encodeURI("/toKML?" +input)
-                })
-});
-
+				{
+					"url": encodeURI("/toKML?")
+				}
+			).then(
+				function(output) {
+                    if(output!="1"){
+                        alert(output);
+                    }
+                    else{
+                        $("h3#text").text("The file saved as KML on your computer! under the name 'kmlFile'");     
+                        $(".hide").css("display", "inline");
+                    }
+				}
+			);
+			return false
+});    
+    
+    
+    
+    
+    
+    
 //when clicked on delete dataBase button  
 $("button#delete").click(function(){
     resetAll();
@@ -252,6 +315,17 @@ $("button#delete").click(function(){
 			).then(
 				function(output) {
                   $("h3#text3").text("The filtered DataBase contains "+output+ " lines");
+                  $(".hide").css("display", "inline");
+
+				}
+			);
+        $.ajax(
+				{
+					"url": encodeURI("/router?")
+				}
+			).then(
+				function(output) {
+                  $("h3#text4").text("The filtered DataBase contains "+output+ " routers");
                   $(".hide").css("display", "inline");
 
 				}

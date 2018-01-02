@@ -160,7 +160,7 @@ public class Web {
 				}
 			}
 			catch (Throwable ex) {
-				output = "The dataBase is empty, nothing to save";
+				output = "The file is open in your computer, please close it before saving";
 			}
 			System.out.println(output);
 			request.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
@@ -303,6 +303,35 @@ public class Web {
 		});
 		
 		
+		server.createContext("/router", request -> {
+			String output = "0";
+			
+			try {
+				if (database.FinalFilterDatabase.size()!=0) {
+					output= database.hashMap.size()+"";
+				}
+				else {
+					output = "0";
+				}
+			}
+			catch (Throwable ex) {
+				output = "0";
+			}
+			request.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+			request.getResponseHeaders().set("Content-Type", "text/plain");
+			request.sendResponseHeaders(200, 0);
+			try (OutputStream os = request.getResponseBody()) {
+				os.write(output.getBytes(StandardCharsets.UTF_8));
+			} catch (Exception ex) {
+				System.out.println("Cannot send response to client");
+				ex.printStackTrace();
+			}
+		});
+		
+		
+		
+		
+		
 		
 		server.createContext("/toKML", request -> {
 			String output = null;
@@ -310,7 +339,7 @@ public class Web {
 				String input = request.getRequestURI().getQuery();
 				System.out.println("The input is: "+input);
 				//if the database is not empty->save it to kml
-				if (database.FinalDataBase.size()!=0) {
+				if (database.FinalFilterDatabase.size()!=0) {
 					Filter.CheckFilter.WhichOP(input,database);
 					System.out.println("now"+database.FinalFilterDatabase.size());
 
@@ -323,7 +352,7 @@ public class Web {
 				}
 			}
 			catch (Throwable ex) {
-				output = "The dataBase is empty, nothing to save";
+				output = "The file is open in your computer, please close it before saving";
 			}
 			System.out.println(output);
 			request.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
