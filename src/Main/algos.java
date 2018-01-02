@@ -29,7 +29,7 @@ public class algos {
 	private static final String NEW_LINE_SEPARATOR = "\n";
 
 
-	private static List<Sample> readCSV(String Location){
+	public static List<Sample> readCSV(String Location){
 		List<Sample> SampleList= new ArrayList<Sample>();
 
 		FileReader fileReader = null;

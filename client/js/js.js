@@ -7,20 +7,45 @@ var filter2="";
 var Woperation="none"; 
 var files=false;
     
+    
+    
+    
+    
 //applay filter field    
 $("input#applyFilter").click(function() {
-        if ($("h3#filter").text() != "" && files==true) {
+        var input = Woperation+","+filter1+","+filter2;
+        if ($("h3#filter").text() !== "" && files ===true) {
             $("h3#text").text("The filter has applied");
-        }
-        else{
+        } else{
              alert("nothing to filter");
         }
+    
+         $.ajax(
+				{
+					"url": encodeURI("/applyFilter?"+input)
+				}
+			).then(
+				function(output) {
+				}
+			);
+            
+        $.ajax(
+				{
+					"url": encodeURI("/Flines?")
+				}
+			).then(
+				function(output) {
+                  $("h3#text3").text("The filtered DataBase contains "+output+ " lines");
+                  $(".hide").css("display", "inline");
+
+				}
+			);
+			return false;		
 })
     
     
-    
-    
-    
+  
+//when clicked on send folder button  
 $("button#folderSend").click(function() {
 			var input = $("input#folder").val();
 			$.ajax(
@@ -39,24 +64,42 @@ $("button#folderSend").click(function() {
                     }
 				}
 			);
-			return false
+        $.ajax(
+				{
+					"url": encodeURI("/lines?")
+				}
+			).then(
+				function(output) {
+                  $("h3#text2").text("The DataBase contains "+output+ " lines"); 
+                  $(".hide").css("display", "inline");
+
+				}
+			);
+            
+        $.ajax(
+				{
+					"url": encodeURI("/Flines?")
+				}
+			).then(
+				function(output) {
+                  $("h3#text3").text("The filtered DataBase contains "+output+ " lines");
+                  $(".hide").css("display", "inline");
+
+				}
+			);
+			return false;
 		})
 
 
-$("button#upload").click(function(){
-        $("h3#text").text("The file has been added to DateBase");
-        $(".hide").css("display", "inline");
-        $.ajax(
-                {
-                    "url": encodeURI("/addFile?" +input)
-                })
-});
     
-$("button#csv").click(function(){
-        var input = Woperation+","+filter1+","+filter2;
-        $.ajax(
+    
+    
+//when clicked on send file button  
+$("button#upload").click(function() {
+			var input = $("input#fileToUpload").val();
+			$.ajax(
 				{
-					"url": encodeURI("/toCSV?" +input)
+					"url": encodeURI("/upload?" +input)
 				}
 			).then(
 				function(output) {
@@ -64,7 +107,97 @@ $("button#csv").click(function(){
                         alert(output);
                     }
                     else{
-                        $("h3#text").text("The file saved as CSV on your computer! under the name 'finalFile'");
+                        $("h3#text").text("The file has recived, the DataBase has updated ");
+                        $(".hide").css("display", "inline");
+                        files=true;
+                    }
+				}
+			);
+        $.ajax(
+				{
+					"url": encodeURI("/lines?")
+				}
+			).then(
+				function(output) {
+                  $("h3#text2").text("The DataBase contains "+output+ " lines"); 
+                  $(".hide").css("display", "inline");
+
+				}
+			);
+            
+        $.ajax(
+				{
+					"url": encodeURI("/Flines?")
+				}
+			).then(
+				function(output) {
+                  $("h3#text3").text("The filtered DataBase contains "+output+ " lines");
+                  $(".hide").css("display", "inline");
+
+				}
+			);
+			return false;
+		})
+
+//when clicked on upload file button  
+$("button#upload").click(function(){
+        $("h3#text").text("The file has been added to DateBase");
+        $(".hide").css("display", "inline");
+        $.ajax(
+                {
+                    "url": encodeURI("/addFile?" +input)
+                })
+});    
+    
+    
+    
+ //when clicked on delete filters history  
+$("button#deleteFilter").click(function(){
+        $.ajax(
+				{
+					"url": encodeURI("/reset?")
+				}
+			).then(
+				function(output) {
+                    if(output!="1"){
+                        alert(output);
+                    }
+                    else{
+                        $("h3#text").text("The filtered DataBase is reset");     
+                        $(".hide").css("display", "inline");
+                    }
+				}
+			);
+    
+            $.ajax(
+				{
+					"url": encodeURI("/Flines?")
+				}
+			).then(
+				function(output) {
+                  $("h3#text3").text("The filtered DataBase contains "+output+ " lines");
+                  $(".hide").css("display", "inline");
+
+				}
+			);
+			return false
+});   
+    
+    
+    
+//when clicked on save to csv button  
+$("button#csv").click(function(){
+        $.ajax(
+				{
+					"url": encodeURI("/toCSV?")
+				}
+			).then(
+				function(output) {
+                    if(output!="1"){
+                        alert(output);
+                    }
+                    else{
+                        $("h3#text").text("The file saved as CSV on your computer! under the name 'finalFile'");     
                         $(".hide").css("display", "inline");
                     }
 				}
@@ -73,7 +206,7 @@ $("button#csv").click(function(){
 });
 
 
-
+//when clicked on save to kml button  
 $("button#kml").click(function(){
         $("h3#text").text("The file saved as KML on your computer! under the name 'kmlFile'");
         $.ajax(
@@ -82,8 +215,9 @@ $("button#kml").click(function(){
                 })
 });
 
-
+//when clicked on delete dataBase button  
 $("button#delete").click(function(){
+    resetAll();
         $.ajax(
             {
 				"url": encodeURI("/delete?")
@@ -99,14 +233,36 @@ $("button#delete").click(function(){
                     }
 				}
 			);
+        $.ajax(
+				{
+					"url": encodeURI("/lines?")
+				}
+			).then(
+				function(output) {
+                  $("h3#text2").text("The DataBase contains "+output+ " lines"); 
+                  $(".hide").css("display", "inline");
+
+				}
+			);
+            
+        $.ajax(
+				{
+					"url": encodeURI("/Flines?")
+				}
+			).then(
+				function(output) {
+                  $("h3#text3").text("The filtered DataBase contains "+output+ " lines");
+                  $(".hide").css("display", "inline");
+
+				}
+			);
 			return false
+    
 });
     
     
 
-    
-    
-    
+
 
     
     

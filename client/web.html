@@ -38,32 +38,45 @@
                         <button id= 'delete' class="myButton" type ="submit" >delete dataBase</button>
                         <button id= "csv" class="myButton" type ="submit" >save to CSV</button>
                         <button id= 'kml' class="myButton" type ="submit" >save to KML</button>    
+                        <button id= 'deleteFilter' class="myButton" type ="submit" >delete Filters</button>    
+
                     </div>
                     <div class="first_ch">
                         <div style="width: 100%">
                             <input id="folder" class="inputStyle" type ="search" placeholder="Enter folder's address" />
                             <button id= "folderSend" class="send myButton" type ="submit" >send</button>
                         </div>
+<!--
                         <div style="width: 100%">
                             <label >
                                 <div class="choose">Choose File</div>
                                 <input type="file" name="fileToUpload" id="fileToUpload" class="myButton">
                             </label>
-                            <button id= "upload" class="upload myButton" type ="submit" >Upload </button>
+                            <button id= "up" class="send myButton" type ="submit" >Upload</button>
+
                         </div>
+-->
+                        
+                        <div style="width: 100%">
+                            <input id="fileToUpload" class="inputStyle" type ="search" placeholder="Enter file's address" />
+                            <button id= "upload" class="send myButton" type ="submit" >send</button>
+                        </div>
+                        
                     </div>
                 </div> 
                 
                 
                 <div id="userSapce">
                     <h3 id="text"></h3>
+                    <h3 id="text2" class="Stext"></h3>
+                    <h3 id="text3" class="Stext"></h3>
                 </div> 
                 
                 <h3 style="position: relative; top:20px; left:20px; color: white; ">Filter DataBase:</h3>
 
                 <div class="row section">
 
-                    <div class="first_ch three">
+                    <div class="first_ch ">
                         <div class="control-group">
                             <div style="position: relative;">
                             </div>
@@ -174,6 +187,95 @@
 
                   </div>
                </div>
+                
+                
+
+                
+               
+                
+                
+               <div class="row title">
+                    <div class=" algos">
+                        <h3 style="color:white">Algo 1:</h3>
+                        <h4>Enter mac to get his Location</h4>
+
+                    </div>
+                    <div class=" algos ">
+                        <h3 style="color:white">Algo 2:</h3>
+                        <h4 >Enter pairs of mac and signal to get Location </h4>
+                    </div>                          
+              </div>  
+                
+                
+                <div class="row section">
+                    <div class="first_ch algos space">
+                        <input id="mac" class="inputStyle" type ="search" placeholder="Enter mac" />
+                        <input id="Location1" class="myButton apply" type="button" value="Find Location" >                      
+
+                    </div>
+                      
+                    
+                    <div class="first_ch algos space">
+                        <h4 class="pair">Pair1:</h4>
+                        <div>
+                            <input id="mac1" class="inputStyle algo" type ="search" placeholder="Enter mac" />
+                            <input id="signal1" class="inputStyle algo" type ="number" placeholder="Enter signal" />
+                        </div>
+                        
+                        <h4 class="pair">Pair2:</h4>
+                        <div>
+                            <input id="mac2" class="inputStyle algo" type ="search" placeholder="Enter mac" />
+                            <input id="signal2" class="inputStyle algo" type ="number" placeholder="Enter signal" />
+                        </div>
+                        
+                        <h4 class="pair">Pair3:</h4>
+                        <div style="padding-bottom: 20px">
+                            <input id="mac3" class="inputStyle algo" type ="search" placeholder="Enter mac" />
+                            <input id="signal3" class="inputStyle algo" type ="number" placeholder="Enter signal" />
+                        </div>
+                        
+                        <h4 class="pair">Enter number of samples to compare with:</h4>
+                        <input id="num" class="inputStyle algo" type ="number" value="3"/>
+
+                        <input id="Location2" class="myButton apply" type="button" value="Find Location" >                      
+
+
+                    </div>
+                    
+                    
+                    
+              </div>
+                
+               <div id="userSapce">
+                    <h3 id="locationText" class="Stext"></h3>
+                </div> 
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 
                 
                 

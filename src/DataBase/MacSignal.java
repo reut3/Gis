@@ -1,5 +1,7 @@
 package DataBase;
 
+import java.util.ArrayList;
+
 public class MacSignal {
 
 	private int signal;
@@ -35,7 +37,16 @@ public class MacSignal {
 		this.mac = mac;
 	}
 	
-	
+	public static ArrayList<MacSignal> parsing(String s){
+		ArrayList<MacSignal> MacSignalInput=new ArrayList<MacSignal>();
+		String[] WhatShouldIdo=s.split(",");
+		for(int i=0;i<WhatShouldIdo.length;i++)
+		{
+			MacSignalInput.add((new MacSignal(WhatShouldIdo[i+1],WhatShouldIdo[i])));
+					i++;
+		}
+		return MacSignalInput;
+	}
 
 
 
