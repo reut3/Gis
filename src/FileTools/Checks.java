@@ -4,10 +4,10 @@ import java.io.File;
 
 /**
  * check class
- * contains 2 functions: <br>
- * FileCheck- take only csv files from given folder <br>
- * emptyLine- checks whether a csv file is ok <br>
- * 
+ * contains 3 functions: <br>
+ * FileCheck- take only CSV files from given folder <br>
+ * emptyLine- checks whether a CSV file is OK <br>
+ * CheckTimeForWEB- check if time is in a valid format
  * 
  */
 public class Checks {
@@ -49,6 +49,12 @@ public class Checks {
 		return answer;
 	}
 
+	/**
+	 * The function get string contains date and check his format,
+	 * if it's not in the wanted format->change it to it.
+	 * @param time1- String contains time
+	 * @return fixing time stored in a String
+	 */
 	public static String CheckTimeForWEB(String time1){
 		time1=time1.replace('-', '/'); //replact - to /
 		String[] FixTime=time1.split(" ");

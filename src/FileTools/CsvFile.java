@@ -16,12 +16,13 @@ import org.apache.commons.csv.CSVRecord;
 import DataBase.DataBase;
 import DataBase.Sample;
 import DataBase.wifi;
+
+
 /**
- * CsvFile class- read csv file that contains wifi samples info
- * takes 10 strongest wifi of every sample, writes it to a new csv file
+ * CsvFile class- read CSV file that contains Wifi samples info
+ * takes 10 strongest Wifi of every sample, writes it to a new CSV file
  *
  */
-
 public class CsvFile {
 
 	/**
@@ -110,7 +111,7 @@ public class CsvFile {
 	private static final String NEW_LINE_SEPARATOR = "\n";
 
 	/**
-	 * the function get list of Samples and write it to csv file
+	 * the function get list of Samples and write it to CSV file
 	 * @param fileName
 	 * @param list of Samples
 	 */

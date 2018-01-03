@@ -28,7 +28,11 @@ public class algos {
 	 */
 	private static final String NEW_LINE_SEPARATOR = "\n";
 
-
+	/**
+	 * the function reads CSV file and put all the info in a Sample list<br>
+	 * @param Location of the CSV file
+	 * @return list of Samples
+	 */
 	public static List<Sample> readCSV(String Location){
 		List<Sample> SampleList= new ArrayList<Sample>();
 
@@ -111,7 +115,13 @@ public class algos {
 		return SampleList;
 	}
 
-
+	/**
+	 * The functions gets CSV file and read it. 
+	 * if there are double macs the functions will calculate the accurate location<br>
+	 * finally it will write a file with information of every mac. 
+	 * @param fileName
+	 * @param path- of the reading file
+	 */
 	public static void algo1(String fileName ,String path) {
 		List<Sample> list= readCSV(path);
 
@@ -148,7 +158,7 @@ public class algos {
 			int num=0;
 			list= filter.MACfilter(list);
 
-			
+
 			for (Sample s: list) {
 				for(int i=0; i<s.getListOfWifi().size() && s.getListOfWifi().get(i).getMac()!=null ; i++){
 
@@ -158,14 +168,14 @@ public class algos {
 						//return new location if mac is doubled in the list
 						String tempMac=s.getListOfWifi().get(i).getMac();
 						Location location= weight.findLocation1(hashMap.get(tempMac), tempMac);
-						
+
 						if(s.getListOfWifi().get(i).getMac().equals("1c:b9:c4:16:05:38")){
-//							System.out.println("it is"+s);
-//							System.out.println(hashMap.get("1c:b9:c4:16:05:38").size());
+							//							System.out.println("it is"+s);
+							//							System.out.println(hashMap.get("1c:b9:c4:16:05:38").size());
 						}
 						List<String> IdDataRecord = new ArrayList<String>();
-						
-						
+
+
 						IdDataRecord.add(num+"");
 						IdDataRecord.add(s.getListOfWifi().get(i).getMac());
 						IdDataRecord.add(s.getListOfWifi().get(i).getSsid());
@@ -200,7 +210,14 @@ public class algos {
 		}
 	}
 
-
+	/**
+	 * The functions reads every line=sample in a CSV file,
+	 * and calculate the accurate location of the taken sample
+	 * @param pathDataBase- path of the file with the dataBase
+	 * @param path- of the reading file
+	 * @param fileName
+	 * @param num of samples to compare with
+	 */
 	public static void algo2(String pathDataBase,String path,String fileName, int num){
 		List<Sample> listDataBase= readCSV(pathDataBase);
 		List<Sample> listToFind= readCSV(path);

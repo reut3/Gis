@@ -1,17 +1,22 @@
 package Filter;
 
-import java.io.Serializable;
 import java.util.Set;
-import java.util.function.Predicate;
-
 import DataBase.DataBase;
 import DataBase.Sample;
 
+/**
+ * 
+ * CheckFilter class- contain one function: WhichOP
+ * the class builded in order to help parsing information the Server gets.
+ */
 public class CheckFilter {
 
-
-
-
+	/**
+	 * The function gets String contains filter's information, 
+	 * The functions execute the filter on the object DataBase
+	 * @param s- string with filter information
+	 * @param database
+	 */
 	public static void WhichOP(String s,DataBase database)
 	{
 

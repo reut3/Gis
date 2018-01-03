@@ -21,77 +21,12 @@ import de.micromata.opengis.kml.v_2_2_0.TimeStamp;
 
 /**
  * kmlFile class contains the functions: <br>
- * readCSV function- reads the csv file, put it into Sample list, call filter function that return filterd list,
- * call write function with the Sample list <br>
  * write function- write the Sample list to kml file
+ * description- get wifi object and return string with the wifi's info
  */
 public class KmlFile {
 
-//	/**
-//	 * the function reads csv file and put all the info in a Sample list<br>
-//	 * call filter function, that return filtered list of Samples<br>
-//	 * finally calls to write function, that write the list to kml file
-//	 * @param Location of the csv file
-//	 */
-//	public static void readCSV(String Location){
-//		List<Sample> SampleList= new ArrayList<Sample>();
-//
-//		FileReader fileReader = null;
-//
-//		CSVParser csvFileParser = null;
-//
-//		CSVFormat csvFileFormat = CSVFormat.DEFAULT.withSkipHeaderRecord();
-//		try {
-//
-//			//initialize FileReader object
-//			fileReader = new FileReader(Location);
-//
-//			//initialize CSVParser object
-//			csvFileParser = new CSVParser(fileReader, csvFileFormat);
-//
-//			//Get a list of CSV file records
-//			List<CSVRecord> csvRecords = csvFileParser.getRecords(); 
-//
-//			//Read the CSV file records starting from the second record to skip the header
-//			for (int j = 1; j < csvRecords.size(); j++) {
-//				CSVRecord record = csvRecords.get(j);
-//				List<wifi> listOfWifi= new ArrayList<wifi>();
-//				for( int i=6; i<record.size(); ){
-//					listOfWifi.add(new wifi(record.get(i), record.get(i+1), record.get(i+3), record.get(i+2)));
-//					i+=4;
-//				}
-//				Sample sample= new Sample(record.get(0), record.get(1),record.get(2),record.get(3),record.get(4),
-//						record.get(5), listOfWifi);
-//				SampleList.add(sample);
-//			}  
-//		} 
-//		catch (Exception e) {
-//			System.out.println("Error in CsvFileReader !!!");
-//			e.printStackTrace();
-//		} finally {
-//			try {
-//				fileReader.close();
-//				csvFileParser.close();
-//			} catch (IOException e) {
-//				System.out.println("Error while closing fileReader/csvFileParser !!!");
-//				e.printStackTrace();
-//			}
-//		}
-//
-//		
-//		//choose a filter
-//		/////////////////////////////////////////////////////////
-//		//List<Sample> list= filter.whichFilter(SampleList);	
-//		List<Sample> list= SampleList;
-//		////////////////////////////////////////////////////////
-//		//delete double macs
-//		list= filter.MACfilter(list);
-//		
-//		//write the list to kml file
-//		write("kmlFile", list);
-//
-//		
-//	}
+
 
 	/**
 	 * the function write the Sample list to a kml file<br>

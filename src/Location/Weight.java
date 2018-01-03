@@ -10,14 +10,13 @@ import DataBase.WifiLocation;
 
 /**
  * class Weight- find accurate location of mac or sample <br>
- * hsa two finding location functions:<br>
+ * has two finding location functions:<br>
  * findLocation1 function and findLocation2 function
  */
 public class Weight{
 
-	//Weight features:
+	//Weight feature:
 	int strongestSignalsNum= 4;	
-	//	int approxSignalNum= 4;
 
 
 	/**

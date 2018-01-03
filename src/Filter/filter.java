@@ -15,20 +15,22 @@ import FileTools.Checks;
 /**
  * class filter- filters list of Samples <br>
  * has the functions:<br>
- * equalTime function, equalId function, equalAltLon function, none function, 
- * whichFilter function, filters function, MACfilter function
+ * equalTime function, equalId function, equalAltLon function, 
+ * filters function, MACfilter function, filterAnd function
  *
  */
 
 public class filter {
-	static JFrame f;  
 
 
 	/**
-	 * the function gets two dates return the samples from the list that their dates between
+	 * the function get 3 Strings: time1, time2  and Not
+	 * if Not is "0" return the samples from the list that their time is between time1 and time1
+	 * if Not is "1" return the samples from the list that their time is Not between time1 and time1
+	 * @param Not- string "0"/"1"
 	 * @param time1
 	 * @param time2
-	 * @return the filterd list of Samples
+	 * @return the filtered list of Samples
 	 */
 	public static Predicate<Sample> equalTime(String Not,String time1,String time2) {
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -55,10 +57,10 @@ public class filter {
 				d2= format.parse(time2);
 			}
 			if(Not.equals("0"))
-			return p -> ((p.GetTime().compareTo(d1)>0 && p.GetTime().compareTo(d2)<0) || p.GetTime().equals(d1)|| p.GetTime().equals(d2));
-			else
-				return p -> !((p.GetTime().compareTo(d1)>0 && p.GetTime().compareTo(d2)<0) || p.GetTime().equals(d1)|| p.GetTime().equals(d2));
-				
+				return p -> ((p.GetTime().compareTo(d1)>0 && p.GetTime().compareTo(d2)<0) || p.GetTime().equals(d1)|| p.GetTime().equals(d2));
+				else
+					return p -> !((p.GetTime().compareTo(d1)>0 && p.GetTime().compareTo(d2)<0) || p.GetTime().equals(d1)|| p.GetTime().equals(d2));
+
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -69,27 +71,34 @@ public class filter {
 	}
 
 	/**
-	 * the function get id and return the samples from the list that their id is identical
+	 * the function get id and String Not
+	 * if Not is "0" return the samples from the list that their id is identical
+	 * if Not is "1" return the samples from the list that their id is Not identical
 	 * @param wantedId
-	 * @return the filterd list of Samples
+	 * @param Not- string "0"/"1"
+	 * @return the filtered list of Samples
 	 */
 	public static Predicate<Sample> equalId(String Not, String wantedId) {
 		if(Not.equals("0"))
-		return p -> p.getId().equals(wantedId);
-		else
-			return p -> !(p.getId().equals(wantedId));
+			return p -> p.getId().equals(wantedId);
+			else
+				return p -> !(p.getId().equals(wantedId));
 	}
 
 
-
-
 	/**
-	 * the function get lat and lon and radius, 
-	 * return the samples from the list that their lat, lon are in the radius from the point of lat,lon
+	 * the function get 2 lat and 2 lon
+	 * return the samples from the list that their lat, lon are in the rectangle created from:
+	 * lat1 lon1, lat2 lon2
+	 * if Not is "0" return the samples from the list that their lat, lon are in the rectangle created from:
+	 * lat1 lon1, lat2 lon2
+	 * if Not is "1" return the samples from the list that their lat, lon are outside the rectangle created from:
+	 * lat1 lon1, lat2 lon2
+	 * @param Not- string "0"/"1"
 	 * @param lat1
 	 * @param lon1
 	 * @param radius
-	 * @return the filterd list of Samples
+	 * @return the filtered list of Samples
 	 */
 	public static Predicate<Sample> equalAltLon(String Not,String lat1, String lon1, String lat2, String lon2) {
 		double x1,y1,x2,y2;
@@ -98,98 +107,43 @@ public class filter {
 		x2=Double.parseDouble(lat2);
 		y2=Double.parseDouble(lon2);
 		if(Not.equals("0"))
-		return p -> (p.getLocation().getLat().getCord()>=x2 && p.getLocation().getLat().getCord()<=x1 && p.getLocation().getLon().getCord()>=y2 && p.getLocation().getLon().getCord()<=y1);
-		else
-			return p -> (p.getLocation().getLat().getCord()>=x2 && p.getLocation().getLat().getCord()<=x1 && p.getLocation().getLon().getCord()>=y2&& p.getLocation().getLon().getCord()<=y1);
+			return p -> (p.getLocation().getLat().getCord()>=x2 && p.getLocation().getLat().getCord()<=x1 && p.getLocation().getLon().getCord()>=y2 && p.getLocation().getLon().getCord()<=y1);
+			else
+				return p -> (p.getLocation().getLat().getCord()>=x2 && p.getLocation().getLat().getCord()<=x1 && p.getLocation().getLon().getCord()>=y2&& p.getLocation().getLon().getCord()<=y1);
 
-			
-	}
-
-	/**
-	 * 
-	 * @return the list of Samples with no filter affect
-	 */
-	public static Predicate<Sample> none() {
-
-		return p->(true);
 
 	}
 
-	/**
-	 * ask the user which filter he want to use, and then filter according to the answer
-	 * @param list
-	 * @return the wanted list of samples according to the request
-	 */
-//	public static  List<Sample> whichFilter(List<Sample> list){
-//		f=new JFrame(); 
-//		boolean continueAsk= false;
-//		while(continueAsk==false){
-//
-//			String filterKind=JOptionPane.showInputDialog(f,"Choose filter: id/time/location/none"); 
-//			if(filterKind.equals("location")){
-//				double lat= 10.8;
-//				double lon= 10.8;
-//				double radius= 10.8;
-//				try{
-//					String locationLat=JOptionPane.showInputDialog(f,"Enter lat");   
-//					String locationLon=JOptionPane.showInputDialog(f,"Enter lon"); 
-//					String radiusLocation=JOptionPane.showInputDialog(f,"Enter radius"); 
-//
-//					lat= Double.parseDouble(locationLat);
-//					lon= Double.parseDouble(locationLon);
-//					radius= Double.parseDouble(radiusLocation);
-//				}
-//				catch(Exception e)
-//				{
-//					System.out.println(e);
-//					System.out.println("Not in Format");	
-//				}
-//				f.dispose();
-//				continueAsk=true;
-//				return filters(list, equalAltLon(lat,lon, radius));
-//			}
-//
-//			else if(filterKind.equals("id")){
-//				String name=JOptionPane.showInputDialog(f,"Enter time id"); 
-//				f.dispose();
-//				continueAsk=true;
-//				return filters(list, equalId(name));
-//			}
-//			else if(filterKind.equals("time")){
-//				String time1=JOptionPane.showInputDialog(f,"Enter start time dd/MM/yyyy HH:mm:ss");
-//				String time2=JOptionPane.showInputDialog(f,"Enter end time dd/MM/yyyy HH:mm:ss");
-//				f.dispose();
-//				continueAsk=true;
-//				return filters(list, equalTime(time1, time2));
-//			}
-//			else if(filterKind.equals("none")){
-//				f.dispose();
-//				continueAsk=true;
-//				return filters(list, none());
-//			}
-//		}
-//		return list;
-//	}
 
 	/**
-	 * filter function
-	 * @param list of samples named sample
+	 * The function filter the set of samples- takes sample if stands in the conditions of the 
+	 * two predicates. 
+	 * @param sample
 	 * @param predicate
-	 * @return l of Samples according to the filter
+	 * @param predicate1
+	 * @return
 	 */
 	public static Set<Sample> filterAnd (Set<Sample> sample, Predicate<Sample> predicate, Predicate<Sample> predicate1) {
 		return sample.stream().parallel().filter( predicate ).filter(predicate1).collect(Collectors.<Sample>toSet());
 	}
+
+
+	/**
+	 * The function filter the set of samples- takes sample if stands in the conditions of the predicate.
+	 * @param sample- set of samples
+	 * @param predicate
+	 * @return filtered set of samples
+	 */
 	public static Set<Sample> filters (Set<Sample> sample, Predicate<Sample> predicate) {
 		return sample.stream().parallel().filter( predicate ).collect(Collectors.<Sample>toSet());
 	}
-	
+
 
 	/**
 	 * the function check if there are double macs in every sample's wifi list<br>
 	 * if there is- delete the smaller according to the ssid
 	 * @param list of samples named list
-	 * @return list of samples without doplicated macs
+	 * @return list of samples without duplicated macs
 	 */
 	public static List<Sample> MACfilter(List<Sample> list){
 

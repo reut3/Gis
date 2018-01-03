@@ -3,20 +3,14 @@ package Location;
 
 /**
  * Cord class: coordinate object, one attribute: double
- * the class contains 5 functions :
- * toString function, getCord function, setCord function, equalCord function
- * one constructor
+ * the class contains functions :
+ * equalCord, toString, equals, hashCode, setters and getters for the features
+ * one Explicit constructor
  */
 public class Cord {
-
-
-
+	//Cord's feature:
 	private double cord;
 	
-	@Override
-	public String toString() {
-		return ""+cord;
-	}
 
 	/**
 	 * Cord Explicit constructor
@@ -43,6 +37,7 @@ public class Cord {
 		this.cord = cord;
 	}
 
+	
 	/**
 	 * the function get another cord, checks if this.cord equal to other
 	 * @param other cord
@@ -53,6 +48,9 @@ public class Cord {
 			return true;
 		else return false;
 	}
+	
+	
+	//override function
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -63,6 +61,7 @@ public class Cord {
 		return result;
 	}
 
+	//override function
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -77,6 +76,11 @@ public class Cord {
 		return true;
 	}
 
+	//override function
+	@Override
+	public String toString() {
+		return ""+cord;
+	}
 
 
 

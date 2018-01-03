@@ -25,7 +25,6 @@ public class detailsToCSV {
 	 * @return Sample list
 	 */
 	public static Set<Sample> SampleList(List<String[]> list){
-//		int line=0;
 		Location currenLocation= new Location(list.get(0)[6], list.get(0)[7], list.get(0)[8]);
 		Location nextLocation= new Location(list.get(1)[6], list.get(1)[7], list.get(1)[8]);
 		String Time= list.get(0)[3];

@@ -1,5 +1,4 @@
 $(document).ready(function () {
-    $(".onNone").attr("disabled", "disabled");
 
     
 var filter1="";
@@ -69,7 +68,7 @@ $("button#folderSend").click(function() {
                         alert(output);
                     }
                     else{
-                        $("h3#text").text("The folder has recived, the DataBase has updated ");
+                        $("h3#text").text("The folder has been recived, the DataBase has updated ");
                         $(".hide").css("display", "inline");
                         files=true;
                     }
@@ -129,7 +128,7 @@ $("button#upload").click(function() {
                         alert(output);
                     }
                     else{
-                        $("h3#text").text("The file has recived, the DataBase has updated ");
+                        $("h3#text").text("The file has been recived, the DataBase has updated ");
                         $(".hide").css("display", "inline");
                         files=true;
                     }

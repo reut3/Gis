@@ -10,7 +10,6 @@ package Location;
 
 public class Location{
 
-
 	//location features:
 	private Cord lat;
 	private Cord lon;
@@ -92,6 +91,9 @@ public class Location{
 		else return false;
 
 	}
+	
+	
+	//override function
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -102,6 +104,7 @@ public class Location{
 		return result;
 	}
 
+	//override function
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -129,8 +132,7 @@ public class Location{
 		return true;
 	}
 
-
-
+	//override function
 	@Override
 	public String toString() {
 		return "Location [lat=" + lat + ", lon=" + lon + ", alt=" + alt + "]";

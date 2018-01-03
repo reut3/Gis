@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:xal="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0">
+    <Document>
+        <name>MyMarkers</name>
+        <Placemark>
+            <name>NRD90M.G950FXXU1AQJ5</name>
+            <open>1</open>
+            <description>mac: 1c:b9:c4:96:2b:e7
+SSID:  
+RSSI: -89 
+Channel: 5180</description>
+            <TimeStamp>
+                <when>2017-12-03T08:49</when>
+            </TimeStamp>
+            <Point>
+                <coordinates>35.21121884,32.10500618</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark>
+            <name>NRD90M.G950FXXU1AQJ5</name>
+            <open>1</open>
+            <description>mac: 1c:b9:c4:15:44:5c
+SSID: Ariel_University 
+RSSI: -78 
+Channel: 5220</description>
+            <TimeStamp>
+                <when>2017-12-03T08:49</when>
+            </TimeStamp>
+            <Point>
+                <coordinates>35.2104469,32.10494483</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark>
+            <name>NRD90M.G950FXXU1AQJ5</name>
+            <open>1</open>
+            <description>mac: 18:d6:c7:ad:25:1a
+SSID:  
+RSSI: -89 
+Channel: 2472</description>
+            <TimeStamp>
+                <when>2017-12-03T08:49</when>
+            </TimeStamp>
+            <Point>
+                <coordinates>35.2104469,32.10494483</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark>
+            <name>NRD90M.G950FXXU1AQJ5</name>
+            <open>1</open>
+            <description>mac: 00:1a:dd:f5:df:c4
+SSID:  
+RSSI: -89 
+Channel: 2437</description>
+            <TimeStamp>
+                <when>2017-12-03T08:49</when>
+            </TimeStamp>
+            <Point>
+                <coordinates>35.2104469,32.10494483</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark>
+            <name>NRD90M.G950FXXU1AQJ5</name>
+            <open>1</open>
+            <description>mac: 30:b5:c2:b8:40:36
+SSID:  
+RSSI: -91 
+Channel: 2472</description>
+            <TimeStamp>
+                <when>2017-12-03T08:49</when>
+            </TimeStamp>
+            <Point>
+                <coordinates>35.2104469,32.10494483</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark>
+            <name>NRD90M.G950FXXU1AQJ5</name>
+            <open>1</open>
+            <description>mac: 1c:b9:c4:94:2b:c7
+SSID:  
+RSSI: -80 
+Channel: 5180</description>
+            <TimeStamp>
+                <when>2017-12-03T08:49</when>
+            </TimeStamp>
+            <Point>
+                <coordinates>35.21095318,32.10503274</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark>
+            <name>NRD90M.G950FXXU1AQJ5</name>
+            <open>1</open>
+            <description>mac: 1c:b9:c4:15:44:5c
+SSID: Ariel_University 
+RSSI: -91 
+Channel: 5220</description>
+            <TimeStamp>
+                <when>2017-12-03T08:49</when>
+            </TimeStamp>
+            <Point>
+                <coordinates>35.21095318,32.10503274</coordinates>
+            </Point>
+        </Placemark>
+    </Document>
+</kml>
