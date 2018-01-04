@@ -20,6 +20,7 @@ import DataBase.MacSignal;
 import DataBase.Sample;
 import FileTools.CsvFile;
 import FileTools.WatchDataBase;
+import FileTools.algos;
 import Location.Weight;
 import Filter.CheckFilter;
 import Filter.WriteAndReadFilter;;

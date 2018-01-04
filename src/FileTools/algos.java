@@ -1,4 +1,4 @@
-package Main;
+package FileTools;
 
 import java.io.FileReader;
 import java.io.FileWriter;
