@@ -64,10 +64,9 @@ h3#topTitle{
 .main1{
     border-radius: 30px 30px 30px 30px;
     margin: auto;
-    margin-top: 30px;
     background: hsla(194, 82%, 81%, 0.63);
     width: 780px;
-    height: 1500px;
+    height: 1462px;
 }
 .section{
     display: flex;
@@ -87,7 +86,14 @@ h3#topTitle{
     align-items: center;
 }
 
-
+.uploadFilesSection{
+    padding-top: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: space-around;
+}
 
 
 
@@ -215,7 +221,7 @@ label {
     align-items: left;
     font-weight: bold;
     justify-content: space-around;
-    color: darkorange;
+    color: #72b352;
 }
 
 .hide{
@@ -332,7 +338,7 @@ label {
     padding-left: 20px;
     font-size: 14px;
     width: 100%;
-    height: 150px;
+    height: 270px;
     background-color: hsla(194, 82%, 96%, 0.54);
     font-weight: bold;
 }
@@ -416,9 +422,84 @@ h4{
 
 
 
+#buttonFields{
+    display: flex;
+    flex-direction: row;
+    font-size: 14px;
+    width: 100%;
+    height: 70px;
+    background-color: hsla(194, 82%, 96%, 0.54);
+    align-items: center;
+    font-weight: bold;
+    justify-content: space-around;
+    border-bottom: 1px solid #408c99;
 
 
+}
+
+div.bot{
+    border-bottom: 1px solid #408c99;
+    height: 200px;
+}
 
 
+.wrap{
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+
+.myButton1 {
+	-moz-box-shadow:inset 0px 0px 14px -3px #3e7327;
+	-webkit-box-shadow:inset 0px 0px 14px -3px #3e7327;
+	box-shadow:inset 0px 0px 14px -3px #3e7327;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #77b55a), color-stop(1, #72b352));
+	background:-moz-linear-gradient(top, #77b55a 5%, #72b352 100%);
+	background:-webkit-linear-gradient(top, #77b55a 5%, #72b352 100%);
+	background:-o-linear-gradient(top, #77b55a 5%, #72b352 100%);
+	background:-ms-linear-gradient(top, #77b55a 5%, #72b352 100%);
+	background:linear-gradient(to bottom, #77b55a 5%, #72b352 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#77b55a', endColorstr='#72b352',GradientType=0);
+	background-color:#77b55a;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #4b8f29;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #5b8a3c;
+}
+.myButton1:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #72b352), color-stop(1, #77b55a));
+	background:-moz-linear-gradient(top, #72b352 5%, #77b55a 100%);
+	background:-webkit-linear-gradient(top, #72b352 5%, #77b55a 100%);
+	background:-o-linear-gradient(top, #72b352 5%, #77b55a 100%);
+	background:-ms-linear-gradient(top, #72b352 5%, #77b55a 100%);
+	background:linear-gradient(to bottom, #72b352 5%, #77b55a 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#72b352', endColorstr='#77b55a',GradientType=0);
+	background-color:#72b352;
+}
+.myButton1:active {
+	position:relative;
+	top:1px;
+}
+
+#uploadfilter{
+    width: 200px;
+}
+
+
+.endpage{
+    background-color: hsla(194, 82%, 96%, 0.54);
+    border-radius: 0px 0px 30px 30px;
+}
 
 

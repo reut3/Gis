@@ -94,10 +94,15 @@ public class algos {
 					recordlon=record.get(3);
 					recordAlt=record.get(4);
 				}
-
-				Sample sample= new Sample(record.get(0), record.get(1),recordlat,recordlon,recordAlt,
-						record.get(5), listOfWifi);
-				SampleList.add(sample);
+				try{
+					Sample sample= new Sample(record.get(0), record.get(1),recordlat,recordlon,recordAlt,
+							record.get(5), listOfWifi);
+					SampleList.add(sample);
+				}catch(Exception e){
+					System.out.println("not in format 46 CSV file");
+					break;
+				}
+				
 			}  
 		} 
 		catch (Exception e) {

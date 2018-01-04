@@ -73,7 +73,6 @@ public class CsvFile {
 			} 
 			catch (Exception e) {
 				System.out.println("Error in CsvFileReader !!!");
-				e.printStackTrace();
 			} finally {
 				try {
 					fileReader.close();

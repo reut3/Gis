@@ -29,39 +29,17 @@
             <div class="warpText"><h3 id="topTitle">Welcome</h3></div>
             
             <div class="col-md-12 main1">  
-                
                 <div class="row section">
-                    <div class="first_ch">
-                        
-<!--                        <input type="text" class="timepicker inputStyle"  >-->
-                        
-<!--                        accept=".csv"-->
-                        
-                        <button id= 'delete' class="myButton" type ="submit" >delete dataBase</button>
-                        <button id= "csv" class="myButton" type ="submit" >save to CSV</button>
-                        <button id= 'kml' class="myButton" type ="submit" >save to KML</button>    
-                        <button id= 'deleteFilter' class="myButton" type ="submit" >delete Filters</button>    
-
-                    </div>
-                    <div class="first_ch">
-                        <div style="width: 100%">
+                    <div class="uploadFilesSection">
+                        <div>
                             <input id="folder" class="inputStyle" type ="search" placeholder="Enter folder's address" />
-                            <button id= "folderSend" class="send myButton" type ="submit" >send</button>
+                            <button id= "folderSend" class="send myButton" type ="submit" >Upload</button>
                         </div>
-<!--
-                        <div style="width: 100%">
-                            <label >
-                                <div class="choose">Choose File</div>
-                                <input type="file" name="fileToUpload" id="fileToUpload" class="myButton">
-                            </label>
-                            <button id= "up" class="send myButton" type ="submit" >Upload</button>
 
-                        </div>
--->
                         
                         <div style="width: 100%">
                             <input id="fileToUpload" class="inputStyle" type ="search" placeholder="Enter file's address" />
-                            <button id= "upload" class="send myButton" type ="submit" >send</button>
+                            <button id= "upload" class="send myButton" type ="submit" >Upload</button>
                         </div>
                         
                     </div>
@@ -76,9 +54,18 @@
 
                 </div> 
                 
+                 <div id="buttonFields">
+                   <div class="wrap">
+                        <button id= 'delete' class="myButton" type ="submit" >Delete dataBase</button>
+                        <button id= "csv" class="myButton" type ="submit" >Save to CSV</button>
+                        <button id= 'kml' class="myButton" type ="submit" >Save to KML</button>    
+                        <button id= 'deleteFilter' class="myButton" type ="submit" >Delete Filters</button>
+                    </div>
+                </div>
+                
                 <h3 style="position: relative; top:20px; left:20px; color: white; ">Filter DataBase:</h3>
 
-                <div class="row section">
+                <div class="row section bot">
 
                     <div class="first_ch ">
                         <div class="control-group">
@@ -179,16 +166,29 @@
                     
               </div> 
     
+              
+                
+                
+                
               <div id="userSapceFilter">
                  <h3 style="font-weight: bold">Filter DataBase according to:</h3><br>
                  <div id="Text">
                     <h3 id="filter"></h3><h3 id="operation"> AND  </h3><h3 id="filter1"></h3>
                   </div>
                   <div>
-                    <button id= "reset" class="send myButton" type ="submit" >Reset</button>
+                    <button id= "reset" class="send myButton" type ="submit" >Clean</button>
                      <input class="toggle" type="checkbox" />
-                    <input id="applyFilter" class="myButton apply" type="button" value="apply Filter" >                      
-
+                    <input id="applyFilter" class="myButton1 apply" type="button" value="Apply Filter" > 
+                  </div>
+                  <div>
+                    <input id="inputFilter" class="inputStyle" type ="search" placeholder="Enter File name" /> 
+                  <button id= "saveFilter" class="myButton" type ="submit" >Save filter</button>
+                      <h3 id="toSave" class="Stext"></h3>
+                  </div>
+                   <div>
+                  <input id="inputFile" class="inputStyle" type ="search" placeholder="Enter file address" />
+                  <button id= "uploadfilter" class="myButton" type ="submit" >Upload and apply filter</button>
+                    <h3 id="toUpload" class="Stext"></h3>
                   </div>
                </div>
                 
@@ -215,6 +215,7 @@
                     <div class="first_ch algos space">
                         <input id="mac" class="inputStyle" type ="search" placeholder="Enter mac" />
                         <input id="Location1" class="myButton apply" type="button" value="Find Location" >                      
+                        <h3 id="locationText1" class="Stext"></h3>
 
                     </div>
                       
@@ -250,7 +251,7 @@
                     
               </div>
                 
-               <div id="userSapce">
+               <div id="userSapce" class="endpage">
                     <h3 id="locationText" class="Stext"></h3>
                 </div> 
                 

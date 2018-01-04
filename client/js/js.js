@@ -112,6 +112,94 @@ $("button#folderSend").click(function() {
 		})
 
 
+  
+    
+
+//when clicked on save filter button  
+$("button#saveFilter").click(function() {
+			var name = $("input#inputFilter").val();
+            var input = name+","+Woperation+","+filter1+","+filter2;
+            if(name!==""){
+			$.ajax(
+				{
+					"url": encodeURI("/filterFile?" +input)
+				}
+			).then(
+				function(output) {
+                    if(output!=="1" && output!=="2"){
+                        alert(output);
+                    }
+                    else if(output==="1"){
+                        $("h3#toSave").text("The file has been created on your computer inside savedFilters folder! under the name '"+name+"'");
+                        $(".hide").css("display", "inline");
+                    }
+                    else{
+                        alert("There is nothing on the filter to be saved")
+                    }
+				}
+			);    
+			return false;
+            }
+            else{
+                alert("The name field is empty");
+            }
+		})
+    
+    
+ //when clicked on upload filter button  
+$("button#uploadfilter").click(function() {
+			var input = $("input#inputFile").val();
+            if(input!==""){
+			$.ajax(
+				{
+					"url": encodeURI("/uploadFilter?" +input)
+				}
+			).then(
+				function(output) {
+                    if(output!=="1"){
+                        alert(output);
+                    }
+                    else{
+                        $("h3#toUpload").text("The filtered DataBase has changed");
+                        $(".hide").css("display", "inline");
+                    }
+
+				}
+			);
+            $.ajax(
+				{
+					"url": encodeURI("/Flines?")
+				}
+			).then(
+				function(output) {
+                  $("h3#text3").text("The filtered DataBase contains "+output+ " lines");
+                  $(".hide").css("display", "inline");
+
+				}
+			);
+            $.ajax(
+				{
+					"url": encodeURI("/router?")
+				}
+			).then(
+				function(output) {
+                  $("h3#text4").text("The filtered DataBase contains "+output+ " routers");
+                  $(".hide").css("display", "inline");
+
+				}
+			);    
+			return false;
+            }
+            else{
+                alert("The file field is empty");
+            }
+		})   
+    
+    
+    
+    
+    
+    
     
     
     
@@ -124,8 +212,11 @@ $("button#upload").click(function() {
 				}
 			).then(
 				function(output) {
-                    if(output!="1"){
+                    if(output!=="1" && output!=="2"){
                         alert(output);
+                    }
+                    else if(output==="2"){
+                        alert("not in format 46 CSV file");
                     }
                     else{
                         $("h3#text").text("The file has been recived, the DataBase has updated ");
@@ -170,16 +261,7 @@ $("button#upload").click(function() {
 			);
 			return false;
 		})
-
-//when clicked on upload file button  
-$("button#upload").click(function(){
-        $("h3#text").text("The file has been added to DateBase");
-        $(".hide").css("display", "inline");
-        $.ajax(
-                {
-                    "url": encodeURI("/addFile?" +input)
-                })
-});    
+  
     
     
     
@@ -415,8 +497,8 @@ $("input[type=checkbox]#date").on("change", function(){
             var final= input1+" "+ input11+"  to    "+ input2+" "+input22;
             var not=0;
     
-            //if the filter field is empty
-            if ($("h3#filter").text() == "") {
+            //if the first filter field is empty
+            if ($("h3#filter").text() === "") {
                   if ($("input[type=checkbox]#NotDate").is(':checked')) {
                     $("h3#filter").append(" Not between the Dates  "+final);
                       not=1;
@@ -426,24 +508,23 @@ $("input[type=checkbox]#date").on("change", function(){
                     $("h3#filter").append(" Dates between "+final);
                     filter1="Date,0,"+input1+" "+input11+","+input2+" "+input22;
                   }
-                $("#operation").css("display", "inline-block");
-                $(".toggle").css("display", "inline-block");
                 Woperation="one";                
             }
-            else if($("h3#filter1").text() == ""){ //if the filter field is not empty
+            else if($("h3#filter1").text() === ""){ //if the second filter field is empty
+                Woperation="and";
+                $("#operation").css("display", "inline-block");
+                $(".toggle").css("display", "inline-block");
                 if ($("input[type=checkbox]#NotDate").is(':checked')) {
                     $("h3#filter1").append(" Not between the Dates  "+final);
                     not=1;
                     filter2="Date,1,"+input1+" "+input11+","+input2+" "+input22;
-                    Woperation="and";
                     }
-                else{
+                else{ 
                     $("h3#filter1").append(" Dates between "+final);
                     filter2="Date,0,"+input1+" "+input11+","+input2+" "+input22;
-                    Woperation="and";
                 }
             }
-            else{
+            else{//if both fields are fiiled
                 alert("You can't choose more than 2 filters at one time");
                 $(".hidedate").css("display", "none");
                 if($("input.onNone:checkbox:checked").length>2){
@@ -463,7 +544,7 @@ $("input[type=checkbox]#date").on("change", function(){
             var not=0;
 
             var final= input1+" "+ input11+ "  to "+input2+" "+ input22;
-            if ($("h3#filter").text() == "") {
+            if ($("h3#filter").text() === "") {//if the first filter field is empty
                 if ($("input[type=checkbox]#NotLocation").is(':checked')) {
                     $("h3#filter").append(" Not between the locations  "+final);
                       not=1;
@@ -473,25 +554,23 @@ $("input[type=checkbox]#date").on("change", function(){
                     $("h3#filter").append(" Locations between "+final);
                     filter1="Location,0,"+input1+","+input11+","+input2+","+input22;
                   }
-                $("#operation").css("display", "inline-block");
-                $(".toggle").css("display", "inline-block");
                 Woperation="one";                
             } 
-            else if($("h3#filter1").text() == ""){ //if the filter field is not empty
+            else if($("h3#filter1").text() === ""){ //if the second filter field is empty
+                Woperation="and";
+                $("#operation").css("display", "inline-block");
+                $(".toggle").css("display", "inline-block");
                 if ($("input[type=checkbox]#NotLocation").is(':checked')) {
                         $("h3#filter1").append(" Not between the locations  "+final);
                         not=1;
                         filter2="Location,1,"+input1+","+input11+","+input2+","+input22;
-                        Woperation="and";
                     }
                 else{
                     $("h3#filter1").append(" Locations between "+final);
                     filter2="Location,0,"+input1+","+input11+","+input2+","+input22;
-                    Woperation="and";
-
-                }
+                    }
             }
-            else{
+            else{//if both fields are fiiled
                 alert("You can't choose more than 2 filters at one time");
                 $(".hidelock").css("display", "none");
                 if($("input.onNone:checkbox:checked").length>2){
@@ -508,7 +587,7 @@ $("input[type=checkbox]#date").on("change", function(){
             var not=0;
      
             if(final!=""){
-            if ($("h3#filter").text() == "") {
+            if ($("h3#filter").text() === "") {//if the first filter field is empty
                 if ($("input[type=checkbox]#NotID").is(':checked')) {
                     $("h3#filter").append(" Not with the ID:  "+final);
                       not=1;
@@ -520,23 +599,22 @@ $("input[type=checkbox]#date").on("change", function(){
 
                   }
                 Woperation="one";
+            } 
+            else if($("h3#filter1").text() === ""){ //if the second filter field is empty
+                Woperation="and";
                 $("#operation").css("display", "inline-block");
                 $(".toggle").css("display", "inline-block");
-            } 
-            else if($("h3#filter1").text() == ""){ //if the filter field is not empty
                 if ($("input[type=checkbox]#NotID").is(':checked')) {
                     $("h3#filter1").append(" Not with the ID:  "+final);
                     not=1;
                     filter2= "ID,1,"+final;
-                    Woperation="and";
                     }
                 else{
                     $("h3#filter1").append("  with the ID "+final);
                     filter2="ID,0,"+final;
-                    Woperation="and";
                 }
             }
-            else{
+            else{//if both fields are fiiled
                 alert("You can't choose more than 2 filters at one time");
                 $(".hideID").css("display", "none");
                 if($("input.onNone:checkbox:checked").length>2){

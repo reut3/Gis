@@ -105,6 +105,8 @@ $('#maxlon').on("change", function(){
 			).then(
 				function(output) {
                     $("h3#locationText").text(output);
+                    $("h3#locationText1").text(output);
+
 				}
 			);
 			return false; 

@@ -25,6 +25,7 @@ import FileTools.CsvFile;
 import Location.Weight;
 
 import java.net.InetSocketAddress;
+import Filter.WriteAndReadFilter;;
 
 
 public class Web {
@@ -73,22 +74,22 @@ public class Web {
 
 
 		
+
 		
-		server.createContext("/upload", request -> {
+		server.createContext("/uploadFilter", request -> {
 			String output = null;
 			try {
 				String input = request.getRequestURI().getQuery();
 				System.out.println("The input is: "+input);
 				Path path=Paths.get(input);
 				if (Files.exists(path)) {
-					List<Sample> temp= algos.readCSV(input);
-					Set<Sample> temp1= new HashSet<Sample>();
-					temp1.addAll(temp);
-					database.add(temp1);
+					WriteAndReadFilter.Readfilter(input,database);
+					database.startHash();
+					System.out.println(database.FinalFilterDatabase.size());
+					System.out.println(database.hashMap.size());
 
-					
 					output="1";
-					System.out.println("The file has recived, the DataBase has updated");
+					System.out.println("The filter file has recived, the filtered DataBase has changed");
 					System.out.println();
 				}
 				else {
@@ -113,8 +114,98 @@ public class Web {
 		});
 		
 		
-		
-		
+		server.createContext("/filterFile", request -> {
+			String output = null;
+			try {
+				String input = request.getRequestURI().getQuery();
+				System.out.println("The input is: "+input);
+
+				int index=0;
+				while(input.charAt(index)!=','){
+					index++;
+				}
+				String fileName= input.substring(0, index);
+				String filter= input.substring(index+1);
+				
+				index++;
+				int start=index;
+				System.out.println(index);
+				while(input.charAt(index)!=','){
+					index++;
+				}
+				String ifNone= input.substring(start, index);
+				if(ifNone.equals("none")){
+					output="2";
+				}
+				else{
+					WriteAndReadFilter.writefilter(fileName,filter);
+					output="1";
+				}
+				
+			}
+			catch (Throwable ex) {
+				output = "problem in writing the file, check if the file is not exist already";
+			}
+			request.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+			request.getResponseHeaders().set("Content-Type", "text/plain");
+			request.sendResponseHeaders(200, 0);
+			try (OutputStream os = request.getResponseBody()) {
+				os.write(output.getBytes(StandardCharsets.UTF_8));
+			} catch (Exception ex) {
+				System.out.println("Cannot send response to client");
+				ex.printStackTrace();
+			}
+		});
+
+
+
+
+
+		server.createContext("/upload", request -> {
+			String output = null;
+			try {
+				String input = request.getRequestURI().getQuery();
+				System.out.println("The input is: "+input);
+				Path path=Paths.get(input);
+				if (Files.exists(path)) {
+					
+					List<Sample> temp= algos.readCSV(input);
+					if(temp.size()==0){
+						output="2";
+					}
+					else{
+					Set<Sample> temp1= new HashSet<Sample>();
+					temp1.addAll(temp);
+					database.add(temp1);
+					output="1";
+					System.out.println("The file has recived, the DataBase has updated");
+					System.out.println();
+					}
+				}
+				else {
+					output = "The file dosen't exist, please try again";
+					System.out.println();
+				}
+			}
+			catch (Throwable ex) {
+				output = "The file dosen't exist, please try again";
+				System.out.println();
+			}
+			System.out.println(output);
+			request.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+			request.getResponseHeaders().set("Content-Type", "text/plain");
+			request.sendResponseHeaders(200, 0);
+			try (OutputStream os = request.getResponseBody()) {
+				os.write(output.getBytes(StandardCharsets.UTF_8));
+			} catch (Exception ex) {
+				System.out.println("Cannot send response to client");
+				ex.printStackTrace();
+			}
+		});
+
+
+
+
 
 		server.createContext("/delete", request -> {
 			String output = null;
@@ -174,13 +265,13 @@ public class Web {
 			}
 		});
 
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
 		server.createContext("/reset", request -> {
 			String output = null;
 			try {
@@ -188,6 +279,7 @@ public class Web {
 				if (database.FinalDataBase.size()!=0) {
 					output="1";
 					database.FinalFilterDatabase.addAll(database.FinalDataBase);
+					database.startHash();
 					System.out.println("The filtered DataBase is reset");
 				}
 				else {
@@ -208,13 +300,13 @@ public class Web {
 				ex.printStackTrace();
 			}
 		});
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
 		server.createContext("/applyFilter", request -> {
 			String output = null;
 			try {
@@ -245,10 +337,10 @@ public class Web {
 				ex.printStackTrace();
 			}
 		});
-		
-		
-		
-		
+
+
+
+
 		server.createContext("/lines", request -> {
 			String output = "0";
 			try {
@@ -273,13 +365,13 @@ public class Web {
 				ex.printStackTrace();
 			}
 		});
-		
-		
-		
-		
+
+
+
+
 		server.createContext("/Flines", request -> {
 			String output = "0";
-			
+
 			try {
 				if (database.FinalFilterDatabase.size()!=0) {
 					output= database.FinalFilterDatabase.size()+"";
@@ -301,11 +393,11 @@ public class Web {
 				ex.printStackTrace();
 			}
 		});
-		
-		
+
+
 		server.createContext("/router", request -> {
 			String output = "0";
-			
+
 			try {
 				if (database.FinalFilterDatabase.size()!=0) {
 					output= database.hashMap.size()+"";
@@ -327,12 +419,12 @@ public class Web {
 				ex.printStackTrace();
 			}
 		});
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
 		server.createContext("/toKML", request -> {
 			String output = null;
 			try {
@@ -405,8 +497,8 @@ public class Web {
 			}
 		});
 
-		
-		
+
+
 		server.createContext("/algo1", request -> {
 			String output = null;
 			try {
@@ -439,12 +531,12 @@ public class Web {
 				ex.printStackTrace();
 			}
 		});
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
 		server.createContext("/algo2", request -> {
 			String output = null;
 			try {
@@ -452,7 +544,7 @@ public class Web {
 				System.out.println("The input is: "+input);
 				//if the database is not empty
 				if (database.FinalFilterDatabase.size()!=0) {
-					
+
 					int index=0;
 					while(input.charAt(index)!=','){
 						index++;
@@ -467,7 +559,7 @@ public class Web {
 						sampleSet.addAll(database.hashMap.get(mac));
 					}
 					Location.Location lock= Location.Weight.findLocation2(sampleSet, macSignal, num);
-					
+
 					output=lock.toString();
 				}
 				else {
@@ -488,15 +580,15 @@ public class Web {
 				ex.printStackTrace();
 			}
 		});
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
+
+
 
 		System.out.println("WebServer is up. "+
 				"To enter the web, go to http://127.0.0.1:"+port+"/file/web.html");
@@ -506,17 +598,16 @@ public class Web {
 
 }  
 
-          
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-		
+
+
+
+
+
+
+
+
+
+
+
+
+
