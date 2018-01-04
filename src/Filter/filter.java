@@ -39,7 +39,6 @@ public class filter {
 		time2= time2.trim();
 		time1=Checks.CheckTimeForWEB(time1);
 		time2=Checks.CheckTimeForWEB(time2);
-		System.out.println("the time is"+time1);
 		try{
 			Date d1;
 			Date d2;

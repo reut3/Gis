@@ -1,30 +1,27 @@
 package Main;
+import java.awt.Desktop;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
 import DataBase.DataBase;
 import DataBase.MacSignal;
 import DataBase.Sample;
 import FileTools.CsvFile;
+import FileTools.WatchDataBase;
 import Location.Weight;
-
-import java.net.InetSocketAddress;
+import Filter.CheckFilter;
 import Filter.WriteAndReadFilter;;
 
 
@@ -35,9 +32,16 @@ public class Web {
 
 		int port = 8888;
 		HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
-
-
 		DataBase database=new DataBase();
+		ArrayList<String> paths= new ArrayList<String>();
+
+		Desktop.getDesktop().browse(new URL("http://127.0.0.1:8888/file/web.html").toURI());
+		
+		
+
+
+
+
 		//select a folder 
 		server.createContext("/folder", request -> {
 			String output = null;
@@ -50,6 +54,8 @@ public class Web {
 					output="1";
 					System.out.println("The folder has recived, the DataBase has updated");
 					System.out.println();
+					paths.add(input);//add to array list
+					FileTools.WatchDataBase.watchForChanges(paths,database);
 				}
 				else {
 					output = "The folder dosen't exist, please try again";
@@ -60,7 +66,6 @@ public class Web {
 				output = "The folder dosen't exist, please try again";
 				System.out.println();
 			}
-			System.out.println(output);
 			request.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
 			request.getResponseHeaders().set("Content-Type", "text/plain");
 			request.sendResponseHeaders(200, 0);
@@ -73,9 +78,9 @@ public class Web {
 		});
 
 
-		
 
-		
+
+
 		server.createContext("/uploadFilter", request -> {
 			String output = null;
 			try {
@@ -83,12 +88,9 @@ public class Web {
 				System.out.println("The input is: "+input);
 				Path path=Paths.get(input);
 				if (Files.exists(path)) {
-					WriteAndReadFilter.Readfilter(input,database);
+					String line=WriteAndReadFilter.Readfilter(input,database);
 					database.startHash();
-					System.out.println(database.FinalFilterDatabase.size());
-					System.out.println(database.hashMap.size());
-
-					output="1";
+					output=CheckFilter.filterString(line);
 					System.out.println("The filter file has recived, the filtered DataBase has changed");
 					System.out.println();
 				}
@@ -112,8 +114,8 @@ public class Web {
 				ex.printStackTrace();
 			}
 		});
-		
-		
+
+
 		server.createContext("/filterFile", request -> {
 			String output = null;
 			try {
@@ -126,10 +128,9 @@ public class Web {
 				}
 				String fileName= input.substring(0, index);
 				String filter= input.substring(index+1);
-				
+
 				index++;
 				int start=index;
-				System.out.println(index);
 				while(input.charAt(index)!=','){
 					index++;
 				}
@@ -141,7 +142,7 @@ public class Web {
 					WriteAndReadFilter.writefilter(fileName,filter);
 					output="1";
 				}
-				
+
 			}
 			catch (Throwable ex) {
 				output = "problem in writing the file, check if the file is not exist already";
@@ -160,7 +161,7 @@ public class Web {
 
 
 
-
+		//upload CSV file in format of 46 columns
 		server.createContext("/upload", request -> {
 			String output = null;
 			try {
@@ -168,18 +169,18 @@ public class Web {
 				System.out.println("The input is: "+input);
 				Path path=Paths.get(input);
 				if (Files.exists(path)) {
-					
+
 					List<Sample> temp= algos.readCSV(input);
 					if(temp.size()==0){
 						output="2";
 					}
 					else{
-					Set<Sample> temp1= new HashSet<Sample>();
-					temp1.addAll(temp);
-					database.add(temp1);
-					output="1";
-					System.out.println("The file has recived, the DataBase has updated");
-					System.out.println();
+						Set<Sample> temp1= new HashSet<Sample>();
+						temp1.addAll(temp);
+						database.add(temp1);
+						output="1";
+						System.out.println("The file has recived, the DataBase has updated");
+						System.out.println();
 					}
 				}
 				else {
@@ -212,6 +213,7 @@ public class Web {
 			try {
 				if (database.FinalDataBase.size()!=0) {
 					database.RemoveAll();
+					paths.clear();
 					output="1";
 					System.out.println("deleted");
 				}
@@ -354,7 +356,6 @@ public class Web {
 			catch (Throwable ex) {
 				output = "0";
 			}
-			System.out.println(output);
 			request.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
 			request.getResponseHeaders().set("Content-Type", "text/plain");
 			request.sendResponseHeaders(200, 0);
@@ -470,6 +471,7 @@ public class Web {
 							fileName.endsWith(".html")? "text/html":
 								fileName.endsWith(".js")? "text/javascript":
 									fileName.endsWith(".css")? "text/css":
+										fileName.endsWith(".php")? "text/php":
 										"text/plain"
 							);
 					request.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
@@ -505,7 +507,6 @@ public class Web {
 				String input = request.getRequestURI().getQuery();
 				System.out.println("The input is: "+input);
 				//if the database is not empty->save it to csv
-				System.out.println("reut"+database.FinalFilterDatabase.size());
 
 				if (database.FinalFilterDatabase.size()!=0) {
 					ArrayList<Sample> temp= database.hashMap.get(input);

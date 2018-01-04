@@ -7,6 +7,47 @@ var Woperation="none";
 var files=false;
     
     
+
+    
+    
+setInterval ( () => {
+			 $.ajax(
+				{
+					"url": encodeURI("/lines?")
+				}
+			).then(
+				function(output) {
+                  $("h3#text2").text("The DataBase contains "+output+ " lines"); 
+                  $(".hide").css("display", "inline");
+
+				}
+			);
+    
+        $.ajax(
+				{
+					"url": encodeURI("/Flines?")
+				}
+			).then(
+				function(output) {
+                  $("h3#text3").text("The filtered DataBase contains "+output+ " lines");
+                  $(".hide").css("display", "inline");
+
+				}
+			);
+        $.ajax(
+				{
+					"url": encodeURI("/router?")
+				}
+			).then(
+				function(output) {
+                  $("h3#text4").text("The filtered DataBase contains "+output+ " routers");
+                  $(".hide").css("display", "inline");
+
+				}
+			);
+		}, 5000);    
+    
+    
     
     
     
@@ -156,15 +197,13 @@ $("button#uploadfilter").click(function() {
 				}
 			).then(
 				function(output) {
-                    if(output!=="1"){
-                        alert(output);
-                    }
-                    else{
+                        $("h3#filter1").text("");
+                        $("h3#filter").text(output);
                         $("h3#toUpload").text("The filtered DataBase has changed");
                         $(".hide").css("display", "inline");
                     }
 
-				}
+				
 			);
             $.ajax(
 				{
@@ -670,6 +709,42 @@ $("input.toggle").click(function() {
 
     }			
 })    
+    
+    
+   
+    
+    
+    
+    
+    
+  
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     

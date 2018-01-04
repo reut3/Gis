@@ -38,15 +38,16 @@ public class WriteAndReadFilter {
 	}
 
 
-	public static void Readfilter(String path,DataBase database){
+	public static String Readfilter(String path,DataBase database){
 		FileReader in=null;
 		BufferedReader br=null;
-		String line;
+		String line="";String line1="";
 		try {
 			in=new FileReader(path);
 			br=new BufferedReader(in);
 
 			if((line=br.readLine())!=null){
+				line1=line;
 				CheckFilter.WhichOP(line,database);
 			}
 		}
@@ -64,6 +65,8 @@ public class WriteAndReadFilter {
 			}
 
 		}
+		return line1;
+
 	}
 	
 
