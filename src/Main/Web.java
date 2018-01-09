@@ -1,6 +1,5 @@
 package Main;
 import java.awt.Desktop;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.net.URL;
@@ -10,8 +9,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import com.sun.net.httpserver.HttpServer;
 
@@ -19,7 +16,7 @@ import DataBase.DataBase;
 import DataBase.MacSignal;
 import DataBase.Sample;
 import FileTools.CsvFile;
-import FileTools.WatchDataBase;
+import FileTools.Watch;
 import FileTools.algos;
 import Location.Weight;
 import Filter.CheckFilter;
@@ -34,11 +31,13 @@ public class Web {
 		int port = 8888;
 		HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
 		DataBase database=new DataBase();
-		ArrayList<String> paths= new ArrayList<String>();
+
 
 		Desktop.getDesktop().browse(new URL("http://127.0.0.1:8888/file/web.html").toURI());
-		
-		
+
+		Watch watch= new Watch();
+
+
 
 
 
@@ -52,11 +51,13 @@ public class Web {
 				Path path=Paths.get(input);
 				if (Files.exists(path)) {
 					CsvFile.readCSV(input,database);
+					Thread.interrupted();
+					watch.directory(input);
+					watch.watching(database);
 					output="1";
 					System.out.println("The folder has recived, the DataBase has updated");
 					System.out.println();
-					paths.add(input);//add to array list
-					FileTools.WatchDataBase.watchForChanges(paths,database);
+
 				}
 				else {
 					output = "The folder dosen't exist, please try again";
@@ -171,17 +172,24 @@ public class Web {
 				Path path=Paths.get(input);
 				if (Files.exists(path)) {
 
-					List<Sample> temp= algos.readCSV(input);
-					if(temp.size()==0){
-						output="2";
-					}
-					else{
-						Set<Sample> temp1= new HashSet<Sample>();
-						temp1.addAll(temp);
-						database.add(temp1);
-						output="1";
-						System.out.println("The file has recived, the DataBase has updated");
-						System.out.println();
+					Thread.interrupted();
+					watch.File(input);
+					watch.watching1(database);
+					synchronized(database){
+						List<Sample> temp= algos.readCSV(input);
+						if(temp.size()==0){
+							output="2";
+						}
+						else{
+							Set<Sample> temp1= new HashSet<Sample>();
+							temp1.addAll(temp);
+							synchronized(database){
+								database.add(temp1);
+							}
+							output="1";
+							System.out.println("The file has recived, the DataBase has updated");
+							System.out.println();
+						}
 					}
 				}
 				else {
@@ -191,7 +199,7 @@ public class Web {
 			}
 			catch (Throwable ex) {
 				output = "The file dosen't exist, please try again";
-				System.out.println();
+				System.out.println(ex);
 			}
 			System.out.println(output);
 			request.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
@@ -213,8 +221,11 @@ public class Web {
 			String output = null;
 			try {
 				if (database.FinalDataBase.size()!=0) {
-					database.RemoveAll();
-					paths.clear();
+					Thread.interrupted();
+					synchronized(database){
+						//watch.clear();
+						database.RemoveAll();
+					}
 					output="1";
 					System.out.println("deleted");
 				}
@@ -223,7 +234,8 @@ public class Web {
 				}
 			}
 			catch (Throwable ex) {
-				output = "The dataBase is already empty";
+				System.out.println(ex);
+				output = "problem deleting";
 			}
 			request.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
 			request.getResponseHeaders().set("Content-Type", "text/plain");
@@ -473,7 +485,7 @@ public class Web {
 								fileName.endsWith(".js")? "text/javascript":
 									fileName.endsWith(".css")? "text/css":
 										fileName.endsWith(".php")? "text/php":
-										"text/plain"
+											"text/plain"
 							);
 					request.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
 					request.getResponseHeaders().set("Content-Type", contentType);

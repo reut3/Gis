@@ -153,7 +153,7 @@ public static String filterString(String input){
 				output+= "Not with the ID "+words[index+2];
 			}
 		}
-		else if(words[index].equals("DATE")){
+		else if(words[index].equals("Date")){
 			if(words[index+1].equals("0")){
 				output+= "Dates between "+words[index+2]+" to "+words[index+3];
 			}
