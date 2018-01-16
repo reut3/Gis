@@ -37,8 +37,8 @@ public class Web {
 
 		Watch watch= new Watch();
 
-
-
+//		SQL_DB sql1= new SQL_DB("5.29.193.52", "jdbc:mysql://5.29.193.52:3306/oop_course_ariel", "oop1", "Lambda1();", "oop_course_ariel", "ex4_db");
+//		sql1.insertDB(database);
 
 
 
@@ -79,10 +79,54 @@ public class Web {
 			}
 		});
 
+		//adding SQl database
+		server.createContext("/sql", request -> {
+			String output = null;
+			try {
+				String input = request.getRequestURI().getQuery();
+				System.out.println("The input is: "+input);
+
+				String[] words=input.split(",");
+				
+				String ip= words[0];
+				String portSql= words[1];
+				String user= words[2];
+				String password= words[3];
+				String DBname= words[4];
+				String tableName= words[5];
 
 
+				SQL_DB sql= new SQL_DB(ip, "jdbc:mysql://"+ip+":"+portSql+"/"+DBname, user, password, DBname, tableName);
+				sql.insertDB(database);
+
+				
+				Thread.interrupted();
+//				watch.directory(input);
+				watch.watching(database);
+				output="1";
+				System.out.println("SQL'S DataBase has recived, the DataBase has updated");
+				System.out.println();
+
+			}
+			catch (Throwable ex) {
+				output = "problem connecting DataBase\none of the fields is incorrect\nplease fill again";
+				System.out.println();
+			}
+			request.getResponseHeaders().set("Access-Control-Allow-Origin", "*");
+			request.getResponseHeaders().set("Content-Type", "text/plain");
+			request.sendResponseHeaders(200, 0);
+			try (OutputStream os = request.getResponseBody()) {
+				os.write(output.getBytes(StandardCharsets.UTF_8));
+			} catch (Exception ex) {
+				System.out.println("Cannot send response to client");
+				ex.printStackTrace();
+			}
+		});
 
 
+		
+		
+		
 		server.createContext("/uploadFilter", request -> {
 			String output = null;
 			try {

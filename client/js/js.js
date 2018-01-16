@@ -153,7 +153,74 @@ $("button#folderSend").click(function() {
 		})
 
 
-  
+ 
+    
+//when clicked on apply SQL table  
+$("input#applySQL").click(function() {
+			var name = $("input#SQLname").val();
+			var TableName = $("input#SQLnameTable").val();
+            var ip = $("input#SQLip").val();
+            var port = $("input#SQLport").val();
+            var UserName = $("input#SQLuser").val();
+            var password = $("input#SQLpassword").val();
+            
+            var input= ip+","+port+","+UserName+","+password+","+name+","+TableName;
+    
+			$.ajax(
+				{
+					"url": encodeURI("/sql?" +input)
+				}
+			).then(
+				function(output) {
+                    if(output!="1"){
+                        alert(output);
+                    }
+                    else{
+                        $("h3#text").text("The SQL Table has been recived, the DataBase has updated ");
+                        $(".hide").css("display", "inline");
+                        files=true;
+                    }
+				}
+			);
+        $.ajax(
+				{
+					"url": encodeURI("/lines?")
+				}
+			).then(
+				function(output) {
+                  $("h3#text2").text("The DataBase contains "+output+ " lines"); 
+                  $(".hide").css("display", "inline");
+
+				}
+			);
+            
+        $.ajax(
+				{
+					"url": encodeURI("/Flines?")
+				}
+			).then(
+				function(output) {
+                  $("h3#text3").text("The filtered DataBase contains "+output+ " lines");
+                  $(".hide").css("display", "inline");
+
+				}
+			);
+        $.ajax(
+				{
+					"url": encodeURI("/router?")
+				}
+			).then(
+				function(output) {
+                  $("h3#text4").text("The filtered DataBase contains "+output+ " routers");
+                  $(".hide").css("display", "inline");
+
+				}
+			);
+			return false;
+		})    
+    
+    
+    
     
 
 //when clicked on save filter button  

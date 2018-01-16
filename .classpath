@@ -11,6 +11,5 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="C:/Users/reut/git/matala/lib/com.mysql.jdbc_5.1.5.jar"/>
 	<classpathentry kind="lib" path="C:/Users/reut/git/matala/lib/mysql-connector-java-5.1.45-bin.jar"/>
-	<classpathentry kind="lib" path="C:/Users/reut/git/matala/lib/mysql-connector-java-5.1.45/mysql-connector-java-5.1.45/mysql-connector-java-5.1.45-bin.jar" sourcepath="lib/mysql-connector-java-5.1.45-bin.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

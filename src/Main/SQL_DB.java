@@ -16,89 +16,56 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import DataBase.DataBase;
 import DataBase.Sample;
 import DataBase.wifi;
 
 import java.sql.Statement;
 
-public class MySQL_101 {
+public class SQL_DB {
 
-	private static String _ip = "5.29.193.52";
-	private static String _url = "jdbc:mysql://"+_ip+":3306/oop_course_ariel";
-	private static String _user = "oop1";
-	private static String _password = "Lambda1();";
+	String _ip;
+	String _url;
+	String _user;
+	String _password;
+	String tableName;
+	String DBname;
 	private static Connection _con = null;
 
-	public static void main(String[] args) {
-		int max_id = test_ex4_db();
-		//  	insert_table1(max_id);
-	}
-	public static int test_101() {
-		Statement st = null;
-		ResultSet rs = null;
-		int max_id = -1;
-		//String ip = "localhost";
-		// String ip = "192.168.1.18";
-
-		try {     
-			_con = DriverManager.getConnection(_url, _user, _password);
-			st = _con.createStatement();
-			rs = st.executeQuery("SELECT UPDATE_TIME FROM ");
-			if (rs.next()) {
-				System.out.println(rs.getString(1));
-			}
-
-			PreparedStatement pst = _con.prepareStatement("SELECT * FROM test101");
-			rs = pst.executeQuery();
-
-			while (rs.next()) {
-				int id = rs.getInt(1);
-				if(id>max_id) {max_id=id;}
-				System.out.print(id);
-				System.out.print(": ");
-				System.out.print(rs.getString(2));
-				System.out.print(" (");
-				double lat = rs.getDouble(3);
-				System.out.print(lat);
-				System.out.print(", ");
-				double lon = rs.getDouble(4);
-				System.out.print(lon);
-				System.out.println(") ");
-			}
-		} catch (SQLException ex) {
-			Logger lgr = Logger.getLogger(MySQL_101.class.getName());
-			lgr.log(Level.SEVERE, ex.getMessage(), ex);
-		} finally {
-			try {
-				if (rs != null) {rs.close();}
-				if (st != null) { st.close(); }
-				if (_con != null) { _con.close();  }
-			} catch (SQLException ex) {
-
-				Logger lgr = Logger.getLogger(MySQL_101.class.getName());
-				lgr.log(Level.WARNING, ex.getMessage(), ex);
-			}
-		}
-		return max_id;
+	public SQL_DB(String _ip, String _url, String _user, String _password, String DBname, String tableName) {
+		super();
+		this._ip = _ip;
+		this._url = _url;
+		this._user = _user;
+		this._password = _password;
+		this.tableName= tableName;
+		this.DBname= DBname;
 	}
 
-	public static int test_ex4_db() {
+
+
+
+
+	@SuppressWarnings("resource")
+	public void insertDB(DataBase database) {
 		Statement st = null;
 		ResultSet rs = null;
-		int max_id = -1;
+//		int max_id = -1;
 
 		try {     
-			_con = DriverManager.getConnection(_url, _user, _password);
+			_con = DriverManager.getConnection(this._url, this._user, this._password);
 			st = _con.createStatement();
-			rs = st.executeQuery("SELECT UPDATE_TIME FROM information_schema.tables WHERE TABLE_SCHEMA = 'oop_course_ariel' AND TABLE_NAME = 'ex4_db'");
+			rs = st.executeQuery("SELECT UPDATE_TIME FROM information_schema.tables WHERE TABLE_SCHEMA = '"+DBname+"' AND TABLE_NAME = '"+tableName+"'");
 			if (rs.next()) {
 				System.out.println("**** Update: "+rs.getString(1));
 			}
 
-			PreparedStatement pst = _con.prepareStatement("SELECT * FROM ex4_db");
+			PreparedStatement pst = _con.prepareStatement("SELECT * FROM "+tableName);
 			rs = pst.executeQuery();
 			int ind=0;
 			ArrayList<Sample> list= new ArrayList<Sample>();
@@ -111,9 +78,9 @@ public class MySQL_101 {
 				}
 				if(ind%100==0) {
 					for(int i=1;i<=len;i++){
-//						System.out.print(ind+") "+rs.getString(i)+",");
+						//						System.out.print(ind+") "+rs.getString(i)+",");
 					}
-//					System.out.println();
+					//					System.out.println();
 				}
 				String id= rs.getString(3);
 				String wifiAmount= rs.getString(7);
@@ -137,9 +104,14 @@ public class MySQL_101 {
 				list.add(temp);
 				ind++;
 			}
-			System.out.println(list);
+//			System.out.println(list);
+			Set<Sample> samples= new HashSet<>();
+			samples.addAll(list);
+
+			database.add(samples);
+
 		} catch (SQLException ex) {
-			Logger lgr = Logger.getLogger(MySQL_101.class.getName());
+			Logger lgr = Logger.getLogger(SQL_DB.class.getName());
 			lgr.log(Level.SEVERE, ex.getMessage(), ex);
 		} finally {
 			try {
@@ -147,13 +119,11 @@ public class MySQL_101 {
 				if (st != null) { st.close(); }
 				if (_con != null) { _con.close();  }
 			} catch (SQLException ex) {
-
-				Logger lgr = Logger.getLogger(MySQL_101.class.getName());
+				Logger lgr = Logger.getLogger(SQL_DB.class.getName());
 				lgr.log(Level.WARNING, ex.getMessage(), ex);
 			}
 		}
-		return max_id;
-
+//		return max_id;
 	}
 
 
