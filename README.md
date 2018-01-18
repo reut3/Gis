@@ -1,10 +1,13 @@
-# Matala
+# Geo-App project
 
 ## System Purpose:
+The system enables to collect geographic information, profuction of insights from that information, and presentation of the information in various ways
+
+The system runs as web application.
+The website divides to several parts:
 
 ### part one:
-Get a CSV file (or some) that contains wifi signals collected by the Application, read them and arrange the information according to the different calls, takes 10 strongest wifi of every samlpe.
-Then export the arranged information to a new CSV file.
+section to upload database, which allows 
 
 
 ### part two:
