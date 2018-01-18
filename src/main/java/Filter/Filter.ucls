@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.2" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="Filter.WriteAndReadFilter" project="oop" 
-    file="/oop/src/main/java/Filter/WriteAndReadFilter.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="111" y="110"/>    
+  <class id="1" language="java" name="Filter.WriteAndReadFilter" project="matala4" 
+    file="/matala4/src/main/java/Filter/WriteAndReadFilter.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="189" x="11" y="152"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="Filter.filter" project="oop" file="/oop/src/main/java/Filter/filter.java" 
+  <class id="2" language="java" name="Filter.filter" project="matala4" file="/matala4/src/main/java/Filter/filter.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="467" y="129"/>    
+    <position height="189" width="394" x="240" y="152"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="Filter.CheckFilter" project="oop" 
-    file="/oop/src/main/java/Filter/CheckFilter.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="817" y="87"/>    
+  <class id="3" language="java" name="Filter.CheckFilter" project="matala4" 
+    file="/matala4/src/main/java/Filter/CheckFilter.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="117" width="179" x="674" y="152"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      

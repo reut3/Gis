@@ -1,83 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.2" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="DataBase.Sample" project="oop" file="/oop/src/main/java/DataBase/Sample.java" 
+  <class id="1" language="java" name="DataBase.Sample" project="matala4" 
+    file="/matala4/src/main/java/DataBase/Sample.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="441" width="302" x="22" y="390"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="DataBase.SQL_DB" project="matala4" 
+    file="/matala4/src/main/java/DataBase/SQL_DB.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="297" width="258" x="364" y="390"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="DataBase.wifi" project="matala4" file="/matala4/src/main/java/DataBase/wifi.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="441" width="302" x="10" y="294"/>    
+    <position height="423" width="173" x="22" y="871"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="DataBase.wifi" project="oop" file="/oop/src/main/java/DataBase/wifi.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
-    <position height="423" width="173" x="10" y="775"/>    
+  <class id="4" language="java" name="DataBase.DataBase" project="matala4" 
+    file="/matala4/src/main/java/DataBase/DataBase.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="243" width="256" x="22" y="107"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="3" language="java" name="DataBase.DataBase" project="oop" file="/oop/src/main/java/DataBase/DataBase.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
-    <position height="171" width="256" x="10" y="11"/>    
+  <class id="5" language="java" name="DataBase.MacSignal" project="matala4" 
+    file="/matala4/src/main/java/DataBase/MacSignal.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="243" width="207" x="318" y="107"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="DataBase.MacSignal" project="oop" 
-    file="/oop/src/main/java/DataBase/MacSignal.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="243" width="207" x="306" y="11"/>    
+  <class id="6" language="java" name="DataBase.WifiLocation" project="matala4" 
+    file="/matala4/src/main/java/DataBase/WifiLocation.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="243" width="165" x="565" y="107"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="DataBase.WifiLocation" project="oop" 
-    file="/oop/src/main/java/DataBase/WifiLocation.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="243" width="165" x="553" y="11"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <association id="6">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="7" name="listOfWifi">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="8" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
+  <association id="7">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="8" name="SQLtables"/>      
+      <multiplicity id="9" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="9">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="10" name="FinalDataBase">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="11" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
+  <association id="10">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="11" name="listOfWifi"/>      
+      <multiplicity id="12" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="13">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="14" name="FinalDataBase"/>      
+      <multiplicity id="15" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="1" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="12">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="13" name="FinalFilterDatabase">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="14" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
+  <association id="16">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="17" name="FinalFilterDatabase"/>      
+      <multiplicity id="18" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="1" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  

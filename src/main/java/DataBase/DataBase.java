@@ -12,7 +12,6 @@ import java.util.Set;
 
 import FileTools.CsvFile;
 import FileTools.algos;
-import Main.SQL_DB;
 /**
  * 
  * The class contains database object- which contains information stored in two sets of Samples.<br>
