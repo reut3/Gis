@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Tests.LocationTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2018-01-18T20:39:50" hostname="DESKTOP-2JKMAP9" time="0.0">
+  <properties/>
+  <testcase name="equalTest" classname="Tests.LocationTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
