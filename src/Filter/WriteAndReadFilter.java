@@ -9,7 +9,11 @@ import DataBase.DataBase;
 
 public class WriteAndReadFilter {
 
-
+	/**
+	 * The function create text file and write filter's details that received as String to it
+	 * @param fileName- the name of the text file the function creates
+	 * @param s- The string that contains filter's details
+	 */
 	public static void writefilter(String fileName,String s){
 		BufferedWriter bw = null;
 		FileWriter fw = null;
@@ -37,7 +41,12 @@ public class WriteAndReadFilter {
 		}    
 	}
 
-
+	/**
+	 * The function read from text file details of a filter and store the details in a String 
+	 * @param path - of the reading text file
+	 * @param database
+	 * @return 
+	 */
 	public static String Readfilter(String path,DataBase database){
 		FileReader in=null;
 		BufferedReader br=null;
@@ -68,6 +77,6 @@ public class WriteAndReadFilter {
 		return line1;
 
 	}
-	
+
 
 }

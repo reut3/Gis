@@ -78,13 +78,15 @@ $('#maxlon').on("change", function(){
 			).then(
 				function(output) {
                     $("h3#locationText").text(output);
+                    if(output==="The dataBase is empty"){
+                        alert("The dataBase is empty");
+                    }
 				}
 			);
 			return false; 
      }
      else{
          alert("one of the fields is missing ");
-         alert(input);
      }
 
      		
@@ -106,7 +108,9 @@ $('#maxlon').on("change", function(){
 				function(output) {
                     $("h3#locationText").text(output);
                     $("h3#locationText1").text(output);
-
+                    if(output==="The dataBase is empty"){
+                        alert("The dataBase is empty");
+                    }
 				}
 			);
 			return false; 

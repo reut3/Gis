@@ -16,9 +16,11 @@ import DataBase.DataBase;
 import DataBase.MacSignal;
 import DataBase.Sample;
 import FileTools.CsvFile;
-import FileTools.Watch;
 import FileTools.algos;
 import Location.Weight;
+import watch.WatchFile;
+import watch.WatchFolder;
+import watch.WatchSQL;
 import Filter.CheckFilter;
 import Filter.WriteAndReadFilter;;
 
@@ -30,16 +32,19 @@ public class Web {
 
 		int port = 8888;
 		HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
-		DataBase database=new DataBase();
 
 
 		Desktop.getDesktop().browse(new URL("http://127.0.0.1:8888/file/web.html").toURI());
+		
+		DataBase database=new DataBase();
+		WatchFolder watchFolder= new WatchFolder();
+		WatchFile watchfile= new WatchFile();
+		WatchSQL watchSQL= new WatchSQL();
 
-		Watch watch= new Watch();
-
+		
 //		SQL_DB sql1= new SQL_DB("5.29.193.52", "jdbc:mysql://5.29.193.52:3306/oop_course_ariel", "oop1", "Lambda1();", "oop_course_ariel", "ex4_db");
 //		sql1.insertDB(database);
-
+		List<SQL_DB> SQLtables= new ArrayList<SQL_DB>();
 
 
 		//select a folder 
@@ -52,8 +57,11 @@ public class Web {
 				if (Files.exists(path)) {
 					CsvFile.readCSV(input,database);
 					Thread.interrupted();
-					watch.directory(input);
-					watch.watching(database);
+					watchFolder.addTowatchList(input,database);
+					watchFolder.watching(database);
+					watchfile.watching(database);
+					watchSQL.watchingSQLtables(database);
+					
 					output="1";
 					System.out.println("The folder has recived, the DataBase has updated");
 					System.out.println();
@@ -99,10 +107,12 @@ public class Web {
 				SQL_DB sql= new SQL_DB(ip, "jdbc:mysql://"+ip+":"+portSql+"/"+DBname, user, password, DBname, tableName);
 				sql.insertDB(database);
 
-				
 				Thread.interrupted();
-//				watch.directory(input);
-				watch.watching(database);
+				watchSQL.SQLtable(sql,database);
+				watchFolder.watching(database);
+				watchfile.watching(database);
+				watchSQL.watchingSQLtables(database);
+				
 				output="1";
 				System.out.println("SQL'S DataBase has recived, the DataBase has updated");
 				System.out.println();
@@ -216,9 +226,12 @@ public class Web {
 				Path path=Paths.get(input);
 				if (Files.exists(path)) {
 
+					watchfile.addTowatchList(input, database);
 					Thread.interrupted();
-					watch.File(input);
-					watch.watching1(database);
+					watchFolder.watching(database);
+					watchfile.watching(database);
+					watchSQL.watchingSQLtables(database);
+					
 					synchronized(database){
 						List<Sample> temp= algos.readCSV(input);
 						if(temp.size()==0){

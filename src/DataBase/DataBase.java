@@ -1,9 +1,18 @@
 package DataBase;
 
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.WatchKey;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
+import FileTools.CsvFile;
+import FileTools.algos;
+import Main.SQL_DB;
 /**
  * 
  * The class contains database object- which contains information stored in two sets of Samples.<br>
@@ -16,6 +25,11 @@ public class DataBase {
 	public Set<Sample> FinalDataBase;
 	public Set<Sample> FinalFilterDatabase;
 	public HashMap<String, ArrayList<Sample>> hashMap= new HashMap<String, ArrayList<Sample>>();
+	
+	
+	public ArrayList<String> FilePaths= new ArrayList<String>();//num=1
+	public ArrayList<String> paths= new ArrayList<String>();//num=2	
+	public List<SQL_DB> SQLtables= new ArrayList<SQL_DB>();
 
 /**
  * empty constructor
@@ -84,5 +98,61 @@ public class DataBase {
 			}
 		}
 	}
+	
 
+	public void updateDB(DataBase database, ArrayList<String> paths, int num) throws SQLException{
+		synchronized(database){
+			database.RemoveAll();
+			if(num==1){
+				this.paths=paths;
+			}
+			for(int g=0; g<FilePaths.size(); g++){
+				List<Sample> temp= algos.readCSV(FilePaths.get(g));
+				Set<Sample> temp1= new HashSet<Sample>();
+				temp1.addAll(temp);
+				database.add(temp1);
+			}
+			synchronized(paths){
+				if(num==2){
+					this.paths=paths;
+				}
+				for(int g=0; g<paths.size(); g++){
+					CsvFile.readCSV(paths.get(g),database);
+				}
+			}
+
+			synchronized(SQLtables){
+				for(int g=0; g<SQLtables.size(); g++){
+					SQLtables.get(g).insertDB(database);
+				}
+			}
+		}
+	}
+	
+	
+	public void updateDB1(DataBase database,List<SQL_DB> SQLtables) throws SQLException{
+		synchronized(database){
+			database.RemoveAll();
+
+			for(int g=0; g<FilePaths.size(); g++){
+				List<Sample> temp= algos.readCSV(FilePaths.get(g));
+				Set<Sample> temp1= new HashSet<Sample>();
+				temp1.addAll(temp);
+				database.add(temp1);
+			}
+			synchronized(paths){
+				for(int g=0; g<paths.size(); g++){
+					CsvFile.readCSV(paths.get(g),database);
+				}
+			}
+
+			synchronized(SQLtables){
+				this.SQLtables= SQLtables;
+				for(int g=0; g<SQLtables.size(); g++){
+					SQLtables.get(g).insertDB(database);
+				}
+			}
+		}
+	}
+	
 }

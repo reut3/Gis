@@ -27,46 +27,92 @@ import DataBase.wifi;
 
 import java.sql.Statement;
 
+/**
+ * class SQL_DB create an object of SQL table
+ * has The features: ip, url, user, password, tableName, DBname, lastModified, Connection _con
+ * contain the functions: connect, insertDB
+ * getLastModified, setLastModified, explicit constructor
+ */
 public class SQL_DB {
 
-	String _ip;
-	String _url;
-	String _user;
-	String _password;
+	String ip;
+	String url;
+	String user;
+	String password;
 	String tableName;
 	String DBname;
+	String lastModified;
 	private static Connection _con = null;
 
-	public SQL_DB(String _ip, String _url, String _user, String _password, String DBname, String tableName) {
-		super();
-		this._ip = _ip;
-		this._url = _url;
-		this._user = _user;
-		this._password = _password;
+
+	/**
+	 * explicit constructor
+	 * @param _ip
+	 * @param _url
+	 * @param _user
+	 * @param _password
+	 * @param DBname
+	 * @param tableName
+	 */
+	public SQL_DB(String ip, String url, String user, String password, String DBname, String tableName) {
+		this.ip = ip;
+		this.url = url;
+		this.user = user;
+		this.password = password;
 		this.tableName= tableName;
 		this.DBname= DBname;
 	}
 
 
 
-
-
-	@SuppressWarnings("resource")
-	public void insertDB(DataBase database) {
+	/**
+	 * The function connect to the SQL table and check for update time
+	 * @param table
+	 * @return String contains update time 
+	 * @throws SQLException
+	 */
+	public String connect(SQL_DB table) throws SQLException{
+		String lastModified= null;
 		Statement st = null;
 		ResultSet rs = null;
-//		int max_id = -1;
+		_con = DriverManager.getConnection(this.url, this.user, this.password);
+		st = _con.createStatement();
+		rs = st.executeQuery("SELECT UPDATE_TIME FROM information_schema.tables WHERE TABLE_SCHEMA = '"+DBname+"' AND TABLE_NAME = '"+tableName+"'");
+		if (rs.next()) {
+			System.out.println("**** Update: "+rs.getString(1));
+			lastModified= rs.getString(1);
+		}
+		rs.close();
+		st.close();
+		return lastModified;
+	}
+
+	
+	/**
+	 * The function connect to the SQL table and insert the information to the given database 
+	 * @param database
+	 * @throws SQLException
+	 */
+	@SuppressWarnings("resource")
+	public void insertDB(DataBase database) throws SQLException {
+		Statement st = null;
+		ResultSet rs = null;
 
 		try {     
-			_con = DriverManager.getConnection(this._url, this._user, this._password);
+			_con = DriverManager.getConnection(this.url, this.user, this.password);
+			
 			st = _con.createStatement();
 			rs = st.executeQuery("SELECT UPDATE_TIME FROM information_schema.tables WHERE TABLE_SCHEMA = '"+DBname+"' AND TABLE_NAME = '"+tableName+"'");
 			if (rs.next()) {
 				System.out.println("**** Update: "+rs.getString(1));
+				this.lastModified= rs.getString(1);
 			}
 
 			PreparedStatement pst = _con.prepareStatement("SELECT * FROM "+tableName);
+			pst.setQueryTimeout(1);
 			rs = pst.executeQuery();
+
+
 			int ind=0;
 			ArrayList<Sample> list= new ArrayList<Sample>();
 			while (rs.next()) {
@@ -76,12 +122,7 @@ public class SQL_DB {
 					System.out.println("print"+rs.getString(1));
 
 				}
-				if(ind%100==0) {
-					for(int i=1;i<=len;i++){
-						//						System.out.print(ind+") "+rs.getString(i)+",");
-					}
-					//					System.out.println();
-				}
+
 				String id= rs.getString(3);
 				String wifiAmount= rs.getString(7);
 				String time= rs.getString(2);
@@ -104,7 +145,6 @@ public class SQL_DB {
 				list.add(temp);
 				ind++;
 			}
-//			System.out.println(list);
 			Set<Sample> samples= new HashSet<>();
 			samples.addAll(list);
 
@@ -123,7 +163,26 @@ public class SQL_DB {
 				lgr.log(Level.WARNING, ex.getMessage(), ex);
 			}
 		}
-//		return max_id;
+	}
+
+
+
+
+
+	/**
+	 * 
+	 * @return SQL_DB's LastModified
+	 */
+	public String getLastModified() {
+		return lastModified;
+	}
+
+	/**
+	 * set SQL_DB's lastModified
+	 * @param lastModified
+	 */
+	public void setLastModified(String lastModified) {
+		this.lastModified = lastModified;
 	}
 
 

@@ -6,7 +6,7 @@ import DataBase.Sample;
 
 /**
  * 
- * CheckFilter class- contain one function: WhichOP
+ * CheckFilter class- contain two functions: WhichOP, filterString
  * the class builded in order to help parsing information the Server gets.
  */
 public class CheckFilter {
@@ -105,75 +105,79 @@ public class CheckFilter {
 	}
 
 
+	/**
+	 * The function get string that contain filter's details, rearrange the details in order to send it to the client
+	 * @param input -filter details
+	 * @return String with rearranged filter's details.
+	 */
+	public static String filterString(String input){
+		String[] words=input.split(",");
+		String output="";
+		int index=0;
+		if(words[1].equals("ID")){
+			index= 4;
+			if(words[2].equals("0")){
+				output+= "with the ID "+words[3];
+			}
+			else{
+				output+= "Not with the ID "+words[3];
+			}
+		}
+		else if(words[1].equals("Date")){
+			index= 5;
+			if(words[2].equals("0")){
+				output+= "Dates between "+words[3]+" to "+words[4];
+			}
+			else{
+				output+= "Not between the Dates  "+words[3]+" to "+words[4];
+			}
+		}
+		else if(words[1].equals("Location")){
+			index= 7;
+			if(words[2].equals("0")){
+				output+= "Location between "+words[3]+" "+words[4]+" to "+words[5]+" "+words[6];
+			}
+			else{
+				output+= "Not between the location "+words[3]+" "+words[4]+" to "+words[5]+" "+words[6];
+			}
+		}
+		if(words[0].equals("and")){
+			output+= " and ";
+		}
+		else if(words[0].equals("or")){
+			output+= " or ";
+		}
+		if(words[index]!=null){
 
-public static String filterString(String input){
-	String[] words=input.split(",");
-	String output="";
-	int index=0;
-	if(words[1].equals("ID")){
-		index= 4;
-		if(words[2].equals("0")){
-			output+= "with the ID "+words[3];
-		}
-		else{
-			output+= "Not with the ID "+words[3];
-		}
-	}
-	else if(words[1].equals("Date")){
-		index= 5;
-		if(words[2].equals("0")){
-			output+= "Dates between "+words[3]+" to "+words[4];
-		}
-		else{
-			output+= "Not between the Dates  "+words[3]+" to "+words[4];
-		}
-	}
-	else if(words[1].equals("Location")){
-		index= 7;
-		if(words[2].equals("0")){
-			output+= "Location between "+words[3]+" "+words[4]+" to "+words[5]+" "+words[6];
-		}
-		else{
-			output+= "Not between the location "+words[3]+" "+words[4]+" to "+words[5]+" "+words[6];
-		}
-	}
-	if(words[0].equals("and")){
-		output+= " and ";
-	}
-	else if(words[0].equals("or")){
-		output+= " or ";
-	}
-	if(words[index]!=null){
-		
-		if(words[index].equals("ID")){
-			if(words[index+1].equals("0")){
-				output+= "with the ID "+words[index+2];
+			if(words[index].equals("ID")){
+				if(words[index+1].equals("0")){
+					output+= "with the ID "+words[index+2];
+				}
+				else{
+					output+= "Not with the ID "+words[index+2];
+				}
 			}
-			else{
-				output+= "Not with the ID "+words[index+2];
+			else if(words[index].equals("Date")){
+				if(words[index+1].equals("0")){
+					output+= "Dates between "+words[index+2]+" to "+words[index+3];
+				}
+				else{
+					output+= "Not between the Dates  "+words[index+2]+" to "+words[index+3];
+				}
 			}
-		}
-		else if(words[index].equals("Date")){
-			if(words[index+1].equals("0")){
-				output+= "Dates between "+words[index+2]+" to "+words[index+3];
+			else if(words[index].equals("Location")){
+				if(words[index+1].equals("0")){
+					output+= "Location between "+words[index+2]+" "+words[index+3]+" to "+words[index+4]+" "+words[index+5];
+				}
+				else{
+					output+= "Not between the location "+words[index+2]+" "+words[index+3]+" to "+words[index+4]+" "+words[index+5];
+				}
 			}
-			else{
-				output+= "Not between the Dates  "+words[index+2]+" to "+words[index+3];
-			}
-		}
-		else if(words[index].equals("Location")){
-			if(words[index+1].equals("0")){
-				output+= "Location between "+words[index+2]+" "+words[index+3]+" to "+words[index+4]+" "+words[index+5];
-			}
-			else{
-				output+= "Not between the location "+words[index+2]+" "+words[index+3]+" to "+words[index+4]+" "+words[index+5];
-			}
-		}
-		
-	}
-	return output;
 
-}
+		}
+		return output;
+
+	}
 
 
 

@@ -51,7 +51,7 @@ setInterval ( () => {
     
     
     
-//applay filter field    
+//apply filter field    
 $("input#applyFilter").click(function() {
         var input = Woperation+","+filter1+","+filter2;
         if ($("h3#filter").text() !== "" && files ===true) {
