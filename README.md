@@ -48,11 +48,11 @@ In the Fifth section you can use algorithms in order to calculate Location of sa
 
 
 ### How to run:
-In order to run the system please download:
+In order to run the system please download web<br>.zip<b>, which contains:
 1. web jar
 2. client folder
 
-please make sure they located in the same place on your computer, run web jar on your computer
+extract the zip and run web jar on your computer. please make sure they located in the same place on your computer.
 
 If you have problems with running the jar you will need to download all files to your computer and run web class on program that compiles java
 
