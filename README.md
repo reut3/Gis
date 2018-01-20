@@ -48,7 +48,7 @@ In the Fifth section you can use algorithms in order to calculate Location of sa
 
 
 ### How to run:
-In order to run the system please download web<br>.zip</b>, which contains:
+In order to run the system please download web<b>.zip</b>, which contains:
 1. web jar
 2. client folder
 
