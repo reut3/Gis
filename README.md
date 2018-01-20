@@ -46,6 +46,11 @@ In addition there is an option at this section to upload filter (as a text file)
 ### part five:
 In the Fifth section 
 
+
+### How to run:
+In order to run the system download web jar and run it in your computer
+If you have problems with running the jar you can download all files to your computer and run web class on every program that compiles java
+
 Authors:
 --
 Inon Peer  
