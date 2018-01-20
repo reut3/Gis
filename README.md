@@ -44,12 +44,17 @@ In the Fourth section- if the user created a filter it represent there with seve
 In addition there is an option at this section to upload filter (as a text file), and apply it on the database.
 
 ### part five:
-In the Fifth section 
+In the Fifth section you can use algorithms in order to calculate Location of sample or specific mac
 
 
 ### How to run:
-In order to run the system download web jar and run it in your computer
-If you have problems with running the jar you can download all files to your computer and run web class on every program that compiles java
+In order to run the system please download:
+1. web jar
+2. client folder
+
+please make sure they located in the same place on your computer, run web jar on your computer
+
+If you have problems with running the jar you will need to download all files to your computer and run web class on program that compiles java
 
 Authors:
 --
